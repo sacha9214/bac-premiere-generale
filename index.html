@@ -1908,8 +1908,9 @@
     </div>
     <div id="ttsStatus" style="margin-bottom:16px; padding:14px 18px; border-radius:10px; font-size:0.88rem; line-height:1.7; background:rgba(255,201,108,0.08); border:1px solid rgba(255,201,108,0.25); color:#aab0cc; display:none;"></div>
     <div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-      <button onclick="testVoix()" style="background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:8px 18px; font-size:0.85rem; cursor:pointer;">🔊 Tester l'audio</button>
+      <button onclick="playTrack(0)" style="background:var(--accent); border:1px solid var(--accent); color:#fff; border-radius:8px; padding:8px 20px; font-size:0.85rem; cursor:pointer; font-weight:700;">▶ Tout écouter</button>
       <button id="loopToggleBtn" onclick="toggleLoop()" style="background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:8px 18px; font-size:0.85rem; cursor:pointer;">🔁 Boucle infinie — OFF</button>
+      <button onclick="testVoix()" style="background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:8px 18px; font-size:0.85rem; cursor:pointer;">🔊 Tester l'audio</button>
     </div>
     <div class="listen-tracks" id="listenTracksContainer"></div>
   </section>
