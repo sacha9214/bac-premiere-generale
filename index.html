@@ -2011,12 +2011,11 @@
   ];
 
   const synth = window.speechSynthesis;
-  const player = { idx: -1, playing: false, savedChar: 0, progress: 0 };
+  const player = { idx: -1, playing: false, chunkIdx: 0, progress: 0 };
   let loopAll = false;
   let voicesReady = false;
   let cachedVoices = [];
   let currentUtterance = null;
-  let keepAliveTimer = null;
 
   function _wordsToMin(text, rate) {
     const words = text.split(/\s+/).length;
@@ -2166,138 +2165,98 @@
     });
   }
 
-  function _stopKeepAlive() {
-    if (keepAliveTimer) { clearInterval(keepAliveTimer); keepAliveTimer = null; }
+  function _splitChunks(text) {
+    return text.split(/\n\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
   }
 
-  function _startKeepAlive() {
-    _stopKeepAlive();
-    keepAliveTimer = setInterval(function() {
-      if (player.playing && synth.speaking) {
-        synth.pause();
-        synth.resume();
-      }
-    }, 10000);
-  }
+  function _speakChunk(trackIdx, chunks, ci) {
+    if (player.idx !== trackIdx || !player.playing) return;
+    if (ci >= chunks.length) { _onTrackEnd(trackIdx); return; }
 
-  function _createUtterance(text, fromChar) {
     const rate = parseFloat(document.getElementById('spSpeed').value);
-    const utt = new SpeechSynthesisUtterance(text.slice(fromChar));
+    const utt = new SpeechSynthesisUtterance(chunks[ci]);
     utt.lang = 'fr-FR';
     utt.rate = rate;
     const voice = _getVoice();
     if (voice) utt.voice = voice;
-    return utt;
+
+    currentUtterance = utt;
+    player.chunkIdx = ci;
+    player.progress = ci / chunks.length;
+    document.getElementById('spProgressFill').style.width = (player.progress * 100) + '%';
+
+    utt.onend = function() {
+      if (currentUtterance !== utt) return;
+      setTimeout(function() { _speakChunk(trackIdx, chunks, ci + 1); }, 80);
+    };
+    utt.onerror = function(e) {
+      if (currentUtterance !== utt) return;
+      if (e.error === 'interrupted' || e.error === 'canceled') return;
+      player.playing = false;
+      _updatePlayerUI();
+      _showTTSStatus('⚠️ Erreur TTS : <strong>' + e.error + '</strong>. Clique sur « Tester l\'audio ».', false);
+    };
+
+    synth.speak(utt);
+  }
+
+  function _onTrackEnd(trackIdx) {
+    if (player.idx !== trackIdx) return;
+    currentUtterance = null;
+    player.playing = false;
+    player.chunkIdx = 0;
+    player.progress = 0;
+    _updatePlayerUI();
+    if (trackIdx < TRACKS.length - 1) {
+      setTimeout(function() { playTrack(trackIdx + 1); }, 600);
+    } else if (loopAll) {
+      setTimeout(function() { playTrack(0); }, 1200);
+    } else {
+      player.idx = -1;
+      document.getElementById('spProgressFill').style.width = '0%';
+      _hideStickyPlayer();
+      _updatePlayerUI();
+    }
   }
 
   function _startSpeaking() {
     if (player.idx < 0) return;
     _whenVoicesReady(function() {
       if (player.idx < 0) return;
-      if (cachedVoices.length === 0) {
+      if (!cachedVoices.length) {
         player.playing = false;
         _updatePlayerUI();
         _showTTSStatus('⚠️ ' + _noVoiceMessage(), false);
         return;
       }
-
-      const track = TRACKS[player.idx];
-      const from = player.savedChar;
-      const utt = _createUtterance(track.text, from);
-      currentUtterance = utt;
-      let started = false;
-      let silentWatchdog = null;
-
-      const _markStarted = function() {
-        started = true;
-        if (silentWatchdog) { clearTimeout(silentWatchdog); silentWatchdog = null; }
-      };
-
-      utt.onstart = function() {
-        if (currentUtterance !== utt) return;
-        _markStarted();
-      };
-
-      utt.onboundary = function(e) {
-        if (currentUtterance !== utt) return;
-        _markStarted();
-        player.progress = (from + e.charIndex) / track.text.length;
-        document.getElementById('spProgressFill').style.width = (player.progress * 100) + '%';
-      };
-
-      utt.onend = function() {
-        if (currentUtterance !== utt) return;
-        _stopKeepAlive();
-        currentUtterance = null;
-        player.playing = false;
-        player.savedChar = 0;
-        player.progress = 0;
-        if (player.idx < TRACKS.length - 1) {
-          const next = player.idx + 1;
-          setTimeout(function() { playTrack(next); }, 600);
-        } else if (loopAll) {
-          setTimeout(function() { playTrack(0); }, 1200);
-        } else {
-          player.idx = -1;
-          document.getElementById('spProgressFill').style.width = '0%';
-          _updatePlayerUI();
-          _hideStickyPlayer();
-        }
-        _updatePlayerUI();
-      };
-
-      utt.onerror = function(e) {
-        if (currentUtterance !== utt) return;
-        if (e.error === 'interrupted' || e.error === 'canceled') return;
-        _stopKeepAlive();
-        player.playing = false;
-        _updatePlayerUI();
-        _showTTSStatus('⚠️ Erreur TTS : <strong>' + e.error + '</strong>. Clique sur « Tester l\'audio » pour diagnostiquer.', false);
-      };
-
+      const trackIdx = player.idx;
+      const chunks = _splitChunks(TRACKS[trackIdx].text);
+      const ci = player.chunkIdx || 0;
+      player.playing = true;
+      _showStickyPlayer();
+      _updatePlayerUI();
       synth.cancel();
       setTimeout(function() {
-        if (currentUtterance !== utt) return;
-        synth.speak(utt);
-        player.playing = true;
-        _startKeepAlive();
-        _showStickyPlayer();
-        _updatePlayerUI();
-
-        // Silent-failure watchdog: on Chromium/Linux speak() can resolve with
-        // no audio and never fire onstart/onboundary. If nothing has started
-        // after ~1.8s, the native speech-dispatcher bridge is broken.
-        silentWatchdog = setTimeout(function() {
-          if (currentUtterance !== utt || started) return;
-          _stopKeepAlive();
-          currentUtterance = null;
-          synth.cancel();
-          player.playing = false;
-          _updatePlayerUI();
-          _showTTSStatus('⚠️ ' + _silentMessage(), false);
-        }, 1800);
+        if (player.idx !== trackIdx || !player.playing) return;
+        _speakChunk(trackIdx, chunks, ci);
       }, 120);
     });
   }
 
   function playTrack(idx) {
-    _stopKeepAlive();
     currentUtterance = null;
     synth.cancel();
     player.idx = idx;
-    player.savedChar = 0;
+    player.chunkIdx = 0;
     player.progress = 0;
     document.getElementById('spProgressFill').style.width = '0%';
     _showStickyPlayer();
-    _updatePlayerUI();
     _startSpeaking();
   }
 
   function togglePlay() {
     if (player.idx < 0) return;
     if (player.playing) {
-      player.savedChar = Math.floor(player.progress * TRACKS[player.idx].text.length);
-      _stopKeepAlive();
       currentUtterance = null;
       synth.cancel();
       player.playing = false;
@@ -2334,8 +2293,6 @@
 
   function changeSpeed() {
     if (player.idx < 0 || !player.playing) return;
-    player.savedChar = Math.floor(player.progress * TRACKS[player.idx].text.length);
-    _stopKeepAlive();
     currentUtterance = null;
     synth.cancel();
     player.playing = false;
@@ -2343,12 +2300,11 @@
   }
 
   function closeStickyPlayer() {
-    _stopKeepAlive();
     currentUtterance = null;
     synth.cancel();
     player.playing = false;
     player.idx = -1;
-    player.savedChar = 0;
+    player.chunkIdx = 0;
     player.progress = 0;
     document.getElementById('spProgressFill').style.width = '0%';
     _updatePlayerUI();
