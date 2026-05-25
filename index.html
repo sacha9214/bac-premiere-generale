@@ -2016,6 +2016,8 @@
   let voicesReady = false;
   let cachedVoices = [];
   let currentUtterance = null;
+  let _audioCtx = null;
+  let _silentNode = null;
 
   function _wordsToMin(text, rate) {
     const words = text.split(/\s+/).length;
@@ -2214,6 +2216,8 @@
     } else {
       player.idx = -1;
       document.getElementById('spProgressFill').style.width = '0%';
+      _stopSilentAudio();
+      _clearMediaSession();
       _hideStickyPlayer();
       _updatePlayerUI();
     }
@@ -2235,6 +2239,8 @@
       player.playing = true;
       _showStickyPlayer();
       _updatePlayerUI();
+      _startSilentAudio();
+      _setupMediaSession();
       synth.cancel();
       setTimeout(function() {
         if (player.idx !== trackIdx || !player.playing) return;
@@ -2259,7 +2265,9 @@
     if (player.playing) {
       currentUtterance = null;
       synth.cancel();
+      _stopSilentAudio();
       player.playing = false;
+      if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
       _updatePlayerUI();
     } else {
       _startSpeaking();
@@ -2302,6 +2310,7 @@
   function closeStickyPlayer() {
     currentUtterance = null;
     synth.cancel();
+    _stopSilentAudio();
     player.playing = false;
     player.idx = -1;
     player.chunkIdx = 0;
@@ -2310,6 +2319,66 @@
     _updatePlayerUI();
     _hideStickyPlayer();
   }
+
+  /* --- Silent audio loop : maintient la session audio active écran éteint --- */
+  function _startSilentAudio() {
+    if (_audioCtx) return;
+    try {
+      _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const buf = _audioCtx.createBuffer(1, _audioCtx.sampleRate, _audioCtx.sampleRate);
+      const ch = buf.getChannelData(0);
+      for (var i = 0; i < ch.length; i++) ch[i] = (Math.random() * 2 - 1) * 0.00005;
+      (function loop() {
+        if (!_audioCtx) return;
+        _silentNode = _audioCtx.createBufferSource();
+        _silentNode.buffer = buf;
+        _silentNode.connect(_audioCtx.destination);
+        _silentNode.onended = loop;
+        _silentNode.start();
+      })();
+    } catch(e) {}
+  }
+
+  function _stopSilentAudio() {
+    try { if (_silentNode) _silentNode.stop(); } catch(e) {}
+    try { if (_audioCtx) _audioCtx.close(); } catch(e) {}
+    _silentNode = null; _audioCtx = null;
+  }
+
+  /* --- MediaSession : contrôles sur l'écran de verrouillage --- */
+  function _setupMediaSession() {
+    if (!('mediaSession' in navigator) || player.idx < 0) return;
+    const t = TRACKS[player.idx];
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: t.title,
+      artist: 'La Vague — Révision Bac Français',
+      album: 'Todd Strasser (Morton Rhue)'
+    });
+    navigator.mediaSession.playbackState = 'playing';
+    navigator.mediaSession.setActionHandler('play', function() { if (!player.playing) togglePlay(); });
+    navigator.mediaSession.setActionHandler('pause', function() { if (player.playing) togglePlay(); });
+    navigator.mediaSession.setActionHandler('nexttrack', nextTrack);
+    navigator.mediaSession.setActionHandler('previoustrack', prevTrack);
+  }
+
+  function _clearMediaSession() {
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.playbackState = 'none';
+  }
+
+  /* --- Reprise automatique si le navigateur a coupé la synthèse en arrière-plan --- */
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden && player.playing && !synth.speaking && !synth.pending) {
+      var trackIdx = player.idx;
+      var ci = player.chunkIdx;
+      synth.cancel();
+      setTimeout(function() {
+        if (player.idx === trackIdx && player.playing) {
+          _speakChunk(trackIdx, _splitChunks(TRACKS[trackIdx].text), ci);
+        }
+      }, 200);
+    }
+  });
 
   function _showStickyPlayer() {
     document.getElementById('stickyPlayer').classList.add('visible');
