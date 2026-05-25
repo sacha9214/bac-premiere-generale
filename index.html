@@ -1904,6 +1904,8 @@
     <div class="textes-intro">
       Écoute tout le contenu de cette fiche à voix haute — idéal pour réviser en mobilité ou les yeux fermés. Clique sur une piste pour commencer.
       <br><br>
+      <span style="opacity:.85; font-size:0.85rem;">📱 <strong>Sur Android</strong>, la lecture <strong>garde automatiquement l'écran allumé</strong> (en veille tactile) pendant l'écoute : la synthèse vocale du navigateur ne peut techniquement pas continuer écran totalement éteint. Pose ton téléphone écran visible et l'audio ne se coupera pas. Tu peux baisser la luminosité au minimum. Si tu verrouilles manuellement l'écran, l'audio reprendra dès que tu le rallumeras.</span>
+      <br><br>
       <span style="opacity:.85; font-size:0.85rem;">💡 <strong>Sous Linux</strong>, la lecture audio dépend d'un moteur système (<code>speech-dispatcher</code>). Si aucun son ne sort, clique sur « Tester l'audio » : un message t'indiquera la commande exacte à lancer.</span>
     </div>
     <div id="ttsStatus" style="margin-bottom:16px; padding:14px 18px; border-radius:10px; font-size:0.88rem; line-height:1.7; background:rgba(255,201,108,0.08); border:1px solid rgba(255,201,108,0.25); color:#aab0cc; display:none;"></div>
@@ -2017,6 +2019,9 @@
   let cachedVoices = [];
   let currentUtterance = null;
   let _bgAudio = null;
+  let _wakeLock = null;
+  let _resumeKick = null;
+  const _isAndroid = /Android/i.test(navigator.userAgent);
 
   function _wordsToMin(text, rate) {
     const words = text.split(/\s+/).length;
@@ -2216,6 +2221,7 @@
       player.idx = -1;
       document.getElementById('spProgressFill').style.width = '0%';
       _stopSilentAudio();
+      _releaseWakeLock();
       _clearMediaSession();
       _hideStickyPlayer();
       _updatePlayerUI();
@@ -2239,6 +2245,7 @@
       _showStickyPlayer();
       _updatePlayerUI();
       _startSilentAudio();
+      _requestWakeLock();
       _setupMediaSession();
       synth.cancel();
       setTimeout(function() {
@@ -2265,6 +2272,7 @@
       currentUtterance = null;
       synth.cancel();
       _stopSilentAudio();
+      _releaseWakeLock();
       player.playing = false;
       if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
       _updatePlayerUI();
@@ -2310,6 +2318,7 @@
     currentUtterance = null;
     synth.cancel();
     _stopSilentAudio();
+    _releaseWakeLock();
     player.playing = false;
     player.idx = -1;
     player.chunkIdx = 0;
@@ -2319,38 +2328,70 @@
     _hideStickyPlayer();
   }
 
-  /* --- Silent <audio> loop : maintient la session audio active écran éteint ---
-     Un vrai élément <audio> est requis sur Android Chrome — AudioContext seul
-     ne suffit pas. On génère un WAV silencieux de 3 s en mémoire (pas de fichier). */
+  /* --- Silent <audio> loop : garde une session média active ---
+     Aide quand l'utilisateur change d'onglet/d'appli (sans verrouiller). Sur
+     Android Chrome, écran ÉTEINT, le pipeline speechSynthesis est suspendu par
+     l'OS quoi qu'on fasse : c'est le Wake Lock (ci-dessous) qui assure la
+     continuité. On génère un WAV 16-bit quasi silencieux de 3 s en mémoire. */
   function _buildSilentWav() {
-    var sr = 8000, dur = 3, n = sr * dur;
-    var buf = new ArrayBuffer(44 + n);
+    var sr = 44100, dur = 3, n = sr * dur, bytes = n * 2;
+    var buf = new ArrayBuffer(44 + bytes);
     var v = new DataView(buf);
     var ws = function(o, s) { for (var i = 0; i < s.length; i++) v.setUint8(o + i, s.charCodeAt(i)); };
-    ws(0, 'RIFF'); v.setUint32(4, 36 + n, true); ws(8, 'WAVEfmt ');
+    ws(0, 'RIFF'); v.setUint32(4, 36 + bytes, true); ws(8, 'WAVEfmt ');
     v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
-    v.setUint32(24, sr, true); v.setUint32(28, sr, true);
-    v.setUint16(32, 1, true); v.setUint16(34, 8, true);
-    ws(36, 'data'); v.setUint32(40, n, true);
-    for (var i = 0; i < n; i++) v.setUint8(44 + i, 128);
+    v.setUint32(24, sr, true); v.setUint32(28, sr * 2, true);
+    v.setUint16(32, 2, true); v.setUint16(34, 16, true);
+    ws(36, 'data'); v.setUint32(40, bytes, true);
+    // Très faible amplitude (~ -60 dB) : inaudible mais non-nul, ce que l'OS
+    // considère comme une vraie lecture audio active.
+    for (var i = 0; i < n; i++) v.setInt16(44 + i * 2, (i % 2 ? 24 : -24), true);
     return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
   }
 
   function _startSilentAudio() {
+    // Watchdog : Chrome DESKTOP suspend silencieusement speechSynthesis après
+    // ~15 s sur une longue lecture. pause()+resume() périodique contourne ce bug.
+    // Exclu sur Android où pause() agit comme un cancel (couperait la lecture).
+    if (!_resumeKick && !_isAndroid) {
+      _resumeKick = setInterval(function() {
+        if (player.playing && synth.speaking && !synth.paused) {
+          synth.pause(); synth.resume();
+        }
+      }, 10000);
+    }
     if (_bgAudio) return;
     try {
       _bgAudio = new Audio(_buildSilentWav());
       _bgAudio.loop = true;
-      _bgAudio.volume = 0.001;
+      _bgAudio.volume = 0.02;
       _bgAudio.play().catch(function() {});
     } catch(e) {}
   }
 
   function _stopSilentAudio() {
+    if (_resumeKick) { clearInterval(_resumeKick); _resumeKick = null; }
     if (!_bgAudio) return;
     _bgAudio.pause();
     try { URL.revokeObjectURL(_bgAudio.src); } catch(e) {}
     _bgAudio = null;
+  }
+
+  /* --- Screen Wake Lock : LA solution fiable sur Android ---
+     speechSynthesis ne survit pas à un écran éteint sous Android Chrome (limite
+     de conception du navigateur). On empêche donc l'écran de s'éteindre pendant
+     la lecture. Le lock est relâché quand l'onglet passe en arrière-plan ; on le
+     reprend automatiquement au retour (voir visibilitychange). */
+  async function _requestWakeLock() {
+    if (!('wakeLock' in navigator)) return;
+    try {
+      _wakeLock = await navigator.wakeLock.request('screen');
+      _wakeLock.addEventListener('release', function() { _wakeLock = null; });
+    } catch (e) { _wakeLock = null; }
+  }
+
+  function _releaseWakeLock() {
+    if (_wakeLock) { try { _wakeLock.release(); } catch (e) {} _wakeLock = null; }
   }
 
   /* --- MediaSession : contrôles sur l'écran de verrouillage --- */
@@ -2374,9 +2415,15 @@
     navigator.mediaSession.playbackState = 'none';
   }
 
-  /* --- Reprise automatique si le navigateur a coupé la synthèse en arrière-plan --- */
+  /* --- Reprise auto au retour en avant-plan ---
+     Le Wake Lock est libéré dès que l'onglet est masqué : on le reprend ici.
+     Et si l'OS a coupé la synthèse en arrière-plan, on relance le bon chunk. */
   document.addEventListener('visibilitychange', function() {
-    if (!document.hidden && player.playing && !synth.speaking && !synth.pending) {
+    if (document.hidden || !player.playing) return;
+    // 1) Reprendre le wake lock (relâché automatiquement quand on masque l'onglet)
+    if (!_wakeLock) _requestWakeLock();
+    // 2) Relancer la synthèse si elle s'est arrêtée
+    if (!synth.speaking && !synth.pending) {
       var trackIdx = player.idx;
       var ci = player.chunkIdx;
       synth.cancel();
