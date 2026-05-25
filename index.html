@@ -1927,6 +1927,7 @@
     <button class="sp-btn" onclick="prevTrack()">⏮</button>
     <button class="sp-btn sp-btn-play" id="spPlayBtn" onclick="togglePlay()">▶</button>
     <button class="sp-btn" onclick="nextTrack()">⏭</button>
+    <button class="sp-btn" id="spLoopBtn" onclick="toggleLoop()" title="Boucle infinie">🔁</button>
     <select class="sp-speed" id="spSpeed" onchange="changeSpeed()">
       <option value="0.75">0.75×</option>
       <option value="1" selected>1×</option>
@@ -2007,6 +2008,7 @@
 
   const synth = window.speechSynthesis;
   const player = { idx: -1, playing: false, savedChar: 0, progress: 0 };
+  let loopAll = false;
   let voicesReady = false;
   let cachedVoices = [];
   let currentUtterance = null;
@@ -2229,6 +2231,8 @@
         if (player.idx < TRACKS.length - 1) {
           const next = player.idx + 1;
           setTimeout(function() { playTrack(next); }, 600);
+        } else if (loopAll) {
+          setTimeout(function() { playTrack(0); }, 1200);
         } else {
           player.idx = -1;
           document.getElementById('spProgressFill').style.width = '0%';
@@ -2297,6 +2301,14 @@
     } else {
       _startSpeaking();
     }
+  }
+
+  function toggleLoop() {
+    loopAll = !loopAll;
+    const btn = document.getElementById('spLoopBtn');
+    btn.style.background = loopAll ? 'var(--accent3)' : '';
+    btn.style.borderColor = loopAll ? 'var(--accent3)' : '';
+    btn.style.color = loopAll ? '#000' : '';
   }
 
   function prevTrack() {
