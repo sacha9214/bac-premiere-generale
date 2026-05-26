@@ -751,6 +751,16 @@
 
     .texte-extrait-wrap.open .texte-extrait { display: block; }
 
+    .texte-inline-analysis {
+      display: none;
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(108,140,255,0.18);
+    }
+    .texte-extrait-wrap.open .texte-inline-analysis { display: block; }
+    .texte-inline-analysis .texte-section-title { margin-top: 0; }
+    .texte-inline-analysis .axes-list + .texte-section-title { margin-top: 18px; }
+
     .texte-extrait.poeme {
       white-space: pre-wrap;
     }
@@ -3002,6 +3012,25 @@ Je le dis, vous pouvez vous confier, madame,
   function toggleExtrait(id) {
     document.getElementById(id).classList.toggle('open');
   }
+
+  // Move axes + procédés inside each "Voir le texte" wrap at load time
+  document.querySelectorAll('.texte-extrait-wrap').forEach(wrap => {
+    const body = wrap.parentElement;
+    const titles = [...body.querySelectorAll('.texte-section-title')];
+    const axesTitle = titles[0];
+    const axesList = body.querySelector('.axes-list');
+    const procedesTitle = titles[1];
+    const procedesTags = body.querySelector('.procedes-tags');
+    if (axesTitle && axesList && procedesTitle && procedesTags) {
+      const container = document.createElement('div');
+      container.className = 'texte-inline-analysis';
+      container.appendChild(axesTitle);
+      container.appendChild(axesList);
+      container.appendChild(procedesTitle);
+      container.appendChild(procedesTags);
+      wrap.appendChild(container);
+    }
+  });
 
   // Smooth nav highlight on scroll
   const sections = document.querySelectorAll('section[id]');
