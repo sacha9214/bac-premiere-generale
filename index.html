@@ -895,18 +895,44 @@
 
     .procedes-tags {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
+      flex-direction: column;
+      gap: 6px;
     }
 
     .procede-tag {
-      background: rgba(108,140,255,0.1);
-      border: 1px solid rgba(108,140,255,0.25);
+      background: rgba(10,12,20,0.45);
+      border: 1px solid rgba(108,140,255,0.15);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0;
+      padding: 8px 12px;
+      font-size: 0.83rem;
+      line-height: 1.5;
+    }
+
+    .pt-nom {
+      font-weight: 700;
       color: var(--accent);
-      border-radius: 99px;
-      padding: 4px 12px;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-right: 7px;
+    }
+
+    .pt-cite {
+      font-style: italic;
+      color: #c8d0f0;
+      background: rgba(108,140,255,0.1);
+      border-radius: 3px;
+      padding: 1px 6px;
       font-size: 0.8rem;
-      font-weight: 600;
+    }
+
+    .pt-effet {
+      display: block;
+      font-size: 0.77rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.55;
     }
 
     .procede-tag.empty {
@@ -1243,17 +1269,17 @@ Ses ailes de géant l'empêchent de marcher.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Allégorie (Poète / albatros)</div>
-            <div class="procede-tag">Enjambement (mise en scène du vol)</div>
-            <div class="procede-tag">Présent d'habitude « prennent »</div>
-            <div class="procede-tag">Périphrases « vastes oiseaux » / « indolents compagnons »</div>
-            <div class="procede-tag">Hypallage (« vaste » = la mer)</div>
-            <div class="procede-tag">Épitrochasme (rythme accéléré v.5)</div>
-            <div class="procede-tag">Allitérations L et S (vol) / R (chute)</div>
-            <div class="procede-tag">Assonances nasales AN/ON (inconfort)</div>
-            <div class="procede-tag">Métaphore « planches » = scène de théâtre</div>
-            <div class="procede-tag">Paronomase « nuées / huées »</div>
-            <div class="procede-tag">Présent de vérité générale (dernière strophe)</div>
+            <div class="procede-tag"><span class="pt-nom">Allégorie</span><span class="pt-cite">« Le Poète est semblable au prince des nuées »</span><span class="pt-effet">L'albatros représente métaphoriquement le poète — majestueux dans les hauteurs, pitoyable et exilé parmi les hommes</span></div>
+            <div class="procede-tag"><span class="pt-nom">Enjambement</span><span class="pt-cite">« les hommes d'équipage / Prennent des albatros »</span><span class="pt-effet">La phrase déborde sur le vers suivant : le lecteur découvre l'albatros déjà prisonnier avant de le voir voler</span></div>
+            <div class="procede-tag"><span class="pt-nom">Présent d'habitude</span><span class="pt-cite">« Prennent des albatros » (v.2)</span><span class="pt-effet">Le présent suggère une cruauté récurrente et banale — les marins recommencent « souvent »</span></div>
+            <div class="procede-tag"><span class="pt-nom">Périphrases</span><span class="pt-cite">« vastes oiseaux des mers » / « indolents compagnons de voyage »</span><span class="pt-effet">Désignent l'albatros en vol, soulignant sa majesté avant la capture — contraste avec sa déchéance au sol</span></div>
+            <div class="procede-tag"><span class="pt-nom">Hypallage</span><span class="pt-cite">« vastes oiseaux des mers »</span><span class="pt-effet">L'adjectif « vaste » qualifie l'oiseau mais s'applique logiquement à la mer — figure qui crée une confusion poétique riche</span></div>
+            <div class="procede-tag"><span class="pt-nom">Épitrochasme</span><span class="pt-cite">« À peine les ont-ils déposés sur les planches » (v.5)</span><span class="pt-effet">Accumulation de mots courts qui accélère le rythme, illustrant la brutalité soudaine du dépôt sur le pont</span></div>
+            <div class="procede-tag"><span class="pt-nom">Allitérations L/S → R</span><span class="pt-cite">« Le navire glissant » / « les gouffres amers »</span><span class="pt-effet">Sons doux L et S imitent le vol gracieux ; le son R rugueux évoque la violence et la chute</span></div>
+            <div class="procede-tag"><span class="pt-nom">Assonances AN/ON</span><span class="pt-cite">« maladroits et honteux » / « piteusement »</span><span class="pt-effet">Sonorités nasales traditionnellement désagréables — le lecteur ressent physiquement le malaise de l'albatros</span></div>
+            <div class="procede-tag"><span class="pt-nom">Métaphore (scène de théâtre)</span><span class="pt-cite">« déposés sur les planches »</span><span class="pt-effet">Les « planches » désignent une scène de théâtre : le pont du navire devient un spectacle cruel, les marins des spectateurs</span></div>
+            <div class="procede-tag"><span class="pt-nom">Paronomase</span><span class="pt-cite">« prince des nuées » / « au milieu des huées »</span><span class="pt-effet">Proximité sonore nuées/huées : la gloire céleste se transforme en moqueries — la chute est inscrite dans les sons mêmes</span></div>
+            <div class="procede-tag"><span class="pt-nom">Présent de vérité générale</span><span class="pt-cite">« Le Poète est semblable au prince des nuées » (v.13)</span><span class="pt-effet">Action vraie en tout temps, comme dans une fable — confère une dimension universelle et intemporelle au poème</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Propositions subordonnées relatives introduites par « Qui » — ex : « Qui suivent, indolents compagnons de voyage » (v.3) — relative déterminative, antécédent « albatros », fonction sujet. Même construction : « Qui hante la tempête et se rit de l'archer ».</div>
@@ -1309,15 +1335,15 @@ Tranquille. Il a deux trous rouges au côté droit.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Hypotypose (décor saisissant)</div>
-            <div class="procede-tag">Déictiques « c'est un trou »</div>
-            <div class="procede-tag">Personnification de la Nature</div>
-            <div class="procede-tag">Polysémie « mousse » (végétation / écume)</div>
-            <div class="procede-tag">Synesthésie (lumière qui « pleut »)</div>
-            <div class="procede-tag">Homophonie « dort / d'or(gent) »</div>
-            <div class="procede-tag">Euphémisme « dort » (= mort)</div>
-            <div class="procede-tag">Acrostiche LIT (3 derniers vers)</div>
-            <div class="procede-tag">Dimension christique (côté droit)</div>
+            <div class="procede-tag"><span class="pt-nom">Hypotypose</span><span class="pt-cite">« C'est un trou de verdure où chante une rivière / Accrochant follement… »</span><span class="pt-effet">Description saisissante et animée — le lecteur est impliqué comme s'il était présent sur les lieux</span></div>
+            <div class="procede-tag"><span class="pt-nom">Déictiques</span><span class="pt-cite">« C'est un trou de verdure… c'est un petit val »</span><span class="pt-effet">Les deux présentatifs encadrent le quatrain et désignent directement le décor — l'effet de mise en scène immersive</span></div>
+            <div class="procede-tag"><span class="pt-nom">Personnification de la Nature</span><span class="pt-cite">« Nature, berce-le chaudement : il a froid » (v.11)</span><span class="pt-effet">L'apostrophe avec majuscule en fait une allégorie maternelle, figure de la Vierge à l'Enfant — le dormeur devient un martyr</span></div>
+            <div class="procede-tag"><span class="pt-nom">Polysémie</span><span class="pt-cite">« un petit val qui mousse de rayons » (v.4)</span><span class="pt-effet">« Mousse » = végétation ET écume des vagues — deux sens qui confondent lumière et nature dans une image liquide</span></div>
+            <div class="procede-tag"><span class="pt-nom">Synesthésie</span><span class="pt-cite">« Pâle dans son lit vert où la lumière pleut » (v.8)</span><span class="pt-effet">La lumière est à la fois vue et entendue comme la pluie — mélange des sens, poétique symboliste naissante</span></div>
+            <div class="procede-tag"><span class="pt-nom">Homophonie</span><span class="pt-cite">« Dort » (v.7) / « D'argent » (v.3)</span><span class="pt-effet">« Dort » et « d'or » se prononcent presque pareil — le sommeil se transforme en métal précieux, la mort en trésor caché</span></div>
+            <div class="procede-tag"><span class="pt-nom">Euphémisme</span><span class="pt-cite">« Dort » (v.7) / « il fait un somme » (v.10)</span><span class="pt-effet">Le verbe dormir atténue la réalité de la mort — maintient le suspense et la tension jusqu'au vers final</span></div>
+            <div class="procede-tag"><span class="pt-nom">Acrostiche LIT</span><span class="pt-cite">« Les parfums… » / « Il dort… » / « Tranquille. »</span><span class="pt-effet">Les initiales L-I-T forment le mot « lit » (tombeau) mais aussi le verbe « lire » — invitation au lecteur à partager le sort du dormeur</span></div>
+            <div class="procede-tag"><span class="pt-nom">Dimension christique</span><span class="pt-cite">« Il a deux trous rouges au côté droit » (v.14)</span><span class="pt-effet">Référence à la blessure du Christ percé par le soldat romain — le dormeur devient un martyr de la guerre, figure de résurrection</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Propositions subordonnées relatives introduites par « où » — ex : « où chante une rivière » (v.1), « où la lumière pleut » (v.8) — antécédents « trou de verdure » et « lit vert ». Le pronom relatif « où » indique une circonstance de lieu ; ces relatives soulignent l'immersion du dormeur dans la Nature. Même question que pour L'Albatros (relatives en « qui »/« où »).</div>
@@ -1372,15 +1398,15 @@ De mes souliers blessés, un pied près de mon cœur !
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Verbe de mouvement « je m'en allais »</div>
-            <div class="procede-tag">Participe passé adjectivé « crevées »</div>
-            <div class="procede-tag">Antithèse paletot abîmé / « devenait idéal »</div>
-            <div class="procede-tag">Apostrophe lyrique « Muse ! » + tutoiement</div>
-            <div class="procede-tag">Intertextualité « Petit Poucet rêveur »</div>
-            <div class="procede-tag">Métaphore cosmique « auberge à la Grande-Ourse »</div>
-            <div class="procede-tag">Synesthésie (étoiles / « doux frou-frou »)</div>
-            <div class="procede-tag">Comparaison « comme des lyres »</div>
-            <div class="procede-tag">Ponctuation expressive (Oh ! là là !)</div>
+            <div class="procede-tag"><span class="pt-nom">Verbe de mouvement</span><span class="pt-cite">« Je m'en allais, les poings dans mes poches crevées » (v.1)</span><span class="pt-effet">Le départ est immédiat, solitaire, sans destination fixe — symbole d'indépendance et de rupture avec les contraintes sociales</span></div>
+            <div class="procede-tag"><span class="pt-nom">Participe passé adjectivé</span><span class="pt-cite">« les poings dans mes poches crevées »</span><span class="pt-effet">« Crevées » qualifie les poches comme abîmées — la pauvreté est revendiquée avec fierté, presque un blason de liberté</span></div>
+            <div class="procede-tag"><span class="pt-nom">Antithèse</span><span class="pt-cite">« Mon paletot aussi devenait idéal » (v.2)</span><span class="pt-effet">Le vêtement abîmé est transfiguré par l'imagination poétique — le réel sordide se sublime en symbole spirituel</span></div>
+            <div class="procede-tag"><span class="pt-nom">Apostrophe + tutoiement</span><span class="pt-cite">« Muse ! et j'étais ton féal » (v.3)</span><span class="pt-effet">Le poète tutoie sa Muse comme une divinité familière — lien de vassalité poétique intime, héritage de la mythologie grecque</span></div>
+            <div class="procede-tag"><span class="pt-nom">Intertextualité</span><span class="pt-cite">« Petit Poucet rêveur, j'égrenais dans ma course / Des rimes » (v.5-6)</span><span class="pt-effet">Le poète sème des rimes comme des cailloux — le voyage poétique devient un jeu d'enfant, la création quelque chose de naturel</span></div>
+            <div class="procede-tag"><span class="pt-nom">Métaphore cosmique</span><span class="pt-cite">« Mon auberge était à la Grande-Ourse » (v.7)</span><span class="pt-effet">Le ciel devient sa maison — la nature accueille le poète errant, élévation du réel vers le cosmique et le merveilleux</span></div>
+            <div class="procede-tag"><span class="pt-nom">Synesthésie</span><span class="pt-cite">« Mes étoiles au ciel avaient un doux frou-frou » (v.8)</span><span class="pt-effet">Les étoiles sont à la fois vues et entendues — les sons et les images se confondent, dimension symboliste naissante</span></div>
+            <div class="procede-tag"><span class="pt-nom">Comparaison</span><span class="pt-cite">« Comme des lyres, je tirais les élastiques / De mes souliers blessés » (v.13-14)</span><span class="pt-effet">Les élastiques de chaussures pauvres deviennent des cordes de lyre — tout objet misérable se transforme en instrument poétique</span></div>
+            <div class="procede-tag"><span class="pt-nom">Ponctuation expressive</span><span class="pt-cite">« Oh ! là là ! que d'amours splendides j'ai rêvées ! » (v.4)</span><span class="pt-effet">L'enthousiasme adolescent et la ferveur poétique s'expriment par des interjections — lyrisme moderne, spontané et décomplexé</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Propositions subordonnées relatives à valeur temporelle introduites par « où » — ex : « Ces bons soirs de septembre où je sentais des gouttes » (v.9-10) — le pronom relatif « où » remplace « quand/pendant lesquels » ; antécédent « soirs ». Identifiez la fonction et la valeur : lieu ou temps ?</div>
@@ -1460,15 +1486,15 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Article indéfini→défini (hyperonyme→hyponyme)</div>
-            <div class="procede-tag">Discours indirect libre (pensées du loup)</div>
-            <div class="procede-tag">Allitération en K (violence v.5-6)</div>
-            <div class="procede-tag">Verbes d'action→verbes de parole</div>
-            <div class="procede-tag">Ironie (« bonne garde »/« mégarde »)</div>
-            <div class="procede-tag">Question rhétorique « Car quoi ? »</div>
-            <div class="procede-tag">Présent de narration (vivacité)</div>
-            <div class="procede-tag">Hétérométrie (vers courts = accélération)</div>
-            <div class="procede-tag">Morale implicite (absence de fable finale)</div>
+            <div class="procede-tag"><span class="pt-nom">Article indéfini → défini</span><span class="pt-cite">« Un Loup… Ce Loup rencontre un Dogue »</span><span class="pt-effet">Passage de la catégorie générale (un loup) au personnage particulier (ce loup) — la dimension allégorique se construit progressivement</span></div>
+            <div class="procede-tag"><span class="pt-nom">Discours indirect libre</span><span class="pt-cite">« L'attaquer, le mettre en quartiers, / Sire Loup l'eût fait volontiers » (v.5-6)</span><span class="pt-effet">Les pensées du loup sont rapportées sans verbe introducteur ni guillemets — le lecteur entre directement dans sa tête</span></div>
+            <div class="procede-tag"><span class="pt-nom">Allitération en K</span><span class="pt-cite">« L'attaquer, le mettre en quartiers » (v.5)</span><span class="pt-effet">Les sons K évoquent la violence, la brutalité instinctive du loup — premier élan que la réflexion va brider</span></div>
+            <div class="procede-tag"><span class="pt-nom">Verbes d'action → parole</span><span class="pt-cite">« attaquer » → « aborde, entre en propos, fait compliment » (v.10-11)</span><span class="pt-effet">La violence animale laisse place au discours : la civilisation naît quand les mots remplacent la force brute</span></div>
+            <div class="procede-tag"><span class="pt-nom">Ironie</span><span class="pt-cite">« Tant les chiens faisaient bonne garde » / « s'était fourvoyé par mégarde »</span><span class="pt-effet">Le chien censé faire « bonne garde » s'est égaré lui-même — La Fontaine se moque malicieusement dès le départ</span></div>
+            <div class="procede-tag"><span class="pt-nom">Question rhétorique</span><span class="pt-cite">« Car quoi ? rien d'assuré : point de franche lippée ! » (v.19)</span><span class="pt-effet">Le chien pose une question et y répond lui-même — procédé rhétorique pour emporter l'adhésion sans laisser réfléchir</span></div>
+            <div class="procede-tag"><span class="pt-nom">Présent de narration</span><span class="pt-cite">« Ce Loup rencontre un Dogue… Le Loup donc l'aborde »</span><span class="pt-effet">Le présent actualise les actions passées — la fable gagne en vivacité, on assiste à la scène comme au théâtre</span></div>
+            <div class="procede-tag"><span class="pt-nom">Hétérométrie</span><span class="pt-cite">Alternance d'alexandrins (12 syll.) et d'octosyllabes (8 syll.)</span><span class="pt-effet">Le changement de longueur s'adapte au rythme narratif — vers courts pour l'urgence, vers longs pour l'argumentation</span></div>
+            <div class="procede-tag"><span class="pt-nom">Morale implicite</span><span class="pt-cite">« Cela dit, maître Loup s'enfuit, et court encor. »</span><span class="pt-effet">Pas de morale explicite en fin de fable — La Fontaine laisse le lecteur conclure lui-même sur la valeur de la liberté</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Analyse du discours indirect libre — ex : « L'attaquer, le mettre en quartiers, / Sire Loup l'eût fait volontiers » (v.5-6) : les pensées du loup sont rapportées sans verbe introducteur ni guillemets. Identifier le mode et le temps (conditionnel passé 2e forme = subjonctif plus-que-parfait) et sa valeur (hypothétique/irréel du passé).</div>
@@ -1506,15 +1532,15 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Questions rhétoriques répétées</div>
-            <div class="procede-tag">Gradation des démonstratifs : « cela / ce vice / cet horrible vice »</div>
-            <div class="procede-tag">Anaphore négative « non pas…mais / non seulement…mais »</div>
-            <div class="procede-tag">Gradation « obéir / ramper / tyrannisés »</div>
-            <div class="procede-tag">Hypotypose (description saisissante)</div>
-            <div class="procede-tag">Antithèse « infini d'hommes » / « un seul »</div>
-            <div class="procede-tag">Superlatifs du tyran (le plus lâche, le plus vil…)</div>
-            <div class="procede-tag">Apostrophe à Dieu « ô grand Dieu ! »</div>
-            <div class="procede-tag">Registre polémique / réquisitoire</div>
+            <div class="procede-tag"><span class="pt-nom">Questions rhétoriques</span><span class="pt-cite">« Comment appellerons-nous ce vice ? » / « N'est-ce pas honteux ? »</span><span class="pt-effet">Questions sans réponse attendue — interpellent le lecteur et l'impliquent dans l'indignation collective de l'auteur</span></div>
+            <div class="procede-tag"><span class="pt-nom">Gradation des démonstratifs</span><span class="pt-cite">« cela… ce vice… cet horrible vice »</span><span class="pt-effet">Escalade progressive de l'intensité émotionnelle dès les premières phrases — structure l'exorde rhétorique (entrée en matière)</span></div>
+            <div class="procede-tag"><span class="pt-nom">Anaphore négative</span><span class="pt-cite">« non seulement obéir mais ramper, non pas être gouvernés mais tyrannisés »</span><span class="pt-effet">La répétition de « non » structure l'aggravation — chaque étape est pire que la précédente, la servitude se creuse</span></div>
+            <div class="procede-tag"><span class="pt-nom">Gradation</span><span class="pt-cite">« obéir / ramper / tyrannisés »</span><span class="pt-effet">La condition des asservis s'aggrave sans cesse — les mots eux-mêmes descendent vers l'avilissement le plus total</span></div>
+            <div class="procede-tag"><span class="pt-nom">Hypotypose</span><span class="pt-cite">« Souffrir les rapines, les brigandages, les cruautés »</span><span class="pt-effet">Description saisissante qui donne à voir la réalité de la servitude — le lecteur est témoin direct, impliqué moralement</span></div>
+            <div class="procede-tag"><span class="pt-nom">Antithèse</span><span class="pt-cite">« un nombre infini d'hommes » / « d'un seul »</span><span class="pt-effet">Le contraste extrême entre la masse et le tyran solitaire rend l'obéissance absurde et incompréhensible</span></div>
+            <div class="procede-tag"><span class="pt-nom">Superlatifs du tyran</span><span class="pt-cite">« le plus lâche, le plus vil et le plus efféminé de la nation »</span><span class="pt-effet">La caricature ridicule du tyran (rythme ternaire) renforce l'incompréhension : pourquoi se soumettre à un être si méprisable ?</span></div>
+            <div class="procede-tag"><span class="pt-nom">Apostrophe</span><span class="pt-cite">« Mais ô grand Dieu ! »</span><span class="pt-effet">L'orateur prend Dieu à témoin — procédé d'amplification qui dramatise l'entrée en matière et donne au texte une dimension sacrée</span></div>
+            <div class="procede-tag"><span class="pt-nom">Registre polémique</span><span class="pt-cite">Accumulations, exclamations, futur « appellerons-nous »</span><span class="pt-effet">Discours de combat hérité de la rhétorique antique — destiné à convaincre et à susciter l'indignation du lecteur</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Propositions interrogatives directes — ex : « Comment appellerons-nous ce vice ? », « N'est-ce pas honteux ? », « Nommerons-nous cela lâcheté ? » — identifier le type (totale/partielle), le mode (indicatif futur : valeur de délibération), et la fonction rhétorique (question sans réponse attendue = interpellation du lecteur).</div>
@@ -1552,14 +1578,14 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Litote « nul doute » (renforce l'affirmation)</div>
-            <div class="procede-tag">Personnification Nature / habitude</div>
-            <div class="procede-tag">Présent de vérité générale</div>
-            <div class="procede-tag">Métaphore filée des végétaux (arbres greffés, herbes)</div>
-            <div class="procede-tag">Raisonnement par analogie (exemples progressifs)</div>
-            <div class="procede-tag">Comparaison des deux peuples (Venise / Ottoman)</div>
-            <div class="procede-tag">Parabole des deux chiens de Lycurgue</div>
-            <div class="procede-tag">Connecteurs logiques (car, mais, dès que, tant que)</div>
+            <div class="procede-tag"><span class="pt-nom">Litote</span><span class="pt-cite">« Nul doute que ce ne soit la nature qui nous dirige »</span><span class="pt-effet">Double négation qui renforce l'affirmation en atténuant — souligne une évidence pour mieux annoncer le renversement : l'habitude est encore plus forte</span></div>
+            <div class="procede-tag"><span class="pt-nom">Personnification</span><span class="pt-cite">« la nature qui nous dirige » / « la nourriture nous façonne »</span><span class="pt-effet">Nature et habitude sont personnifiées en deux forces antagonistes — l'homme est le jouet de ces puissances qui se disputent son âme</span></div>
+            <div class="procede-tag"><span class="pt-nom">Présent de vérité générale</span><span class="pt-cite">« si bon que soit le naturel, il se perd s'il n'est entretenu »</span><span class="pt-effet">Actions vraies en tout temps — confère une dimension universelle et intemporelle à l'argumentation humaniste</span></div>
+            <div class="procede-tag"><span class="pt-nom">Métaphore filée des végétaux</span><span class="pt-cite">« ces arbres fruitiers qui… la perdent dès qu'on les a greffés » / « les herbes ont aussi chacune leur naturel »</span><span class="pt-effet">La nature humaine comparée aux plantes : comme elles, elle peut être corrompue ou transformée par l'éducation et le contexte</span></div>
+            <div class="procede-tag"><span class="pt-nom">Raisonnement par analogie</span><span class="pt-cite">Végétaux → Vénitiens/Ottoman → deux chiens de Lycurgue</span><span class="pt-effet">Trois exemples progressifs, chaque fois plus frappant — stratégie rhétorique de l'accumulation persuasive</span></div>
+            <div class="procede-tag"><span class="pt-nom">Comparaison des deux peuples</span><span class="pt-cite">Vénitiens « nés libres » / sujets du Grand Seigneur « nés pour servir »</span><span class="pt-effet">Le contraste entre deux sociétés contemporaines prouve que la servitude n'est pas naturelle mais le fruit d'une éducation différente</span></div>
+            <div class="procede-tag"><span class="pt-nom">Parabole de Lycurgue</span><span class="pt-cite">« deux chiens, tous deux frères… l'un courut au plat et l'autre au lièvre »</span><span class="pt-effet">L'anecdote de Sparte condense en une image simple toute la thèse : ce sont les lois et l'éducation qui forment les hommes</span></div>
+            <div class="procede-tag"><span class="pt-nom">Connecteurs logiques</span><span class="pt-cite">« car / mais / nul doute / dès que / tant que »</span><span class="pt-effet">Argumentation rigoureusement construite — la logique sert à convaincre durablement, pas seulement à émouvoir</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Propositions subordonnées circonstancielles de condition — ex : « si bon que soit le naturel, il se perd s'il n'est entretenu » — mode subjonctif après « si bon que » (concession) et indicatif dans la conditionnelle réelle. Identifier les conjonctions de subordination et les modes utilisés.</div>
@@ -1597,14 +1623,13 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Focalisation interne (point de vue subjectif)</div>
-            <div class="procede-tag">Interjection « Hélas ! » (narrateur rétrospectif)</div>
-            <div class="procede-tag">Conditionnel passé (regret, fatalité)</div>
-            <div class="procede-tag">Plus-que-parfait (antériorité)</div>
-            <div class="procede-tag">Proposition participiale (valeur temporelle + causale)</div>
-            <div class="procede-tag">Prolepse (anticipation du malheur)</div>
-            <div class="procede-tag">Antithèse sagesse / passion</div>
-            <div class="procede-tag">Hyperbole « enflammé jusqu'au transport »</div>
+            <div class="procede-tag"><span class="pt-nom">Focalisation interne</span><span class="pt-cite">« moi, qui n'avais jamais pensé à la différence des sexes »</span><span class="pt-effet">Toute la scène est filtrée par le regard de Des Grieux — le lecteur partage sa surprise et son éblouissement</span></div>
+            <div class="procede-tag"><span class="pt-nom">Interjection + conditionnel passé</span><span class="pt-cite">« Hélas ! que ne le marquais-je un jour plus tôt ! j'aurais porté chez mon père toute mon innocence »</span><span class="pt-effet">Le narrateur adulte interrompt le récit pour exprimer un regret amer — décalage temporel entre personnage naïf et narrateur qui sait déjà la fin</span></div>
+            <div class="procede-tag"><span class="pt-nom">Proposition participiale</span><span class="pt-cite">« étant à me promener avec mon ami »</span><span class="pt-effet">Valeur temporelle (quand je me promenais) ET causale (parce que je me promenais) — hasard et destin se confondent dans cette coïncidence</span></div>
+            <div class="procede-tag"><span class="pt-nom">Plus-que-parfait</span><span class="pt-cite">« J'avais marqué le temps de mon départ »</span><span class="pt-effet">Marque l'antériorité : la décision existait avant, le hasard fait dérailler le plan prévu — sentiment de fatalité dès la première ligne</span></div>
+            <div class="procede-tag"><span class="pt-nom">Prolepse</span><span class="pt-cite">« qui a causé, dans la suite, tous ses malheurs et les miens »</span><span class="pt-effet">Anticipation sur l'avenir : le narrateur sait déjà la fin tragique — installe un sentiment de fatalité dès la première rencontre</span></div>
+            <div class="procede-tag"><span class="pt-nom">Antithèse sagesse / passion</span><span class="pt-cite">« moi, dont tout le monde admirait la sagesse… je me trouvai enflammé tout d'un coup »</span><span class="pt-effet">Contraste brutal entre la réputation de Des Grieux et la violence du coup de foudre — l'amour renverse toute raison et toute identité</span></div>
+            <div class="procede-tag"><span class="pt-nom">Hyperbole</span><span class="pt-cite">« enflammé tout d'un coup jusqu'au transport »</span><span class="pt-effet">Le feu intérieur soudain et total — intensité extrême qui marque l'irréversibilité du coup de foudre et la perte de soi</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">La proposition participiale — ex : « étant à me promener avec mon ami » — a une valeur à la fois temporelle (= comme je me promenais) et causale. Elle peut être transformée en subordonnée circonstancielle de temps introduite par « comme » ou « lorsque ». Identifier sa fonction et sa valeur dans le passage.</div>
@@ -1643,14 +1668,14 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Ellipse / prétérition « N'exigez point… »</div>
-            <div class="procede-tag">Impératif négatif (pudeur, indicible)</div>
-            <div class="procede-tag">Euphémisme « je la perdis »</div>
-            <div class="procede-tag">Propositions brèves juxtaposées (style laconique)</div>
-            <div class="procede-tag">Registre tragique (« fatal et déplorable »)</div>
-            <div class="procede-tag">Lexique religieux (âme, ciel, puni)</div>
-            <div class="procede-tag">Parallélisme « mon âme / la sienne »</div>
-            <div class="procede-tag">Hyperbole (« embrassée mille fois »)</div>
+            <div class="procede-tag"><span class="pt-nom">Ellipse / prétérition</span><span class="pt-cite">« N'exigez point de moi que je vous décrive mes sentiments, ni que je vous rapporte ses dernières expressions »</span><span class="pt-effet">Il dit qu'il ne parlera pas… puis en parle aussitôt — paradoxe rhétorique : la douleur est indicible mais irrépressible</span></div>
+            <div class="procede-tag"><span class="pt-nom">Impératif négatif</span><span class="pt-cite">« N'exigez point… ni que je vous rapporte »</span><span class="pt-effet">Des Grieux impose le silence sur sa douleur — cette pudeur extrême amplifie paradoxalement l'émotion du lecteur</span></div>
+            <div class="procede-tag"><span class="pt-nom">Euphémisme</span><span class="pt-cite">« Je la perdis »</span><span class="pt-effet">Trois mots pour dire la mort de l'être aimé — la concision laconique est plus violente et déchirante que tout développement</span></div>
+            <div class="procede-tag"><span class="pt-nom">Propositions brèves juxtaposées</span><span class="pt-cite">« Je la perdis ; je reçus d'elle des marques d'amour… C'est tout ce que j'ai la force de vous apprendre »</span><span class="pt-effet">Phrases courtes enchaînées sans connecteurs — souffle coupé du narrateur à bout, incapable de développer sa douleur</span></div>
+            <div class="procede-tag"><span class="pt-nom">Registre tragique</span><span class="pt-cite">« ce fatal et déplorable évènement »</span><span class="pt-effet">Le lexique du destin (fatal) et du malheur (déplorable) confère à la mort de Manon une dimension de fatalité tragique irréversible</span></div>
+            <div class="procede-tag"><span class="pt-nom">Lexique religieux</span><span class="pt-cite">« Mon âme ne suivit pas la sienne. Le Ciel ne me trouva point assez rigoureusement puni »</span><span class="pt-effet">Des Grieux interprète sa survie comme un châtiment divin — la mort de Manon s'inscrit dans un ordre métaphysique</span></div>
+            <div class="procede-tag"><span class="pt-nom">Parallélisme</span><span class="pt-cite">« Mon âme ne suivit pas la sienne »</span><span class="pt-effet">La construction symétrique associe les deux amants une dernière fois — puis la négation acte leur séparation définitive</span></div>
+            <div class="procede-tag"><span class="pt-nom">Hyperbole</span><span class="pt-cite">« Je demeurai plus de vingt-quatre heures la bouche attachée sur le visage et sur les mains de ma chère Manon »</span><span class="pt-effet">L'excès de la douleur dépasse le réel — la passion funèbre se traduit par une dernière étreinte sensuelle et désespérée</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">La prétérition — figure par laquelle on dit qu'on ne va pas parler de quelque chose tout en le disant quand même : « N'exigez point de moi que je vous décrive mes sentiments… » puis Des Grieux les décrit aussitôt. Identifier les marques grammaticales : négation + impératif, puis le paradoxe rhétorique. Ou : analyser les valeurs du passé simple ponctuel vs imparfait duratif dans le récit de l'enterrement.</div>
@@ -1687,12 +1712,12 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Registre lyrique et tragique</div>
-            <div class="procede-tag">Métaphores (la perle, le sentier)</div>
-            <div class="procede-tag">Apostrophe à Dieu</div>
-            <div class="procede-tag">Répétition (« nous nous aimons »)</div>
-            <div class="procede-tag">Exclamations et questions rhétoriques</div>
-            <div class="procede-tag">Ironie dramatique</div>
+            <div class="procede-tag"><span class="pt-nom">Registre lyrique et tragique</span><span class="pt-cite">« Insensés que nous sommes ! nous nous aimons. »</span><span class="pt-effet">L'exclamation ouvre sur un monologue passionné qui mêle l'ivresse de l'aveu et la préméditation d'un dénouement tragique</span></div>
+            <div class="procede-tag"><span class="pt-nom">Métaphore filée</span><span class="pt-cite">« le bonheur est une perle si rare dans cet océan d'ici-bas » / « le vert sentier qui nous amenait l'un vers l'autre »</span><span class="pt-effet">La perle et le sentier figurent le bonheur fragile et inaccessible — images romantiques de la beauté menacée</span></div>
+            <div class="procede-tag"><span class="pt-nom">Apostrophe à Dieu</span><span class="pt-cite">« ô mon Dieu ! » / « Tu nous l'avais donné, pêcheur céleste »</span><span class="pt-effet">Perdican invoque Dieu comme témoin et responsable du bonheur perdu — registre religieux qui élève la scène au-delà du simple amour</span></div>
+            <div class="procede-tag"><span class="pt-nom">Répétition anaphorique</span><span class="pt-cite">« nous nous aimons » (début et fin du monologue)</span><span class="pt-effet">L'aveu encadre tout le discours — répété, il s'impose comme une évidence irréfutable après tant de résistances</span></div>
+            <div class="procede-tag"><span class="pt-nom">Exclamations et questions rhétoriques</span><span class="pt-cite">« Quel songe avons-nous fait, Camille ? Quelles vaines paroles… ? »</span><span class="pt-effet">Perdican interroge leur passé d'incompréhension — les questions traduisent la stupeur de l'amour enfin avoué</span></div>
+            <div class="procede-tag"><span class="pt-nom">Ironie dramatique</span><span class="pt-cite">Le cri de Rosette derrière l'autel : « on entend un grand cri »</span><span class="pt-effet">Le spectateur sait que Rosette écoutait — au moment de l'aveu d'amour, la catastrophe survient : dénouement tragique d'une pièce comique</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Analyse des propositions subordonnées relatives et circonstancielles (« qui nous amenait l'un vers l'autre », « qui nous aurait conduits à toi »). Identification du mode conditionnel passé et de sa valeur hypothétique.</div>
@@ -1730,14 +1755,14 @@ Cela dit, maître Loup s'enfuit, et court encor.
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Passé simple (soudaineté : coup de foudre)</div>
-            <div class="procede-tag">Comparaison « comme une apparition » (spectre/divinité)</div>
-            <div class="procede-tag">Imparfait de second plan (description/durée)</div>
-            <div class="procede-tag">Focalisation interne (point de vue de Frédéric)</div>
-            <div class="procede-tag">Discours indirect libre (pensées de Frédéric)</div>
-            <div class="procede-tag">Gradation / énumération (portrait mélioratif)</div>
-            <div class="procede-tag">Négation restrictive « jamais » (intensification)</div>
-            <div class="procede-tag">Hyperbole « curiosité douloureuse qui n'avait pas de limites »</div>
+            <div class="procede-tag"><span class="pt-nom">Passé simple</span><span class="pt-cite">« Ce fut comme une apparition »</span><span class="pt-effet">Soudaineté du coup de foudre — le passé simple marque une action ponctuelle et irréversible, le coup de foudre comme un événement sans retour</span></div>
+            <div class="procede-tag"><span class="pt-nom">Comparaison « apparition »</span><span class="pt-cite">« Ce fut comme une apparition »</span><span class="pt-effet">Le terme évoque à la fois le fantôme et la divinité — Mme Arnoux surgit comme une vision surnaturelle, idéalisée dès la première seconde</span></div>
+            <div class="procede-tag"><span class="pt-nom">Imparfait de second plan</span><span class="pt-cite">« Elle était assise » / « Elle avait un large chapeau de paille »</span><span class="pt-effet">L'imparfait ralentit le temps, étend la description — Frédéric contemple Mme Arnoux comme une peinture, le temps suspendu</span></div>
+            <div class="procede-tag"><span class="pt-nom">Focalisation interne</span><span class="pt-cite">« ou du moins il ne distinguait personne, dans l'éblouissement que lui envoyèrent ses yeux »</span><span class="pt-effet">Le monde entier disparaît sauf Mme Arnoux — le modalisateur « ou du moins » révèle la subjectivité totale du regard</span></div>
+            <div class="procede-tag"><span class="pt-nom">Discours indirect libre</span><span class="pt-cite">« Quels étaient son nom, sa demeure, sa vie, son passé ? »</span><span class="pt-effet">Les pensées de Frédéric sont rapportées sans verbe introducteur — Flaubert donne accès direct à la conscience du personnage</span></div>
+            <div class="procede-tag"><span class="pt-nom">Gradation</span><span class="pt-cite">« son nom, sa demeure, sa vie, son passé » / « toutes les robes… les gens qu'elle fréquentait »</span><span class="pt-effet">Escalade du désir de connaissance — la cristallisation envahit tout, jusqu'aux détails les plus intimes de l'être aimé</span></div>
+            <div class="procede-tag"><span class="pt-nom">Négation restrictive</span><span class="pt-cite">« Jamais il n'avait vu cette splendeur de sa peau brune »</span><span class="pt-effet">Le « jamais » absolu signifie que Mme Arnoux dépasse toutes les femmes vues avant — superlative implicite, cristallisation stendhalienne</span></div>
+            <div class="procede-tag"><span class="pt-nom">Chute ironique</span><span class="pt-cite">« Ma femme, es-tu prête ? cria le sieur Arnoux »</span><span class="pt-effet">Retour brutal à la réalité — Mme Arnoux est mariée, l'amour est impossible dès sa naissance même</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Alternance imparfait (second plan/descriptif) et passé simple (premier plan/actions ponctuelles) — ex : « Elle était assise » (IMP descriptif) vs « elle leva la tête ; il fléchit » (PS actions soudaines). Expliquer la valeur aspectuelle de chaque temps et l'effet produit sur le rythme narratif.</div>
@@ -1806,12 +1831,12 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Monologue lyrique</div>
-            <div class="procede-tag">Apostrophes et exclamations</div>
-            <div class="procede-tag">Alexandrins</div>
-            <div class="procede-tag">Antithèse (valet / roi)</div>
-            <div class="procede-tag">Champ lexical de la lumière et du divin</div>
-            <div class="procede-tag">Gradation ascendante</div>
+            <div class="procede-tag"><span class="pt-nom">Monologue lyrique</span><span class="pt-cite">« Devant mes yeux c'est le ciel que je voi ! / De ma vie, ô mon Dieu ! Cette heure est la première. »</span><span class="pt-effet">Ruy Blas seul sur scène exprime son ivresse — le monologue permet l'expression la plus intime des émotions romantiques</span></div>
+            <div class="procede-tag"><span class="pt-nom">Apostrophes et exclamations</span><span class="pt-cite">« ô mon Dieu ! » / « La reine m'aime ! Ô Dieu ! » / « Oh ! Cela m'éblouit. »</span><span class="pt-effet">L'enthousiasme débordant du héros romantique s'exprime par l'interpellation et l'exclamation — lyrisme hugolien à son paroxysme</span></div>
+            <div class="procede-tag"><span class="pt-nom">Alexandrins</span><span class="pt-cite">« La reine m'aime ! Ô Dieu ! C'est bien vrai, c'est moi-même. »</span><span class="pt-effet">Le vers classique à 12 syllabes sert l'élévation du propos — Hugo unit la forme classique au fond romantique</span></div>
+            <div class="procede-tag"><span class="pt-nom">Antithèse</span><span class="pt-cite">« Je suis plus que le roi puisque la reine m'aime ! »</span><span class="pt-effet">Ruy Blas (valet) se place au-dessus du roi grâce à l'amour — l'amour transgresse toutes les hiérarchies sociales</span></div>
+            <div class="procede-tag"><span class="pt-nom">Champ lexical de la lumière et du divin</span><span class="pt-cite">« monde de lumière » / « vie et de rayons » / « joie, extase » / « divinité »</span><span class="pt-effet">L'amour de la reine est vécu comme une expérience mystique et lumineuse — le sacré envahit le politique</span></div>
+            <div class="procede-tag"><span class="pt-nom">Gradation ascendante</span><span class="pt-cite">« Heureux, aimé, vainqueur ! / Duc d'Olmedo, l'Espagne à mes pieds, j'ai son cœur ! »</span><span class="pt-effet">Montée en puissance des conquêtes — de la félicité personnelle au triomphe politique, l'amour élève Ruy Blas au plus haut</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Analyse de la proposition subordonnée causale introduite par « puisque » (« Je suis plus que le roi puisque la reine m'aime ! »). Valeur causale, mode indicatif, effet rhétorique de l'évidence.</div>
@@ -1848,12 +1873,12 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
           <div class="texte-section-title">Procédés littéraires clés</div>
           <div class="procedes-tags">
-            <div class="procede-tag">Prose poétique</div>
-            <div class="procede-tag">Style impressionniste</div>
-            <div class="procede-tag">Présent de vérité générale</div>
-            <div class="procede-tag">Sensorialité (goût, odorat, vue)</div>
-            <div class="procede-tag">Phrases brèves et rythmées</div>
-            <div class="procede-tag">Énumération des sensations</div>
+            <div class="procede-tag"><span class="pt-nom">Prose poétique</span><span class="pt-cite">« C'est le "presque" qui compte, et le conditionnel. »</span><span class="pt-effet">Pas de vers, mais un rythme travaillé, des images précises — la prose s'élève à la poésie par la qualité du regard porté sur le quotidien</span></div>
+            <div class="procede-tag"><span class="pt-nom">Style impressionniste</span><span class="pt-cite">« le soleil est venu avec une intensité mate, une force tranquille »</span><span class="pt-effet">La sensation est saisie dans sa nuance précise — comme dans la peinture impressionniste, l'instant fugace est capturé dans sa qualité sensible</span></div>
+            <div class="procede-tag"><span class="pt-nom">Présent de vérité générale</span><span class="pt-cite">« La phrase vient toujours au même instant. »</span><span class="pt-effet">Le présent universel inclut tous les lecteurs dans l'expérience décrite — ce petit bonheur appartient à chacun</span></div>
+            <div class="procede-tag"><span class="pt-nom">Conditionnel comme temps du rêve</span><span class="pt-cite">« On pourrait presque manger dehors. » / « On aurait dit que tu serais… »</span><span class="pt-effet">Le conditionnel est le temps du possible et du jeu — Delerm célèbre la vie au conditionnel comme une forme de liberté douce</span></div>
+            <div class="procede-tag"><span class="pt-nom">Phrases brèves et rythmées</span><span class="pt-cite">« La fenêtre entrouverte, la rumeur du dehors, quelque chose de léger qui flotte. »</span><span class="pt-effet">La phrase nominale capture l'impression, sans verbe — le style imite la légèreté de l'instant suspendu</span></div>
+            <div class="procede-tag"><span class="pt-nom">Adverbe « presque »</span><span class="pt-cite">« On pourrait presque… » / « Il y a des jours où l'on pourrait… presque. »</span><span class="pt-effet">Mot-clé du texte : le bonheur n'est jamais totalement atteint, toujours à portée — la proximité de l'idéal est plus précieuse que l'idéal lui-même</span></div>
           </div>
           <div class="texte-section-title">Question de grammaire possible</div>
           <div class="grammaire-box">Analyse du présent gnomique / de vérité générale et ses valeurs (universalité de l'expérience décrite). Distinction avec le présent d'énonciation ou le présent historique.</div>
