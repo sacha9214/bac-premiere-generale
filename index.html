@@ -690,11 +690,6 @@
       line-height: 1.4;
     }
 
-    @media (max-width: 600px) {
-      .lien-col { border-right: none; border-bottom: 1px solid var(--border); }
-      .lien-col:last-child { border-bottom: none; }
-      .milgram-stat-grid { grid-template-columns: 1fr; }
-    }
 
     /* TEXTES */
     .textes-intro {
@@ -980,9 +975,109 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+    /* ===================== RESPONSIVE ===================== */
+
+    /* Tablet (≤ 768px) */
+    @media (max-width: 768px) {
+      .hero { padding: 44px 20px 38px; }
+      main { padding: 36px 16px 80px; gap: 40px; }
+
+      .nav { gap: 0; padding: 0 12px; }
+      .nav a { padding: 13px 12px; font-size: 0.82rem; }
+
+      .lien-body { grid-template-columns: 1fr; }
+      .lien-col { border-right: none; border-bottom: 1px solid var(--border); }
+      .lien-col:last-child { border-bottom: none; }
+
+      .exam-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .card-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+    }
+
+    /* Mobile (≤ 600px) */
     @media (max-width: 600px) {
-      .hero { padding: 40px 16px 36px; }
-      main { padding: 32px 16px 60px; gap: 36px; }
+      /* hero */
+      .hero { padding: 36px 16px 30px; }
+      .hero-meta { gap: 10px; }
+      .meta-pill { padding: 7px 14px; font-size: 0.8rem; }
+
+      /* layout */
+      main { padding: 28px 14px 100px; gap: 32px; }
+
+      /* nav — scrollable horizontalement, sans scrollbar visible */
+      .nav { padding: 0 8px; -ms-overflow-style: none; scrollbar-width: none; }
+      .nav::-webkit-scrollbar { display: none; }
+      .nav a { padding: 12px 10px; font-size: 0.78rem; }
+
+      /* section title */
+      .section-label h2 { font-size: 1.2rem; }
+
+      /* texte cards */
+      .texte-card-header { gap: 10px; padding: 14px 16px; }
+      .texte-titre { font-size: 0.92rem; }
+      .texte-auteur { font-size: 0.76rem; white-space: normal; }
+      .texte-body { padding: 16px; }
+      .texte-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .texte-num { min-width: 32px; height: 32px; font-size: 0.8rem; border-radius: 8px; }
+
+      /* exam grid: 2×2 */
+      .exam-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .exam-stat { padding: 18px 12px; }
+      .exam-stat .big { font-size: 2rem; }
+
+      /* cartes perso & theme */
+      .card-grid.cols-2,
+      .card-grid.cols-3 { grid-template-columns: 1fr; }
+      .perso-card { padding: 18px 16px; }
+      .theme-card { padding: 16px; }
+
+      /* resume section info bar */
+      .card > div[style*="flex"] { flex-direction: column; gap: 16px !important; }
+
+      /* questions */
+      .q-item { padding: 14px 16px; min-height: 48px; }
+      .q-question { font-size: 0.9rem; }
+
+      /* prez steps */
+      .prez-step { gap: 14px; padding: 16px 0; }
+      .prez-example { font-size: 0.84rem; padding: 10px 12px; }
+
+      /* angle cards */
+      .angle-card { padding: 16px; gap: 12px; }
+
+      /* lien blocks */
+      .lien-header { padding: 18px 16px 14px; }
+      .lien-col { padding: 16px; }
+      .lien-quote { padding: 14px 16px; font-size: 0.84rem; }
+      .milgram-stat-grid { grid-template-columns: 1fr 1fr; }
+
+      /* tips */
+      .tip { padding: 14px 16px; font-size: 0.88rem; }
+
+      /* écoute buttons */
+      #ecoute > div[style*="display:flex"] { flex-direction: column; }
+      #ecoute button { width: 100%; justify-content: center; }
+
+      /* listen tracks */
+      .listen-track { padding: 12px 14px; gap: 12px; }
+      .lt-title { font-size: 0.9rem; }
+
+      /* sticky player */
+      .sticky-player { padding: 8px 14px 12px; }
+      .sp-controls { gap: 6px; flex-wrap: wrap; justify-content: center; }
+      .sp-btn { padding: 8px 12px; font-size: 0.85rem; }
+      .sp-btn-play { padding: 8px 18px; }
+      .sp-track-name { font-size: 0.8rem; }
+      .sp-track-sub { font-size: 0.72rem; }
+    }
+
+    /* Très petit mobile (≤ 380px) */
+    @media (max-width: 380px) {
+      .texte-grid { grid-template-columns: 1fr; }
+      .exam-grid { grid-template-columns: 1fr 1fr; }
+      .milgram-stat-grid { grid-template-columns: 1fr; }
+      .nav a { padding: 12px 8px; font-size: 0.74rem; }
+      .hero h1 { font-size: 2rem; }
     }
   </style>
 </head>
