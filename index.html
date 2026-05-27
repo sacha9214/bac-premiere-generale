@@ -673,7 +673,7 @@
     .quiz-setup-title { font-size: 1.8rem; font-weight: 800; margin: 0 0 10px; color: var(--text); }
     .quiz-setup-sub { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 28px; }
     /* Mode selector */
-    .quiz-mode-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 22px; }
+    .quiz-mode-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 22px; flex-wrap: wrap; }
     .quiz-mode-btn {
       background: var(--bg3); border: 1.5px solid var(--border); color: var(--muted);
       border-radius: 10px; padding: 10px 22px; font-size: 0.9rem; font-weight: 700;
@@ -5553,6 +5553,7 @@ Je le dis, vous pouvez vous confier, madame,
       <div class="quiz-mode-row">
         <button class="quiz-mode-btn active" id="modeProcedes" onclick="setQuizMode('procedes')">📝 Procédés</button>
         <button class="quiz-mode-btn" id="modeAuteurs" onclick="setQuizMode('auteurs')">🧑‍🎨 Auteurs</button>
+        <button class="quiz-mode-btn" id="modeLivres" onclick="setQuizMode('livres')">📚 Livres</button>
       </div>
 
       <!-- Filtre texte (mode procédés seulement) -->
@@ -5573,6 +5574,17 @@ Je le dis, vous pouvez vous confier, madame,
           <option value="Musset">Musset</option>
           <option value="Flaubert">Flaubert</option>
           <option value="Victor Hugo">Victor Hugo</option>
+        </select>
+      </div>
+      <!-- Filtre livre (mode livres seulement) — 1 seul livre obligatoire -->
+      <div class="quiz-filter-row" id="quizFilterLivreRow" style="display:none">
+        <label for="quizFilterLivre">Livre :</label>
+        <select id="quizFilterLivre" class="quiz-select">
+          <option value="vague">La Vague</option>
+          <option value="ferme">La Ferme des Animaux</option>
+          <option value="odyssee">L'Odyssée</option>
+          <option value="cyrano">Cyrano de Bergerac</option>
+          <option value="f451">Fahrenheit 451</option>
         </select>
       </div>
 
@@ -7084,6 +7096,30 @@ Je le dis, vous pouvez vous confier, madame,
       }
     });
 
+    // ── Questions livres (extraites du DOM) ──
+    const BOOKS_INFO = [
+      {id:'vague',    name:'La Vague'},
+      {id:'ferme',    name:'La Ferme des Animaux'},
+      {id:'odyssee',  name:"L'Odyssée"},
+      {id:'cyrano',   name:'Cyrano de Bergerac'},
+      {id:'f451',     name:'Fahrenheit 451'},
+    ];
+    const bookQuizCards = {};
+    BOOKS_INFO.forEach(b => {
+      bookQuizCards[b.id] = [];
+      document.querySelectorAll('[data-for="' + b.id + '"] .q-question').forEach(el => {
+        const item = el.closest('.q-item');
+        const ans  = item && item.querySelector('.q-answer');
+        if (el.textContent.trim() && ans && ans.textContent.trim()) {
+          bookQuizCards[b.id].push({
+            livre: b.name, bookId: b.id,
+            q: el.textContent.trim(),
+            r: ans.textContent.trim()
+          });
+        }
+      });
+    });
+
     // ── Données biographiques auteurs ──
     const bioCards = [
       // BAUDELAIRE
@@ -7146,16 +7182,22 @@ Je le dis, vous pouvez vous confier, madame,
       quizMode = mode;
       document.getElementById('modeProcedes').classList.toggle('active', mode === 'procedes');
       document.getElementById('modeAuteurs').classList.toggle('active', mode === 'auteurs');
-      document.getElementById('quizFilterRow').style.display = mode === 'procedes' ? 'flex' : 'none';
-      document.getElementById('quizFilterAuteurRow').style.display = mode === 'auteurs' ? 'flex' : 'none';
+      document.getElementById('modeLivres').classList.toggle('active', mode === 'livres');
+      document.getElementById('quizFilterRow').style.display        = mode === 'procedes' ? 'flex' : 'none';
+      document.getElementById('quizFilterAuteurRow').style.display  = mode === 'auteurs'  ? 'flex' : 'none';
+      document.getElementById('quizFilterLivreRow').style.display   = mode === 'livres'   ? 'flex' : 'none';
       if (mode === 'procedes') {
-        document.getElementById('quizSetupIcon').textContent = '🎯';
+        document.getElementById('quizSetupIcon').textContent  = '🎯';
         document.getElementById('quizSetupTitle').textContent = 'Quiz Procédés';
-        document.getElementById('quizSetupSub').textContent = 'Une citation s\'affiche — retrouve le procédé, révèle la réponse, marque si tu savais ou non.';
-      } else {
-        document.getElementById('quizSetupIcon').textContent = '🧑‍🎨';
+        document.getElementById('quizSetupSub').textContent   = 'Une citation s\'affiche — retrouve le procédé, révèle la réponse, marque si tu savais ou non.';
+      } else if (mode === 'auteurs') {
+        document.getElementById('quizSetupIcon').textContent  = '🧑‍🎨';
         document.getElementById('quizSetupTitle').textContent = 'Quiz Auteurs';
-        document.getElementById('quizSetupSub').textContent = 'Une question biographique s\'affiche — âge, lieu de vie, anecdotes... révèle la réponse !';
+        document.getElementById('quizSetupSub').textContent   = 'Une question biographique s\'affiche — âge, lieu de vie, anecdotes... révèle la réponse !';
+      } else {
+        document.getElementById('quizSetupIcon').textContent  = '📚';
+        document.getElementById('quizSetupTitle').textContent = 'Quiz Livres';
+        document.getElementById('quizSetupSub').textContent   = 'Teste tes connaissances sur l\'œuvre choisie — personnages, thèmes, contexte, message. Choisis un livre.';
       }
     };
 
@@ -7173,6 +7215,10 @@ Je le dis, vous pouvez vous confier, madame,
       if (quizMode === 'auteurs') {
         const filterA = document.getElementById('quizFilterAuteur').value;
         deck = shuffle(filterA === 'all' ? [...bioCards] : bioCards.filter(c => c.auteur === filterA));
+      } else if (quizMode === 'livres') {
+        const bookId = document.getElementById('quizFilterLivre').value;
+        deck = shuffle([...(bookQuizCards[bookId] || [])]);
+        if (!deck.length) { alert('Aucune question trouvée pour ce livre.'); return; }
       } else {
         const filter = document.getElementById('quizFilter').value;
         deck = shuffle(filter === 'all' ? [...allCards] : allCards.filter(c => c.titre === filter));
@@ -7206,6 +7252,12 @@ Je le dis, vous pouvez vous confier, madame,
         document.getElementById('quizCite').textContent = c.q;
         document.getElementById('quizNom').textContent = c.r;
         document.getElementById('quizEffet').textContent = c.ctx;
+        document.getElementById('quizRevealBtn').textContent = '👁 Révéler la réponse';
+      } else if (quizMode === 'livres') {
+        document.getElementById('quizTexteLabel').textContent = '📚 ' + c.livre;
+        document.getElementById('quizCite').textContent = c.q;
+        document.getElementById('quizNom').textContent = '→ Réponse';
+        document.getElementById('quizEffet').textContent = c.r;
         document.getElementById('quizRevealBtn').textContent = '👁 Révéler la réponse';
       } else {
         document.getElementById('quizTexteLabel').textContent = c.titre + ' — ' + c.auteur.split('·')[0].trim();
@@ -7249,7 +7301,13 @@ Je le dis, vous pouvez vous confier, madame,
       const missedEl = document.getElementById('quizEndMissed');
       if (missed.length) {
         missedEl.innerHTML = '<div class="quiz-end-missed-title">À revoir (' + missed.length + ')</div>' +
-          missed.map(c => '<div class="quiz-missed-item"><strong>' + c.nom + '</strong> — ' + c.titre + '</div>').join('');
+          missed.map(c => {
+            if (quizMode === 'livres')
+              return '<div class="quiz-missed-item"><strong>' + c.livre + '</strong> — ' + c.q.substring(0, 65) + (c.q.length > 65 ? '…' : '') + '</div>';
+            if (quizMode === 'auteurs')
+              return '<div class="quiz-missed-item"><strong>' + c.auteur + '</strong> — ' + c.q + '</div>';
+            return '<div class="quiz-missed-item"><strong>' + c.nom + '</strong> — ' + c.titre + '</div>';
+          }).join('');
       } else {
         missedEl.innerHTML = '<div style="color:var(--accent3);font-weight:700;font-size:0.9rem">Zéro raté 🎉</div>';
       }
