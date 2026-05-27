@@ -6588,14 +6588,9 @@ Je le dis, vous pouvez vous confier, madame,
       document.getElementById('simDrawnNum').textContent  = simDrawn.num;
       document.getElementById('simDrawnName').textContent = simDrawn.titre;
       document.getElementById('simDrawnSub').textContent  = simDrawn.auteur;
-
+      // Axes/problématique masqués — c'est une simulation, pas une fiche
       const axesEl = document.getElementById('simDrawnAxes');
-      if (axesEl && simDrawn.axes.length) {
-        axesEl.innerHTML = simDrawn.axes.map(a => {
-          const isPb = a.startsWith('Problématique');
-          return `<div class="sim-axe${isPb ? ' sim-pb' : ''}">${a}</div>`;
-        }).join('');
-      }
+      if (axesEl) axesEl.innerHTML = '';
     }
 
     // ── Helpers ──
@@ -6643,20 +6638,15 @@ Je le dis, vous pouvez vous confier, madame,
       ctxEl.style.display = 'block';
 
       if (phase === 0 || phase === 1) {
-        const pb   = simDrawn.axes[0] || '';
-        const mvts = simDrawn.axes.slice(1);
         ctxContent.innerHTML = `
           <div class="sim-ctx-header">
-            <span class="sim-ctx-badge">${phase === 0 ? 'Ton texte du jour' : '📌 Rappel'}</span>
+            <span class="sim-ctx-badge">${phase === 0 ? 'Texte tiré au sort' : '📌 Ton texte'}</span>
             <strong>${simDrawn.titre}</strong>
             <span class="sim-ctx-sub">${simDrawn.auteur}</span>
           </div>
-          ${pb ? `<div class="sim-ctx-pb">${pb}</div>` : ''}
-          ${mvts.length ? `<div class="sim-ctx-mvts">${mvts.map(m =>
-            `<div class="sim-ctx-mvt">→ ${m}</div>`).join('')}</div>` : ''}
           ${phase === 0
-            ? `<div class="sim-ctx-tip">💡 Prépare l'intro, les ${mvts.length} mouvements et la conclusion. Identifie les procédés clés.</div>`
-            : `<div class="sim-ctx-tip">💬 Lis le texte à voix haute, puis développe chaque mouvement.</div>`}
+            ? `<div class="sim-ctx-tip">💡 Travaille seul(e) : construis ta problématique, découpe tes mouvements, identifie tes procédés.</div>`
+            : `<div class="sim-ctx-tip">💬 Lis le texte à voix haute, puis développe ton explication linéaire mouvement par mouvement.</div>`}
         `;
       } else if (phase === 2) {
         const book = BOOKS.find(b => b.id === simBook);
