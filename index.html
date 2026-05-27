@@ -15,6 +15,7 @@
       --accent2: #ff6c8c;
       --accent3: #6cffb8;
       --accent4: #ffc96c;
+      --accent5: #ff7043;
       --text: #e8eaf6;
       --muted: #8890aa;
       --border: #2e3250;
@@ -31,6 +32,7 @@
       --accent2: #e0436e;
       --accent3: #0da86a;
       --accent4: #c47e00;
+      --accent5: #e84e1b;
       --text: #1a1d2e;
       --muted: #5a6480;
       --border: #c8d0e8;
@@ -2601,6 +2603,12 @@ Je le dis, vous pouvez vous confier, madame,
       <div class="book-title">Cyrano de Bergerac</div>
       <div class="book-author">Edmond Rostand</div>
     </div>
+    <div class="book-card" data-book="f451" style="--bk-accent: var(--accent5);">
+      <div class="book-check">✓</div>
+      <div class="book-emoji">🔥</div>
+      <div class="book-title">Fahrenheit 451</div>
+      <div class="book-author">Ray Bradbury</div>
+    </div>
   </div>
 
   <!-- ══════════ LA VAGUE ══════════ -->
@@ -4110,6 +4118,139 @@ Je le dis, vous pouvez vous confier, madame,
     </div>
   </section>
 
+  <!-- ══════════ FAHRENHEIT 451 ══════════ -->
+  <nav class="subnav" data-for="f451" hidden>
+    <a href="#resume-f451">Résumé</a>
+    <a href="#persos-f451">Personnages</a>
+    <a href="#themes-f451">Thèmes</a>
+    <a href="#presentation-f451">Ma présentation</a>
+    <a href="#pourquoi-f451">Pourquoi ce livre</a>
+    <a href="#questions-f451">Questions probables</a>
+    <a href="#liens-f451">Liens avec l'œuvre</a>
+    <a href="#conseils-f451">Conseils</a>
+  </nav>
+
+  <section id="resume-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">📖</span><h2>Résumé de l'œuvre</h2></div>
+    <div class="resume-box">
+      Dans un futur dystopique, les livres sont interdits et les pompiers ont pour mission de les <strong>brûler</strong>. Guy Montag est l'un d'eux — jusqu'à sa rencontre avec Clarisse McClellan, une adolescente libre-penseuse qui lui demande : <em>« Êtes-vous heureux ? »</em>. Cette question le déstabilise et l'amène à voler des livres en secret. Lorsque sa femme Mildred le dénonce, Montag tue son chef Beatty et doit fuir. Il rejoint les <strong>hommes-livres</strong>, une communauté de fugitifs qui ont chacun mémorisé un ouvrage entier pour le transmettre aux générations futures. La ville est détruite par des bombes. La reconstruction peut commencer.
+    </div>
+    <div style="margin-top:20px;" class="card">
+      <div style="display:flex;gap:32px;flex-wrap:wrap;">
+        <div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Auteur</div><div style="font-weight:700;">Ray Bradbury</div></div>
+        <div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Publication</div><div style="font-weight:700;">1953</div></div>
+        <div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Siècle</div><div style="font-weight:700;">XXe siècle</div></div>
+        <div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Genre</div><div style="font-weight:700;">Roman dystopique / Anticipation</div><div style="font-size:.85rem;color:var(--muted);">Science-fiction littéraire</div></div>
+        <div><div style="font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:6px;">Lieu / Époque</div><div style="font-weight:700;">Ville américaine, futur indéterminé</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="persos-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">👤</span><h2>Personnages principaux</h2></div>
+    <div class="card-grid cols-2">
+      <div class="perso-card">
+        <div class="perso-role">Pompier / Rebelle</div>
+        <div class="perso-name">Guy Montag</div>
+        <div class="perso-desc">Protagoniste. Pompier qui brûle les livres jusqu'à ce que la rencontre avec Clarisse et la lecture clandestine le transforment. Son évolution — de la conformité à la rébellion — est le cœur du roman.</div>
+      </div>
+      <div class="perso-card" style="border-color:rgba(255,112,67,0.35);">
+        <div class="perso-role">Voisine / Catalyseur</div>
+        <div class="perso-name" style="color:var(--accent5);">Clarisse McClellan</div>
+        <div class="perso-desc">Adolescente de 17 ans, curieuse, qui marche lentement, observe la nature et pose des questions. Elle incarne la lenteur et la contemplation face à une société de la vitesse. Sa disparition mystérieuse hante Montag.</div>
+      </div>
+      <div class="perso-card" style="border-color:rgba(255,112,67,0.2);">
+        <div class="perso-role">Femme de Montag</div>
+        <div class="perso-name">Mildred</div>
+        <div class="perso-desc">Aliénée par les « familles » (écrans géants), ingère des somnifères, vide intérieur total. Elle symbolise l'abrutissement de la société. C'est elle qui dénonce Montag aux autorités.</div>
+      </div>
+      <div class="perso-card" style="border-color:rgba(255,112,67,0.2);">
+        <div class="perso-role">Chef des pompiers</div>
+        <div class="perso-name">Capitaine Beatty</div>
+        <div class="perso-desc">Antagoniste complexe et paradoxal : il connaît les livres mieux que quiconque mais les brûle par conviction. Figure de l'intellectuel qui choisit le nihilisme. Il pousse Montag à le tuer — une forme de suicide.</div>
+      </div>
+      <div class="perso-card" style="border-color:rgba(255,112,67,0.2);">
+        <div class="perso-role">Professeur retraité</div>
+        <div class="perso-name">Faber</div>
+        <div class="perso-desc">Ancien prof de lettres lâche devenu complice de Montag via une oreillette. Il représente l'intellectuel qui sait la vérité mais n'a pas agi à temps. Sa culpabilité le pousse à aider Montag.</div>
+      </div>
+      <div class="perso-card" style="border-color:rgba(255,112,67,0.2);">
+        <div class="perso-role">Chef des hommes-livres</div>
+        <div class="perso-name">Granger</div>
+        <div class="perso-desc">Leader des fugitifs qui mémorisent chacun un livre pour préserver la culture humaine. Il incarne l'espoir et la résistance — la mémoire comme acte révolutionnaire.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">💡</span><h2>Thèmes principaux</h2></div>
+    <div class="card-grid cols-2">
+      <div class="theme-card"><div class="theme-num">1</div><div class="theme-content"><h3>Censure et liberté de pensée</h3><p>Les livres sont brûlés parce qu'ils créent des inégalités, de la douleur, du questionnement. Bradbury montre que la censure peut naître du confort et de la paresse, pas seulement de la tyrannie.</p></div></div>
+      <div class="theme-card"><div class="theme-num">2</div><div class="theme-content"><h3>Aliénation par la technologie</h3><p>Les « familles » (murs-écrans), les oreillettes « coquillages », les voitures à toute vitesse : la société fuit le silence et la pensée. Mildred en est la victime emblématique.</p></div></div>
+      <div class="theme-card"><div class="theme-num">3</div><div class="theme-content"><h3>Le feu : destruction et renaissance</h3><p>Le feu brûle les livres, mais aussi libère Montag (il brûle Beatty). En fin de roman, la ville détruite laisse place à la reconstruction — comme le phénix, symbole explicitement cité.</p></div></div>
+      <div class="theme-card"><div class="theme-num">4</div><div class="theme-content"><h3>La mémoire comme résistance</h3><p>Les hommes-livres mémorisent des œuvres entières. Le savoir n'est pas dans les pages mais dans les esprits. C'est l'acte de résistance ultime face à la censure.</p></div></div>
+      <div class="theme-card"><div class="theme-num">5</div><div class="theme-content"><h3>Vitesse vs contemplation</h3><p>Clarisse marche lentement, observe les feuilles, hume le vent. La société roule à 100 km/h pour ne pas penser. Bradbury oppose la lenteur contemplative à l'abrutissement par la vitesse.</p></div></div>
+      <div class="theme-card"><div class="theme-num">6</div><div class="theme-content"><h3>Conformisme et individualité</h3><p>Être différent est suspect — Clarisse est « asociale ». Montag brise le moule. Le roman est un plaidoyer pour l'individualité et la pensée critique face au conformisme de masse.</p></div></div>
+    </div>
+  </section>
+
+  <section id="presentation-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">🎤</span><h2>Ma présentation orale</h2></div>
+    <div class="card">
+      <p style="margin-bottom:14px;">J'ai choisi <strong>Fahrenheit 451</strong> de Ray Bradbury, publié en 1953, car c'est un roman d'anticipation qui pose des questions étonnamment actuelles sur notre rapport aux livres, à la technologie et à la liberté de pensée.</p>
+      <p style="margin-bottom:14px;">L'œuvre met en scène Guy Montag, pompier dans une société dystopique où les livres sont interdits et brûlés. La rencontre avec Clarisse, une adolescente libre-penseuse, déclenche sa prise de conscience : il réalise qu'il vit dans un monde vide, abrutissant, qui a délibérément supprimé toute forme de culture pour éviter tout questionnement.</p>
+      <p style="margin-bottom:14px;">Ce qui me frappe dans ce roman, c'est la modernité de sa vision : les écrans omniprésents, les oreillettes, la vitesse qui empêche de penser — Bradbury semblait décrire notre époque bien avant qu'elle existe. Le titre lui-même est saisissant : 451 degrés Fahrenheit, c'est la température à laquelle le papier s'enflamme.</p>
+      <p>Le roman m'a interpellé par son paradoxe central : ce n'est pas un dictateur qui impose la censure, c'est la société elle-même, par confort et paresse. C'est peut-être la critique la plus dérangeante.</p>
+    </div>
+  </section>
+
+  <section id="pourquoi-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">❓</span><h2>Pourquoi j'ai choisi ce livre</h2></div>
+    <div class="card">
+      <div class="angle-list">
+        <div class="angle-card"><div class="angle-num">1</div><div><strong>Une dystopie miroir du présent</strong><p>Les murs-écrans, les oreillettes, la vitesse, les divertissements abêtissants — Bradbury décrivait 1953, mais il semble décrire 2026. C'est un livre qui nous parle directement.</p></div></div>
+        <div class="angle-card"><div class="angle-num">2</div><div><strong>Un paradoxe fort</strong><p>La censure ne vient pas d'un tyran mais de la société elle-même, par désir de confort. C'est une idée originale et inquiétante qui distingue ce roman des autres dystopies.</p></div></div>
+        <div class="angle-card"><div class="angle-num">3</div><div><strong>La richesse du symbole du feu</strong><p>Le feu détruit et reconstruit. Il permet une analyse symbolique profonde — idéal pour l'explication linéaire et l'entretien.</p></div></div>
+        <div class="angle-card"><div class="angle-num">4</div><div><strong>Une langue poétique</strong><p>Bradbury écrit avec des métaphores fortes et un style quasi poétique pour un roman de SF. La langue elle-même plaide pour la défense des livres.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">🙋</span><h2>Questions probables de l'examinateur</h2></div>
+    <div class="q-list">
+      <div class="q-item" onclick="this.classList.toggle('open')"><div class="q-q">Que symbolise le feu dans le roman ?</div><div class="q-a">Le feu est à double sens : il détruit (les livres brûlés) mais aussi libère et reconstruit (Montag brûle Beatty, la ville est détruite puis la renaissance est possible). Bradbury cite explicitement le phénix : symbole de mort et de renaissance par le feu. C'est l'ambivalence centrale du roman.</div></div>
+      <div class="q-item" onclick="this.classList.toggle('open')"><div class="q-q">Pourquoi Beatty est-il un personnage paradoxal ?</div><div class="q-a">Beatty est le chef des pompiers mais connaît les livres mieux que Montag — il cite Shakespeare, la Bible, les philosophes. Il a lu, a été blessé par la connaissance, et a choisi le nihilisme. Il incarne la trahison intellectuelle : savoir et ne pas agir, voire détruire ce qu'on aime. Certains analystes pensent qu'il provoque sa propre mort.</div></div>
+      <div class="q-item" onclick="this.classList.toggle('open')"><div class="q-a">Clarisse McClellan, par sa lenteur, ses questions et son observation du monde, représente tout ce que la société a voulu éliminer : la curiosité, la contemplation, l'individualité. Sa disparition (jamais expliquée) marque la brutalité d'un système qui élimine ceux qui pensent différemment. Elle est le déclencheur du réveil de Montag.<div class="q-q">Quel rôle joue Clarisse dans le roman ?</div></div></div>
+      <div class="q-item" onclick="this.classList.toggle('open')"><div class="q-q">La censure dans Fahrenheit 451 est-elle imposée ou consentie ?</div><div class="q-a">C'est le paradoxe central : selon Beatty, ce sont les citoyens eux-mêmes qui ont voulu cette censure pour éviter la douleur, l'inégalité, le questionnement que provoquent les livres. Ce n'est pas un tyran qui a tout décidé, c'est la paresse et le désir de confort collectif. Bradbury s'attaque ainsi au conformisme démocratique, plus dangereux encore qu'une dictature explicite.</div></div>
+      <div class="q-item" onclick="this.classList.toggle('open')"><div class="q-q">Que représentent les hommes-livres ?</div><div class="q-a">Les hommes-livres sont la réponse ultime à la censure : si les livres physiques peuvent être détruits, la mémoire humaine ne peut pas l'être. Chacun est devenu un livre vivant. Ils représentent la résistance culturelle, la transmission du savoir et l'espoir d'une civilisation reconstruite sur des bases plus solides après la destruction.</div></div>
+      <div class="q-item" onclick="this.classList.toggle('open')"><div class="q-q">En quoi ce roman résonne-t-il avec notre époque ?</div><div class="q-a">Bradbury écrivait en 1953 mais décrit des phénomènes modernes : la dépendance aux écrans (les murs-TV de Mildred = les smartphones), les oreillettes comme fuite du silence, la vitesse qui empêche de réfléchir, la désinformation, le remplacement du savoir par le divertissement. Son roman est une prophétie qui nous concerne directement.</div></div>
+    </div>
+  </section>
+
+  <section id="liens-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">🔗</span><h2>Liens avec d'autres œuvres</h2></div>
+    <div class="lien-grid">
+      <div class="lien-block"><div class="lien-titre">1984 — George Orwell (1949)</div><div class="lien-desc">Même genre dystopique, même critique du totalitarisme. Mais Orwell montre une censure imposée par la terreur, Bradbury une censure consentie par le confort. Les deux se complètent parfaitement.</div></div>
+      <div class="lien-block"><div class="lien-titre">Le Meilleur des mondes — Aldous Huxley (1932)</div><div class="lien-desc">Autre grande dystopie : chez Huxley, les hommes sont conditionnés par le bonheur artificiel (soma). Comme dans F451, la domination passe par le plaisir, pas la douleur.</div></div>
+      <div class="lien-block"><div class="lien-titre">La Ferme des Animaux — George Orwell (1945)</div><div class="lien-desc">Même critique de la manipulation du langage et de la réécriture de l'histoire pour contrôler les esprits. Dans les deux romans, détruire les mots/livres = détruire la pensée.</div></div>
+      <div class="lien-block"><div class="lien-titre">Don Quichotte — Cervantès (1605)</div><div class="lien-desc">Le premier incipit de l'histoire qui met en scène des livres brûlés ! Le curé et le barbier brûlent les romans de chevalerie de Don Quichotte. Bradbury connaissait ce passage.</div></div>
+      <div class="lien-block"><div class="lien-titre">La Vague — Todd Strasser</div><div class="lien-desc">Les deux romans montrent comment une société peut s'auto-censurer et accepter l'oppression par conformisme. Montag et David Collins sont tous deux des personnages qui "s'éveillent" tardivement.</div></div>
+    </div>
+  </section>
+
+  <section id="conseils-f451" data-for="f451" hidden>
+    <div class="section-label"><span class="section-icon">✅</span><h2>Conseils pour l'oral</h2></div>
+    <div class="tip-list">
+      <div class="tip"><div class="tip-icon">🔥</div><div><strong>Explique le titre dès le début</strong> : 451°F c'est la température à laquelle le papier brûle — ça montre que tu maîtrises le livre et crée une entrée en matière forte.</div></div>
+      <div class="tip"><div class="tip-icon">🌀</div><div><strong>Prépare le paradoxe de Beatty</strong> : il connaît les livres mais les brûle. C'est la question la plus probable et la plus riche à l'oral.</div></div>
+      <div class="tip"><div class="tip-icon">🪞</div><div><strong>Fais le lien avec aujourd'hui</strong> : les écrans, les oreillettes, les réseaux sociaux. L'examinateur adorera voir que tu sais contextualiser.</div></div>
+      <div class="tip"><div class="tip-icon">🐦</div><div><strong>Cite le symbole du phénix</strong> (mentionné par Granger à la fin) : le feu détruit mais permet la renaissance. C'est la clé thématique du roman.</div></div>
+      <div class="tip"><div class="tip-icon">🔇</div><div><strong>Mets en avant la question de la censure consentie</strong> : c'est l'originalité de Bradbury par rapport aux autres dystopies. Pas de dictateur — juste le confort collectif.</div></div>
+      <div class="tip"><div class="tip-icon">📚</div><div><strong>Compare avec 1984 ou Le Meilleur des mondes</strong> si tu les connais — ça montre de la culture littéraire et place F451 dans son genre.</div></div>
+    </div>
+  </section>
+
   </div><!-- /panel-livre -->
 
   <!-- QUIZ -->
@@ -4887,7 +5028,7 @@ Je le dis, vous pouvez vous confier, madame,
   (function() {
     const cards = document.querySelectorAll('#bookSelector .book-card');
     const blocks = livrePanel.querySelectorAll('[data-for]');
-    const VALID = ['vague', 'ferme', 'odyssee', 'cyrano'];
+    const VALID = ['vague', 'ferme', 'odyssee', 'cyrano', 'f451'];
 
     function selectBook(book) {
       if (!VALID.includes(book)) book = 'vague';
