@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>La Vague — Prépa Oral Bac Français</title>
+  <!-- Inter font — premium typographie -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- Apply saved theme before paint to avoid flash -->
   <script>if(localStorage.getItem('theme')==='light')document.documentElement.setAttribute('data-theme','light');</script>
   <style>
@@ -42,7 +46,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
@@ -1378,7 +1382,7 @@
       color: #c8caff;
       font-size: 0.7rem;
       font-weight: 600;
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       white-space: nowrap;
       padding: 4px 9px;
       border-radius: 5px;
@@ -1454,7 +1458,7 @@
       font-size: 0.78rem;
       color: var(--muted);
       font-style: italic;
-      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
       white-space: normal;
     }
 
@@ -2071,12 +2075,294 @@
       .seq-num { display: none; }          /* trop étroit — le nom suffit */
       .seq-name { font-size: 0.85rem; }
     }
+
+    /* ══════════════════════════════════════════════════════════════
+       ✨ UI ENHANCEMENT LAYER v2
+       Superposé, ne casse rien. Chaque règle est additive.
+       ══════════════════════════════════════════════════════════════ */
+
+    /* ── Scrollbar fine et élégante ── */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+    html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+    /* ── Sélection de texte ── */
+    ::selection { background: rgba(108,140,255,0.3); color: var(--text); }
+
+    /* ── Cursor pointer partout ── */
+    .tab-btn, .theme-toggle, .book-card, .texte-card-header,
+    .seq-header, .texte-extrait-toggle, .quiz-btn-yes, .quiz-btn-no,
+    .quiz-reveal-btn, .quiz-start-btn, .quiz-quit-btn, .quiz-mode-btn,
+    .quiz-btn-retry, .gram-question-toggle, .timer-btn, .subnav a { cursor: pointer; }
+
+    /* ── Transitions globales fluides ── */
+    .tab-btn, .book-card, .texte-card, .seq-block, .seq-header,
+    .procede-tag, .axe-item, .gram-type-card, .quiz-card,
+    .timer-btn, .quiz-start-btn, .quiz-reveal-btn, .quiz-btn-yes, .quiz-btn-no {
+      will-change: transform;
+    }
+
+    /* ── Hero : orbes ambiants flottants ── */
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(70px);
+    }
+    .hero-orb-1 {
+      width: 380px; height: 280px;
+      background: radial-gradient(circle, rgba(108,140,255,0.45) 0%, transparent 70%);
+      top: -80px; left: 5%;
+      animation: orbFloat1 9s ease-in-out infinite;
+    }
+    .hero-orb-2 {
+      width: 300px; height: 260px;
+      background: radial-gradient(circle, rgba(255,108,140,0.38) 0%, transparent 70%);
+      top: -50px; right: 8%;
+      animation: orbFloat2 11s ease-in-out infinite;
+    }
+    .hero-orb-3 {
+      width: 220px; height: 180px;
+      background: radial-gradient(circle, rgba(108,255,184,0.28) 0%, transparent 70%);
+      bottom: -10px; left: 42%;
+      animation: orbFloat3 13s ease-in-out infinite;
+    }
+    @keyframes orbFloat1 {
+      0%,100% { transform: translateY(0) translateX(0) scale(1); }
+      40%      { transform: translateY(-24px) translateX(10px) scale(1.06); }
+      70%      { transform: translateY(12px) translateX(-8px) scale(0.96); }
+    }
+    @keyframes orbFloat2 {
+      0%,100% { transform: translateY(0) translateX(0) scale(1); }
+      35%      { transform: translateY(18px) translateX(-12px) scale(1.04); }
+      65%      { transform: translateY(-20px) translateX(8px) scale(0.95); }
+    }
+    @keyframes orbFloat3 {
+      0%,100% { transform: translateY(0) scale(1); }
+      50%      { transform: translateY(-16px) scale(1.08); }
+    }
+    [data-theme="light"] .hero-orb-1 { opacity: 0.45; }
+    [data-theme="light"] .hero-orb-2 { opacity: 0.38; }
+    [data-theme="light"] .hero-orb-3 { opacity: 0.28; }
+
+    /* ── Tab indicator glissant ── */
+    .tab-indicator {
+      position: absolute;
+      bottom: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 3px 3px 0 0;
+      pointer-events: none;
+      transition: left 0.32s cubic-bezier(0.4, 0, 0.2, 1),
+                  width 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 -1px 8px rgba(108,140,255,0.5);
+    }
+    /* Supprimer le border-bottom statique — l'indicateur s'en charge */
+    .tab-btn.active { border-bottom-color: transparent !important; }
+    .tab-btn {
+      position: relative;
+      transition: color 0.2s, background 0.2s;
+    }
+    .tab-btn:active { transform: scale(0.97); transition: transform 0.1s; }
+
+    /* ── Tab panel : fade-in à l'activation ── */
+    .tab-panel.active {
+      animation: panelEnter 0.24s cubic-bezier(0.2, 0, 0, 1) both;
+    }
+    @keyframes panelEnter {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Seq-blocks : hover lift ── */
+    .seq-block {
+      transition: border-color 0.25s, box-shadow 0.25s, transform 0.22s cubic-bezier(0.2,0,0,1);
+    }
+    .seq-block:not(.seq-open):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px -10px rgba(108,140,255,0.28);
+      border-color: rgba(108,140,255,0.35);
+    }
+    /* Seq-num badge pulsation quand la séquence est ouverte */
+    .seq-block.seq-open .seq-num {
+      animation: seqGlow 2.5s ease-in-out infinite;
+    }
+    @keyframes seqGlow {
+      0%,100% { box-shadow: 0 2px 8px -2px rgba(108,140,255,0.6); }
+      50%      { box-shadow: 0 2px 18px -2px rgba(108,140,255,1); }
+    }
+    /* Arrow couleur accent à l'ouverture */
+    .seq-block.seq-open .seq-arrow { color: var(--accent); }
+
+    /* ── Texte cards : hover lift + glow ── */
+    .texte-card {
+      transition: border-color 0.2s, box-shadow 0.25s, transform 0.22s cubic-bezier(0.2,0,0,1);
+    }
+    .texte-card:not(.open):hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px -10px rgba(108,140,255,0.22);
+    }
+    .texte-card.open { transform: none; }
+    .texte-card-header:active { transform: scale(0.998); }
+
+    /* ── Texte-num : scale au hover ── */
+    .texte-num {
+      transition: transform 0.2s cubic-bezier(0.2,0,0,1), box-shadow 0.2s;
+    }
+    .texte-card-header:hover .texte-num {
+      transform: scale(1.1) rotate(-2deg);
+      box-shadow: 0 4px 16px rgba(108,140,255,0.5);
+    }
+
+    /* ── Axe items : stagger fadeIn à l'ouverture ── */
+    @keyframes axeEnter {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .texte-card.open .axe-item {
+      animation: axeEnter 0.28s cubic-bezier(0.2,0,0,1) both;
+    }
+    .texte-card.open .axe-item:nth-child(1) { animation-delay: 0.03s; }
+    .texte-card.open .axe-item:nth-child(2) { animation-delay: 0.09s; }
+    .texte-card.open .axe-item:nth-child(3) { animation-delay: 0.15s; }
+    .texte-card.open .axe-item:nth-child(4) { animation-delay: 0.21s; }
+
+    /* ── Procédés : stagger slideIn à l'ouverture ── */
+    @keyframes procEnter {
+      from { opacity: 0; transform: translateX(-14px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    .texte-card.open .procede-tag {
+      animation: procEnter 0.32s cubic-bezier(0.2,0,0,1) both;
+    }
+    .texte-card.open .procede-tag:nth-child(1)  { animation-delay: 0.06s; }
+    .texte-card.open .procede-tag:nth-child(2)  { animation-delay: 0.10s; }
+    .texte-card.open .procede-tag:nth-child(3)  { animation-delay: 0.14s; }
+    .texte-card.open .procede-tag:nth-child(4)  { animation-delay: 0.18s; }
+    .texte-card.open .procede-tag:nth-child(5)  { animation-delay: 0.22s; }
+    .texte-card.open .procede-tag:nth-child(6)  { animation-delay: 0.26s; }
+    .texte-card.open .procede-tag:nth-child(7)  { animation-delay: 0.30s; }
+    .texte-card.open .procede-tag:nth-child(8)  { animation-delay: 0.34s; }
+    .texte-card.open .procede-tag:nth-child(9)  { animation-delay: 0.38s; }
+    .texte-card.open .procede-tag:nth-child(10) { animation-delay: 0.42s; }
+    .texte-card.open .procede-tag:nth-child(11) { animation-delay: 0.46s; }
+
+    /* ── Procédé hover : lift + glow de la bordure gauche ── */
+    .procede-tag {
+      transition: background 0.18s, transform 0.18s cubic-bezier(0.2,0,0,1), box-shadow 0.18s;
+    }
+    .procede-tag:hover {
+      transform: translateX(5px);
+      box-shadow: -3px 0 0 0 var(--accent), 0 2px 16px -4px rgba(108,140,255,0.3);
+    }
+
+    /* ── Book cards : hover + press ── */
+    .book-card {
+      transition: border-color 0.2s, background 0.2s, transform 0.22s cubic-bezier(0.2,0,0,1), box-shadow 0.22s;
+    }
+    .book-card:hover {
+      box-shadow: 0 8px 28px -8px rgba(108,140,255,0.3);
+    }
+    .book-card:active { transform: scale(0.96) !important; transition-duration: 0.1s; }
+    .book-card.book-active { transform: translateY(-1px); }
+
+    /* ── Grammaire type-cards hover ── */
+    .gram-type-card {
+      transition: transform 0.22s cubic-bezier(0.2,0,0,1), box-shadow 0.22s, border-color 0.2s;
+    }
+    .gram-type-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px -8px rgba(108,140,255,0.25);
+    }
+
+    /* ── Quiz card hover + reveal animation ── */
+    .quiz-card {
+      transition: border-color 0.2s, box-shadow 0.25s, transform 0.2s;
+    }
+    .quiz-card:hover {
+      box-shadow: 0 6px 32px -8px rgba(108,140,255,0.22);
+    }
+    @keyframes quizReveal {
+      from { opacity: 0; transform: translateY(14px) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0)  scale(1); }
+    }
+    /* Override l'animation existante fadeInUp */
+    .quiz-answer { animation: quizReveal 0.3s cubic-bezier(0.2,0,0,1) both !important; }
+
+    /* ── Buttons press scale ── */
+    .quiz-start-btn,
+    .quiz-reveal-btn,
+    .quiz-btn-yes,
+    .quiz-btn-no,
+    .quiz-mode-btn {
+      transition: opacity 0.2s, transform 0.15s, background 0.2s, border-color 0.2s;
+    }
+    .quiz-start-btn:active,
+    .quiz-reveal-btn:active,
+    .quiz-btn-yes:active,
+    .quiz-btn-no:active { transform: scale(0.95); }
+
+    .timer-btn {
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .timer-btn:active { transform: scale(0.94); }
+
+    /* ── Timer : dot pulsant sur phase active ── */
+    @keyframes dotPulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.45; transform: scale(0.7); }
+    }
+    .timer-phase.active .tp-dot {
+      animation: dotPulse 1.4s ease-in-out infinite;
+    }
+
+    /* ── Subnav links hover ── */
+    .subnav a {
+      border-radius: 4px 4px 0 0;
+      transition: color 0.18s, border-color 0.18s, background 0.18s;
+    }
+    .subnav a:hover { background: rgba(108,140,255,0.05); }
+
+    /* ── Focus rings accessibles ── */
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    button:focus:not(:focus-visible) { outline: none; }
+
+    /* ── Sélection de texte thémée ── */
+    [data-theme="light"] ::selection { background: rgba(74,108,247,0.2); }
+
+    /* ── Light mode : séparateurs gram ── */
+    [data-theme="light"] .gram-type-card:hover {
+      box-shadow: 0 8px 28px -8px rgba(74,108,247,0.2);
+    }
+    [data-theme="light"] .procede-tag:hover {
+      box-shadow: -3px 0 0 0 var(--accent), 0 2px 16px -4px rgba(74,108,247,0.2);
+    }
+
+    /* ── Reduced motion : désactiver toutes les animations ── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .hero-orb { animation: none !important; }
+    }
   </style>
 </head>
 <body>
 
 <!-- HERO -->
 <div class="hero">
+  <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+  <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
   <h1><span>Oral Bac Français 2026</span></h1>
   <p style="font-size:0.88rem; color:var(--muted); margin-top:8px;">Sacha Allain</p>
 </div>
@@ -2088,6 +2374,7 @@
   <button class="tab-btn" data-tab="grammaire">Grammaire</button>
   <button class="tab-btn" data-tab="livre">Les Livres</button>
   <button class="tab-btn" data-tab="quiz">Quiz</button>
+  <span class="tab-indicator" id="tabIndicator" aria-hidden="true"></span>
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
 </nav>
 
@@ -5740,6 +6027,23 @@ Je le dis, vous pouvez vous confier, madame,
   // ── 3-tab switching ──
   const tabBtns = document.querySelectorAll('.tab-btn');
   const tabPanels = document.querySelectorAll('.tab-panel');
+  const tabIndicator = document.getElementById('tabIndicator');
+
+  // ── Positionne l'indicateur sous le bouton actif ──
+  function updateIndicator(btn) {
+    if (!tabIndicator || !btn) return;
+    const navRect = btn.closest('nav').getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    tabIndicator.style.left  = (btnRect.left - navRect.left) + 'px';
+    tabIndicator.style.width = btnRect.width + 'px';
+  }
+
+  // Position initiale (sans transition)
+  tabIndicator.style.transition = 'none';
+  updateIndicator(document.querySelector('.tab-btn.active'));
+  requestAnimationFrame(() => {
+    tabIndicator.style.transition = '';
+  });
 
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -5748,8 +6052,19 @@ Je le dis, vous pouvez vous confier, madame,
       tabPanels.forEach(p => p.classList.remove('active'));
       btn.classList.add('active');
       document.getElementById('panel-' + target).classList.add('active');
+      updateIndicator(btn);
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+  });
+
+  // Mise à jour de l'indicateur au resize
+  window.addEventListener('resize', () => {
+    const active = document.querySelector('.tab-btn.active');
+    if (active) {
+      tabIndicator.style.transition = 'none';
+      updateIndicator(active);
+      requestAnimationFrame(() => { tabIndicator.style.transition = ''; });
+    }
   });
 
   // ── Book selector (Les Livres) ──
