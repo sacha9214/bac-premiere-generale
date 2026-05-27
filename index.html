@@ -839,6 +839,20 @@
     .q-item.open .q-answer { display: block; }
     .q-item.open .q-arrow { transform: rotate(180deg); }
 
+    /* Aliases simples pour les q-items sans arrow (F451) */
+    .q-q { font-weight: 600; color: var(--text); }
+    .q-a {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: #aab0cc;
+      line-height: 1.7;
+    }
+    .q-item.open .q-a { display: block; }
+    [data-theme="light"] .q-a { color: var(--muted); }
+
     /* PRESENTATION */
     .prez-step {
       display: flex;
@@ -888,6 +902,17 @@
     }
 
     /* POURQUOI */
+    .angle-list { display: flex; flex-direction: column; gap: 12px; }
+    .angle-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
     .angle-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -1026,6 +1051,14 @@
       border-radius: var(--radius);
       overflow: hidden;
     }
+    .lien-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .lien-titre { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .lien-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+    .lien-grid .lien-block { padding: 16px 18px; }
 
     .lien-header {
       padding: 24px 28px 20px;
@@ -1633,6 +1666,17 @@
       main { padding: 36px 16px 80px; gap: 40px; }
 
       .tab-btn { font-size: 0.85rem; padding: 14px 8px; }
+
+      /* ── New UI — tablet ── */
+      .theme-toggle { padding: 4px 8px; font-size: 0.95rem; right: 8px; }
+      .seq-header { padding: 13px 16px; gap: 10px; }
+      .seq-name { font-size: 0.95rem; }
+      .book-selector { gap: 10px; }
+      .book-card { padding: 14px 10px; }
+      .book-emoji { font-size: 1.6rem; }
+      .book-title { font-size: 0.88rem; }
+      .lien-grid { grid-template-columns: 1fr; }
+      .angle-list { gap: 10px; }
       .subnav a { padding: 10px 10px; font-size: 0.75rem; }
 
       .lien-body { grid-template-columns: 1fr; }
@@ -1702,6 +1746,27 @@
       /* tips */
       .tip { padding: 14px 16px; font-size: 0.88rem; }
 
+      /* ── New UI — mobile ── */
+      .theme-toggle { padding: 3px 7px; font-size: 0.9rem; right: 6px; }
+      .seq-header { padding: 11px 14px; gap: 8px; }
+      .seq-icon { font-size: 1.1rem; }
+      .seq-name { font-size: 0.9rem; }
+      .seq-theme { font-size: 0.7rem; }
+      .seq-num { font-size: 0.65rem; padding: 3px 8px; }
+      .book-selector { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .book-card { padding: 12px 8px; }
+      .book-emoji { font-size: 1.4rem; margin-bottom: 6px; }
+      .book-title { font-size: 0.82rem; }
+      .book-author { font-size: 0.7rem; }
+      .book-check { width: 18px; height: 18px; font-size: 0.65rem; }
+      .angle-card { flex-direction: column; gap: 8px; padding: 14px; }
+      .angle-num { width: 28px; height: 28px; font-size: 0.8rem; flex-shrink: 0; }
+      .lien-block { padding: 14px 16px; }
+      .lien-titre { font-size: 0.88rem; }
+      .lien-desc { font-size: 0.82rem; }
+      .q-q { font-size: 0.88rem; }
+      .q-a { font-size: 0.83rem; }
+
       /* écoute buttons */
       #ecoute > div[style*="display:flex"] { flex-direction: column; }
       #ecoute button { width: 100%; justify-content: center; }
@@ -1726,6 +1791,15 @@
       .milgram-stat-grid { grid-template-columns: 1fr; }
       .tab-btn { font-size: 0.76rem; padding: 12px 4px; }
       .hero h1 { font-size: 2rem; }
+
+      /* ── New UI — tiny mobile ── */
+      .theme-toggle { padding: 2px 6px; font-size: 0.85rem; right: 3px; }
+      .book-card { padding: 10px 6px; }
+      .book-emoji { font-size: 1.2rem; }
+      .book-title { font-size: 0.76rem; }
+      .seq-header { padding: 10px 12px; gap: 6px; }
+      .seq-num { display: none; }          /* trop étroit — le nom suffit */
+      .seq-name { font-size: 0.85rem; }
     }
   </style>
 </head>
