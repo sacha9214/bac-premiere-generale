@@ -432,14 +432,61 @@
     [data-theme="light"] .tip,
     [data-theme="light"] .lien-desc { color: var(--muted); }
 
-    [data-theme="light"] .texte-extrait,
+    /* Texte extrait : remplace le fond sombre par un fond clair */
+    [data-theme="light"] .texte-extrait {
+      background: var(--bg2);
+      border-color: rgba(74,108,247,0.2);
+      color: var(--text);
+    }
     [data-theme="light"] .texte-extrait p,
     [data-theme="light"] .mouvement-texte { color: var(--text); }
 
-    [data-theme="light"] .pt-cite { color: var(--accent); background: rgba(74,108,247,0.07); }
-    [data-theme="light"] .pt-effet { color: var(--muted); }
+    /* Procédés : remplace le fond noir semi-transparent par une card légère */
+    [data-theme="light"] .procede-tag {
+      background: var(--bg3);
+      border-color: rgba(74,108,247,0.18);
+      border-left-color: var(--accent);
+    }
+    [data-theme="light"] .procede-tag:hover {
+      background: #dde3f2;
+      box-shadow: 0 2px 8px rgba(74,108,247,0.1);
+    }
 
-    [data-theme="light"] .annot[data-tooltip]::after { background: rgba(30,35,60,0.95); color: #e8eaf6; }
+    /* Axe items : fond clair, texte lisible */
+    [data-theme="light"] .axe-item {
+      background: var(--bg2);
+      border-color: var(--border);
+    }
+
+    /* Citations : fond accent très léger, texte accent */
+    [data-theme="light"] .pt-cite {
+      color: var(--accent);
+      background: rgba(74,108,247,0.08);
+      border-radius: 3px;
+    }
+    [data-theme="light"] .pt-effet { color: var(--muted); }
+    [data-theme="light"] .pt-nom { color: var(--accent); }
+
+    /* Boîte grammaire du texte */
+    [data-theme="light"] .grammaire-box {
+      background: rgba(255,180,60,0.06);
+      border-color: rgba(180,130,0,0.2);
+    }
+
+    /* Tooltip : sombre reste lisible sur fond clair */
+    [data-theme="light"] .annot[data-tooltip]::after {
+      background: rgba(20,22,40,0.92);
+      color: #e8eaf6;
+    }
+
+    /* Inline analysis separator */
+    [data-theme="light"] .texte-inline-analysis {
+      border-top-color: rgba(74,108,247,0.15);
+    }
+
+    /* Bouton "Voir le texte" */
+    [data-theme="light"] .texte-extrait-toggle { color: var(--accent); }
+    [data-theme="light"] .texte-extrait-toggle:hover { color: var(--text); }
 
     /* Cards + séparateurs mieux visibles */
     [data-theme="light"] .texte-card,
