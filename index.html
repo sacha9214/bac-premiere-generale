@@ -1709,6 +1709,155 @@
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+    /* ── GRAMMAIRE ── */
+    .gram-type-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-bottom: 10px;
+    }
+    .gram-type-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .gram-type-title {
+      font-weight: 800;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .gram-type-def {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 0 0 10px;
+    }
+    .gram-example {
+      background: rgba(108,140,255,0.07);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+    .gram-tip {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+    /* Subordonnée items */
+    .gram-sub-list { display: flex; flex-direction: column; gap: 14px; }
+    .gram-sub-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+    }
+    .gram-sub-num {
+      flex-shrink: 0;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gram-sub-body { flex: 1; }
+    .gram-sub-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .gram-sub-def {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    /* Circonstancielle grid */
+    .gram-circ-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .gram-circ-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      background: rgba(108,140,255,0.05);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .gram-circ-label { font-weight: 700; font-size: 0.85rem; }
+    .gram-circ-conj { font-size: 0.8rem; color: var(--muted); font-style: italic; }
+    .gram-circ-ex { font-size: 0.82rem; color: var(--text); }
+    /* Mots interrogatifs */
+    .gram-mots-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .gram-mot-group { flex: 1; min-width: 160px; }
+    .gram-mot-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .gram-mot-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .gram-mot-items span {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      font-size: 0.83rem;
+      color: var(--text);
+    }
+    /* Négation list */
+    .gram-neg-list { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .gram-neg-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .gram-neg-item:last-child { border-bottom: none; }
+    .gram-neg-label {
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .gram-neg-def {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    /* Racine exercise */
+    .gram-racine-list { display: flex; flex-direction: column; gap: 2px; }
+
+    /* Light mode overrides for grammar */
+    [data-theme="light"] .gram-example { color: var(--text); }
+    [data-theme="light"] .gram-mot-items span { color: var(--text); }
+
     /* ===================== RESPONSIVE ===================== */
 
     /* Tablet (≤ 768px) */
@@ -1737,6 +1886,10 @@
       .exam-grid { grid-template-columns: repeat(2, 1fr); }
 
       .card-grid.cols-3 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+
+      /* Grammar tablet */
+      .gram-type-grid { grid-template-columns: 1fr; }
+      .gram-circ-grid { grid-template-columns: 1fr; }
     }
 
     /* Mobile (≤ 600px) */
@@ -1868,6 +2021,7 @@
   <button class="tab-btn" data-tab="textes">Mes textes</button>
   <button class="tab-btn" data-tab="livre">Les Livres</button>
   <button class="tab-btn" data-tab="quiz">Quiz</button>
+  <button class="tab-btn" data-tab="grammaire">Grammaire</button>
   <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
 </nav>
 
@@ -4450,6 +4604,358 @@ Je le dis, vous pouvez vous confier, madame,
 
   </div><!-- /panel-quiz -->
 
+  <!-- GRAMMAIRE -->
+  <div class="tab-panel" id="panel-grammaire">
+
+    <nav class="subnav" id="grammaire-subnav">
+      <a href="#gram-phrase">La phrase complexe</a>
+      <a href="#gram-interro">L'interrogation</a>
+      <a href="#gram-neg">La négation</a>
+    </nav>
+
+    <!-- ══ 1. LA PHRASE COMPLEXE ══ -->
+    <section id="gram-phrase">
+      <div class="section-label">
+        <span class="section-icon">🔗</span>
+        <h2>La phrase complexe</h2>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <p style="font-size:0.93rem; line-height:1.7;">
+          <strong style="color:var(--accent)">Phrase simple</strong> = <strong>un seul verbe conjugué</strong> → une seule proposition.<br>
+          <em style="color:var(--muted)">Ex : « Gargantua a trouvé un torche-cul idéal. »</em><br><br>
+          <strong style="color:var(--accent)">Phrase complexe</strong> = <strong>au moins deux verbes conjugués</strong> → au moins deux propositions.<br>
+          <em style="color:var(--muted)">Ex : « Gargantua a trouvé un torche-cul idéal <u>et</u> c'est un oison. »</em>
+        </p>
+      </div>
+
+      <!-- 3 types -->
+      <div class="gram-type-grid">
+
+        <!-- Juxtaposition -->
+        <div class="gram-type-card" style="border-left-color: var(--accent);">
+          <div class="gram-type-title">1. La juxtaposition</div>
+          <p class="gram-type-def">Deux propositions reliées par un signe de ponctuation : <strong>virgule ( , ) point-virgule ( ; ) deux-points ( : )</strong> — sans mot de liaison.</p>
+          <div class="gram-example">
+            « [Rabelais est un humaniste] , [il était médecin]. »
+          </div>
+          <div class="gram-tip">💡 Astuce : supprime la ponctuation → les deux phrases sont indépendantes.</div>
+        </div>
+
+        <!-- Coordination -->
+        <div class="gram-type-card" style="border-left-color: var(--accent2);">
+          <div class="gram-type-title">2. La coordination</div>
+          <p class="gram-type-def">Deux propositions reliées par une <strong>conjonction de coordination</strong> :<br><code>mais — ou — et — donc — or — ni — car</code></p>
+          <div class="gram-example">
+            « [Rabelais est un humaniste] <u>et</u> [il est médecin]. »
+          </div>
+          <div class="gram-tip">💡 Moyen mnémo : <strong>mais ou et donc or ni car</strong></div>
+        </div>
+
+        <!-- Subordination -->
+        <div class="gram-type-card" style="border-left-color: var(--accent3);">
+          <div class="gram-type-title">3. La subordination</div>
+          <p class="gram-type-def">Une <strong>proposition principale</strong> + une <strong>proposition subordonnée</strong> reliées par un outil de subordination. La subordonnée dépend de la principale.</p>
+          <div class="gram-example">
+            « [Rabelais met en avant le corps] [<u>parce qu'</u>il était médecin]. »
+          </div>
+          <div class="gram-tip">💡 La subordonnée ne peut pas fonctionner seule.</div>
+        </div>
+
+      </div><!-- /gram-type-grid -->
+
+      <!-- 4 types de subordination -->
+      <div class="section-label" style="margin-top:28px;">
+        <span class="section-icon">🔍</span>
+        <h3 style="font-size:1.05rem;">Les 4 types de propositions subordonnées</h3>
+      </div>
+
+      <div class="gram-sub-list">
+
+        <div class="gram-sub-item">
+          <div class="gram-sub-num" style="background:var(--accent);">1</div>
+          <div class="gram-sub-body">
+            <div class="gram-sub-title">Subordonnée relative</div>
+            <div class="gram-sub-def">Complète un <strong>NOM ou GN</strong> (antécédent). Introduite par un <strong>pronom relatif</strong> : <em>qui, que, quoi, dont, où, lequel, laquelle, lesquels…</em><br>
+            Fonction : <strong>adjective</strong> (supprimable) ou <strong>substantive</strong> (sans antécédent).</div>
+            <div class="gram-example">« [Rabelais est un humaniste] [<u>qui</u> met le corps au centre de sa philosophie]. »<br>→ <em>antécédent</em> : humaniste / <em>pronom relatif</em> : qui</div>
+            <div class="gram-example" style="margin-top:8px;">Relative substantive : « Embrassez <u>qui</u> vous voulez. » (pas d'antécédent → le relatif est sujet)</div>
+          </div>
+        </div>
+
+        <div class="gram-sub-item">
+          <div class="gram-sub-num" style="background:var(--accent2);">2</div>
+          <div class="gram-sub-body">
+            <div class="gram-sub-title">Subordonnée conjonctive complétive par « que »</div>
+            <div class="gram-sub-def">Complète un <strong>VERBE</strong> (verbe avant). Introduite par <strong>« que »</strong>. Fonction : <strong>COD du verbe principal</strong>.</div>
+            <div class="gram-example">« [Je pense] [<u>que</u> Rabelais est un humaniste]. »<br>→ <em>prop. principale</em> : Je pense / <em>prop. sub. complétive</em> : que Rabelais…</div>
+          </div>
+        </div>
+
+        <div class="gram-sub-item">
+          <div class="gram-sub-num" style="background:var(--accent3);">3</div>
+          <div class="gram-sub-body">
+            <div class="gram-sub-title">Subordonnée circonstancielle</div>
+            <div class="gram-sub-def">Indique une <strong>circonstance</strong> (temps, cause, but, conséquence, concession, condition…). Souvent <strong>déplaçable et supprimable</strong>.</div>
+            <div class="gram-circ-grid">
+              <div class="gram-circ-item">
+                <span class="gram-circ-label" style="color:var(--accent);">Temps</span>
+                <span class="gram-circ-conj">quand, lorsque, dès que, avant que, après que</span>
+                <span class="gram-circ-ex">« [Quand Rabelais parle du corps], [il est comique]. »</span>
+              </div>
+              <div class="gram-circ-item">
+                <span class="gram-circ-label" style="color:var(--accent2);">Cause</span>
+                <span class="gram-circ-conj">parce que, puisque, vu que, comme, étant donné que</span>
+                <span class="gram-circ-ex">« [Rabelais met en avant le corps] [<u>parce qu'</u>il était médecin]. »</span>
+              </div>
+              <div class="gram-circ-item">
+                <span class="gram-circ-label" style="color:var(--accent3);">But</span>
+                <span class="gram-circ-conj">pour que, afin que, de peur que, de crainte que</span>
+                <span class="gram-circ-ex">« [Rabelais fait rire] [<u>pour que</u> ses messages passent mieux]. »</span>
+              </div>
+              <div class="gram-circ-item">
+                <span class="gram-circ-label" style="color:var(--accent4);">Conséquence</span>
+                <span class="gram-circ-conj">au point que, de sorte que, si bien que, tellement…que</span>
+                <span class="gram-circ-ex">« [Gargamelle a tellement mangé de tripes] [<u>qu'</u>elle accouche Gargantua par l'oreille]. »</span>
+              </div>
+              <div class="gram-circ-item">
+                <span class="gram-circ-label" style="color:var(--accent5);">Concession / Opposition</span>
+                <span class="gram-circ-conj">bien que, quoique, même si, alors que, tandis que</span>
+                <span class="gram-circ-ex">« [Bien qu'il soit malade], [il travaille]. »</span>
+              </div>
+              <div class="gram-circ-item">
+                <span class="gram-circ-label" style="color:var(--muted);">Condition</span>
+                <span class="gram-circ-conj">si, à condition que, pourvu que, à moins que</span>
+                <span class="gram-circ-ex">« [Si tu travailles], [tu réussiras]. »</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="gram-sub-item">
+          <div class="gram-sub-num" style="background:var(--accent4);">4</div>
+          <div class="gram-sub-body">
+            <div class="gram-sub-title">Subordonnée interrogative indirecte</div>
+            <div class="gram-sub-def">Fait partie d'une phrase complexe. Pas de point d'interrogation. Introduite par un <strong>mot interrogatif (si, pourquoi, quand, où, comment…)</strong>. Verbe de la principale : demander, interroger, se demander…</div>
+            <div class="gram-example">« Nous pouvons nous demander <u>si</u> le poème est lyrique. »<br>« Je me demande <u>quand</u> ils arriveront. »</div>
+          </div>
+        </div>
+
+      </div><!-- /gram-sub-list -->
+    </section>
+
+    <!-- ══ 2. L'INTERROGATION ══ -->
+    <section id="gram-interro">
+      <div class="section-label">
+        <span class="section-icon">❓</span>
+        <h2>L'interrogation</h2>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <p style="font-size:0.93rem; line-height:1.7;">La phrase interrogative sert à <strong>poser une question</strong>. Elle se caractérise par un <strong>point d'interrogation</strong> (sauf l'interrogation indirecte) et <strong>l'inversion du sujet et du verbe</strong>. Quand elle n'attend pas de réponse, c'est une <strong>question rhétorique</strong>.</p>
+      </div>
+
+      <div class="gram-type-grid">
+
+        <div class="gram-type-card" style="border-left-color: var(--accent);">
+          <div class="gram-type-title">Interrogation directe</div>
+          <p class="gram-type-def">Phrase qui se <strong>termine par un point d'interrogation</strong>.</p>
+          <div class="gram-example">« Vient-il ? » / « As-tu vu Charles ? »</div>
+          <div class="gram-tip">3 façons de la former :<br>① Inversion sujet-verbe : <em>Manges-tu ?</em><br>② Est-ce que : <em>Est-ce que tu pars ?</em><br>③ Intonation montante (oral, fam.) : <em>Tu pars ?</em></div>
+        </div>
+
+        <div class="gram-type-card" style="border-left-color: var(--accent2);">
+          <div class="gram-type-title">Interrogation indirecte</div>
+          <p class="gram-type-def">Phrase qui se <strong>termine par un point</strong>. C'est une <strong>subordonnée</strong> dans une phrase complexe. Le verbe principal est un verbe interrogatif (<em>demander, se demander…</em>).</p>
+          <div class="gram-example">« Je me demande <u>quand</u> ils arriveront. »<br>« Nous pouvons nous demander <u>si</u> le poème est lyrique. »</div>
+        </div>
+
+      </div>
+
+      <div class="gram-type-grid" style="margin-top:14px;">
+
+        <div class="gram-type-card" style="border-left-color: var(--accent3);">
+          <div class="gram-type-title">Interrogation totale</div>
+          <p class="gram-type-def">L'interrogation porte sur <strong>toute la phrase</strong>. On peut répondre par <strong>oui ou non</strong>.</p>
+          <div class="gram-example">« As-tu vu Charles cette semaine ? »<br>→ Oui / Non.</div>
+          <div class="gram-tip">⚠️ N'oublie pas le tiret à l'inversion. Ajoute un -t- si le verbe finit par une voyelle : <em>Aime-<strong>t</strong>-il ?</em></div>
+        </div>
+
+        <div class="gram-type-card" style="border-left-color: var(--accent4);">
+          <div class="gram-type-title">Interrogation partielle</div>
+          <p class="gram-type-def">L'interrogation porte sur <strong>une partie de la phrase</strong>. Elle possède un <strong>mot interrogatif</strong>. On ne peut pas répondre par oui/non.</p>
+          <div class="gram-example">« <u>Pourquoi</u> viens-tu ? » / « <u>Qui</u> a fait cela ? »</div>
+        </div>
+
+      </div>
+
+      <!-- Mots interrogatifs -->
+      <div class="card" style="margin-top:18px;">
+        <div style="font-size:0.78rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:12px;">Mots interrogatifs</div>
+        <div class="gram-mots-grid">
+          <div class="gram-mot-group">
+            <div class="gram-mot-label">Adverbes</div>
+            <div class="gram-mot-items"><span>comment</span><span>pourquoi</span><span>où</span><span>quand</span><span>combien</span></div>
+          </div>
+          <div class="gram-mot-group">
+            <div class="gram-mot-label">Pronoms</div>
+            <div class="gram-mot-items"><span>qui</span><span>que</span><span>quoi</span><span>lequel</span><span>laquelle</span><span>lesquels</span></div>
+          </div>
+          <div class="gram-mot-group">
+            <div class="gram-mot-label">Déterminants</div>
+            <div class="gram-mot-items"><span>quel</span><span>quels</span><span>quelle</span><span>quelles</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 3. LA NÉGATION ══ -->
+    <section id="gram-neg">
+      <div class="section-label">
+        <span class="section-icon">🚫</span>
+        <h2>La négation</h2>
+      </div>
+
+      <div class="card" style="margin-bottom:16px; background:rgba(108,140,255,0.05); border-color:rgba(108,140,255,0.2);">
+        <p style="font-size:0.93rem; line-height:1.7; color:var(--muted);">Source : Émilie Pons — Lycée Dominique Villars, Gap. <em>Point de grammaire : l'expression de la négation (classe de première)</em></p>
+      </div>
+
+      <!-- I. Moyens -->
+      <div class="section-label" style="margin-top:0;">
+        <h3 style="font-size:1rem; color:var(--text);">I. Moyens lexicaux et syntaxiques</h3>
+      </div>
+
+      <div class="gram-type-grid">
+
+        <div class="gram-type-card" style="border-left-color: var(--accent);">
+          <div class="gram-type-title">A. Négation lexicale</div>
+          <div class="gram-neg-list">
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">Antonymie</span>
+              <span class="gram-neg-def">Mot contraire : <em>rapide → lent</em></span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">Dérivation préfixale</span>
+              <span class="gram-neg-def">Préfixe négatif : <em>fini → in<strong>fini</strong></em>, <em>habile → mal<strong>habile</strong></em>, <em>construire → dé<strong>construire</strong></em></span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">Préposition « sans »</span>
+              <span class="gram-neg-def">Inverse le sens de « avec » : <em>avec chapeau → sans chapeau</em></span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">Adverbe « Non »</span>
+              <span class="gram-neg-def">Forme une phrase négative seul : <em>Vient-il ? → Non.</em></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="gram-type-card" style="border-left-color: var(--accent2);">
+          <div class="gram-type-title">B. Négation syntaxique</div>
+          <div class="gram-neg-list">
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">ne…pas / point / jamais / guère</span>
+              <span class="gram-neg-def">Construction standard : <em>J'aime ce film → Je <strong>n'aime pas</strong> ce film.</em></span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">ne + pronom indéfini</span>
+              <span class="gram-neg-def"><em>rien, personne, aucun</em> : <em>Il <strong>n'écoute rien</strong>.</em><br><em><strong>Personne ne</strong> sort d'ici.</em></span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">ne + déterminant indéfini</span>
+              <span class="gram-neg-def"><em>nul, aucun</em> devant un nom : <em><strong>Nul</strong> lieu au monde <strong>ne</strong> me plaît.</em></span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">Conjonction « ni »</span>
+              <span class="gram-neg-def">Coordonne dans une phrase négative : <em>Il <strong>n'aime ni</strong> le chocolat <strong>ni</strong> les bonbons.</em> (= remplace « et » en négatif)</span>
+            </div>
+            <div class="gram-neg-item">
+              <span class="gram-neg-label">Négation restrictive ne…que</span>
+              <span class="gram-neg-def">Pas une vraie négation : <em>Il <strong>ne veut que</strong> travailler.</em> = Il veut seulement travailler. (excepte l'élément qu'il nie)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- II. Portée -->
+      <div class="section-label" style="margin-top:24px;">
+        <h3 style="font-size:1rem; color:var(--text);">II. Portée de la négation</h3>
+      </div>
+
+      <div class="gram-type-grid">
+        <div class="gram-type-card" style="border-left-color: var(--accent3);">
+          <div class="gram-type-title">Portée totale</div>
+          <p class="gram-type-def">Construite avec <strong>ne…pas / point</strong> → porte sur <strong>l'ensemble de l'idée</strong> exprimée.</p>
+          <div class="gram-example">« Il <strong>ne vient pas</strong>. » (négation de « Il vient »)<br>« Nous <strong>ne partons point</strong>. »</div>
+        </div>
+        <div class="gram-type-card" style="border-left-color: var(--accent4);">
+          <div class="gram-type-title">Portée partielle</div>
+          <p class="gram-type-def">Construite avec <strong>ne + mot négatif</strong> → porte sur <strong>un seul élément</strong> de la phrase.</p>
+          <div class="gram-example">« Elle <strong>ne mange rien</strong>. » (négation de <em>quelque chose</em>)<br>« Je <strong>n'entends personne</strong>. » (négation de <em>quelqu'un</em>)<br>« Je <strong>ne vais nulle part</strong>. » (négation de <em>quelque part</em>)</div>
+        </div>
+      </div>
+
+      <!-- III. Niveaux de langue -->
+      <div class="section-label" style="margin-top:24px;">
+        <h3 style="font-size:1rem; color:var(--text);">III. Négation et niveau de langue</h3>
+      </div>
+
+      <div class="gram-type-grid">
+        <div class="gram-type-card" style="border-left-color: var(--accent5);">
+          <div class="gram-type-title">🗣️ Langage familier</div>
+          <p class="gram-type-def">L'adverbe <strong>« ne » est supprimé</strong> à l'oral.</p>
+          <div class="gram-example">« J'<strong>aime pas</strong> la guerre. »</div>
+        </div>
+        <div class="gram-type-card" style="border-left-color: var(--accent3);">
+          <div class="gram-type-title">📜 Langage soutenu / littéraire</div>
+          <p class="gram-type-def">Le <strong>« ne » seul</strong> suffit parfois (le second mot négatif est omis) — tour élégant, langue littéraire.</p>
+          <div class="gram-example">« Je <strong>ne saurais</strong> vous dire… » (= ne saurais <em>pas</em>)<br>« Elle <strong>n'ose</strong> insister. » (= n'ose <em>pas</em>)</div>
+        </div>
+      </div>
+
+      <!-- Le ne explétif -->
+      <div class="card" style="margin-top:18px; border-left:3px solid var(--accent2);">
+        <div style="font-weight:700; color:var(--accent2); margin-bottom:10px; font-size:0.95rem;">⚠️ Le « ne » explétif</div>
+        <p style="font-size:0.92rem; line-height:1.7;">Le « ne » explétif s'emploie <strong>seul, sans autre adverbe de négation</strong>, et n'a <strong>pas de vrai sens négatif</strong>. Il apparaît après un <strong>verbe de crainte, de défense ou d'empêchement</strong> (<em>craindre, éviter, empêcher, ne pas douter que…</em>) et peut être supprimé sans changer le sens.</p>
+        <div class="gram-example" style="margin-top:12px;">« J'ai peur qu'il <strong>ne</strong> vienne. » ← ne explétif : le locuteur craint qu'il vienne vraiment.<br><em style="color:var(--muted)">≠</em> « J'ai peur qu'il <strong>ne vienne pas</strong>. » ← vraie négation : il craint qu'il ne vienne <em>pas</em>.</div>
+        <div class="gram-tip" style="margin-top:12px;">💡 Le ne explétif peut être supprimé : « J'ai peur qu'il vienne » = même sens que « J'ai peur qu'il <strong>ne</strong> vienne ».</div>
+      </div>
+
+      <!-- Exercice Racine -->
+      <div class="section-label" style="margin-top:28px;">
+        <h3 style="font-size:1rem; color:var(--text);">🎭 Exercice — Phèdre, Racine (1677)</h3>
+      </div>
+      <div class="card" style="background:rgba(108,255,184,0.04); border-color:rgba(108,255,184,0.2);">
+        <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Repérez et analysez l'expression de la négation dans ces vers.</p>
+
+        <div class="gram-racine-list">
+          <div class="q-item">
+            <div class="q-q" onclick="this.classList.toggle('open')">1. « Ô désespoir ! ô crime ! » <em>(I, 3)</em></div>
+            <div class="q-a">« <strong>Désespoir</strong> » = antonyme de « espoir », par dérivation préfixale (<em>préfixe négatif dé-</em>).</div>
+          </div>
+          <div class="q-item">
+            <div class="q-q" onclick="this.classList.toggle('open')">2. « Voyage infortuné ! Rivage malheureux. » <em>(I, 3)</em></div>
+            <div class="q-a">« <strong>Infortuné</strong> » = antonyme de « fortuné » (préfixe <em>in-</em>) ; « <strong>malheureux</strong> » = antonyme de « heureux » (préfixe <em>mal-</em>). Négation lexicale par dérivation préfixale.</div>
+          </div>
+          <div class="q-item">
+            <div class="q-q" onclick="this.classList.toggle('open')">3. « Mes yeux ne voyaient plus, je ne pouvais parler. » <em>(I, 3)</em></div>
+            <div class="q-a">« ne…<strong>plus</strong> » → négation de portée <em>partielle</em> (≠ « Mes yeux voyaient <em>encore</em> »). « Je <strong>ne</strong> pouvais parler » → <em>ne</em> seul, tour littéraire : économie du second adverbe (on aurait pu dire « ne pouvais <em>pas</em> parler »).</div>
+          </div>
+          <div class="q-item">
+            <div class="q-q" onclick="this.classList.toggle('open')">4. « Mais si pour concurrent je n'avais que mon frère. » <em>(II, 2)</em></div>
+            <div class="q-a">« <strong>ne…que</strong> » = <em>négation restrictive</em> : correspond à « j'avais <em>seulement</em> mon frère ». Elle exclut « mon frère » des éléments niés (n'est pas une vraie négation).</div>
+          </div>
+          <div class="q-item">
+            <div class="q-q" onclick="this.classList.toggle('open')">5. « Je crains qu'un songe ne m'abuse. » <em>(II, 2)</em></div>
+            <div class="q-a">« <strong>ne</strong> » explétif : s'emploie seul après « craindre » sans sens négatif. Le locuteur craint que le songe l'abuse vraiment. Tour élégant, peut être supprimé sans changer le sens.</div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+  </div><!-- /panel-grammaire -->
+
 </main>
 
 <!-- STICKY PLAYER -->
@@ -5212,6 +5718,23 @@ Je le dis, vous pouvez vous confier, madame,
       a.classList.toggle('sub-active', a.getAttribute('href') === '#' + current);
     });
   });
+
+  // ── Subnav scroll highlight inside Grammaire ──
+  (function() {
+    const gramPanel = document.getElementById('panel-grammaire');
+    const gramNav   = document.getElementById('grammaire-subnav');
+    window.addEventListener('scroll', () => {
+      if (!gramPanel.classList.contains('active')) return;
+      const sections = gramPanel.querySelectorAll('section[id]');
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      gramNav.querySelectorAll('a').forEach(a => {
+        a.classList.toggle('sub-active', a.getAttribute('href') === '#' + current);
+      });
+    });
+  })();
 
   // ── Timer ──
   (function() {
