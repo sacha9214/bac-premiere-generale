@@ -200,6 +200,75 @@
     }
     .subnav a:hover { color: var(--text); border-bottom-color: var(--accent); }
     .subnav a.sub-active { color: var(--text); border-bottom-color: var(--accent); }
+
+    /* ── Book selector ── */
+    .book-selector {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0 4px;
+    }
+    @media (max-width: 720px) {
+      .book-selector { grid-template-columns: repeat(2, 1fr); }
+    }
+    .book-card {
+      position: relative;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      text-align: center;
+      overflow: hidden;
+    }
+    .book-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--bk-accent, var(--accent));
+      opacity: 0.55;
+      transition: opacity 0.2s;
+    }
+    .book-card:hover {
+      border-color: var(--bk-accent, var(--accent));
+      background: var(--bg3);
+      transform: translateY(-2px);
+    }
+    .book-card.book-active {
+      border-color: var(--bk-accent, var(--accent));
+      background: color-mix(in srgb, var(--bk-accent, var(--accent)) 12%, var(--card));
+    }
+    .book-card.book-active::before { opacity: 1; }
+    .book-emoji { font-size: 1.9rem; line-height: 1; margin-bottom: 8px; }
+    .book-title {
+      font-weight: 800;
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.25;
+    }
+    .book-author {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .book-check {
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--bk-accent, var(--accent));
+      color: #fff;
+      font-size: 0.7rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+    }
+    .book-card.book-active .book-check { display: flex; }
+    /* book content visibility handled in JS via hidden attr */
+    [data-for][hidden] { display: none !important; }
     /* ── Sequence blocks ── */
     .seq-block {
       margin-bottom: 22px;
@@ -2505,7 +2574,37 @@ Je le dis, vous pouvez vous confier, madame,
   </div><!-- /panel-textes -->
 
   <div class="tab-panel" id="panel-livre">
-  <nav class="subnav">
+
+  <!-- ══ BOOK SELECTOR ══ -->
+  <div class="book-selector" id="bookSelector">
+    <div class="book-card" data-book="vague" style="--bk-accent: var(--accent);">
+      <div class="book-check">✓</div>
+      <div class="book-emoji">🌊</div>
+      <div class="book-title">La Vague</div>
+      <div class="book-author">Todd Strasser</div>
+    </div>
+    <div class="book-card" data-book="ferme" style="--bk-accent: var(--accent2);">
+      <div class="book-check">✓</div>
+      <div class="book-emoji">🐖</div>
+      <div class="book-title">La Ferme des Animaux</div>
+      <div class="book-author">George Orwell</div>
+    </div>
+    <div class="book-card" data-book="odyssee" style="--bk-accent: var(--accent3);">
+      <div class="book-check">✓</div>
+      <div class="book-emoji">⛵</div>
+      <div class="book-title">L'Odyssée</div>
+      <div class="book-author">Homère</div>
+    </div>
+    <div class="book-card" data-book="cyrano" style="--bk-accent: var(--accent4);">
+      <div class="book-check">✓</div>
+      <div class="book-emoji">🎭</div>
+      <div class="book-title">Cyrano de Bergerac</div>
+      <div class="book-author">Edmond Rostand</div>
+    </div>
+  </div>
+
+  <!-- ══════════ LA VAGUE ══════════ -->
+  <nav class="subnav" data-for="vague">
     <a href="#resume">Résumé</a>
     <a href="#persos">Personnages</a>
     <a href="#themes">Thèmes</a>
@@ -2517,7 +2616,7 @@ Je le dis, vous pouvez vous confier, madame,
     <a href="#ecoute">Écoute</a>
   </nav>
   <!-- RESUME -->
-  <section id="resume">
+  <section id="resume" data-for="vague">
     <div class="section-label">
       <span class="section-icon">📖</span>
       <h2>Résumé de l'œuvre</h2>
@@ -2552,7 +2651,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- PERSONNAGES -->
-  <section id="persos">
+  <section id="persos" data-for="vague">
     <div class="section-label">
       <span class="section-icon">👤</span>
       <h2>Personnages principaux</h2>
@@ -2582,7 +2681,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- THEMES -->
-  <section id="themes">
+  <section id="themes" data-for="vague">
     <div class="section-label">
       <span class="section-icon">💡</span>
       <h2>Thèmes principaux</h2>
@@ -2634,7 +2733,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- PRESENTATION -->
-  <section id="presentation">
+  <section id="presentation" data-for="vague">
     <div class="section-label">
       <span class="section-icon">🎤</span>
       <h2>Construire ma présentation (~2 min)</h2>
@@ -2686,7 +2785,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- POURQUOI -->
-  <section id="pourquoi">
+  <section id="pourquoi" data-for="vague">
     <div class="section-label">
       <span class="section-icon">❓</span>
       <h2>Pourquoi j'ai choisi ce livre ?</h2>
@@ -2725,7 +2824,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- QUESTIONS -->
-  <section id="questions">
+  <section id="questions" data-for="vague">
     <div class="section-label">
       <span class="section-icon">💬</span>
       <h2>Questions probables de l'examinateur</h2>
@@ -2822,7 +2921,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- LIENS AVEC L'OEUVRE -->
-  <section id="liens">
+  <section id="liens" data-for="vague">
     <div class="section-label">
       <span class="section-icon">🔗</span>
       <h2>Liens avec l'œuvre</h2>
@@ -2940,7 +3039,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- CONSEILS -->
-  <section id="conseils">
+  <section id="conseils" data-for="vague">
     <div class="section-label">
       <span class="section-icon">✅</span>
       <h2>Conseils pour le jour J</h2>
@@ -2974,7 +3073,7 @@ Je le dis, vous pouvez vous confier, madame,
   </section>
 
   <!-- ECOUTE -->
-  <section id="ecoute">
+  <section id="ecoute" data-for="vague">
     <div class="section-label">
       <span class="section-icon">🎧</span>
       <h2>Écoute — Révision audio</h2>
@@ -2993,6 +3092,1022 @@ Je le dis, vous pouvez vous confier, madame,
       <button onclick="testVoix()" style="background:var(--bg3); border:1px solid var(--border); color:var(--text); border-radius:8px; padding:8px 18px; font-size:0.85rem; cursor:pointer;">🔊 Tester l'audio</button>
     </div>
     <div class="listen-tracks" id="listenTracksContainer"></div>
+  </section>
+
+  <!-- ══════════ LA FERME DES ANIMAUX ══════════ -->
+  <nav class="subnav" data-for="ferme" hidden>
+    <a href="#resume-ferme">Résumé</a>
+    <a href="#persos-ferme">Personnages</a>
+    <a href="#themes-ferme">Thèmes</a>
+    <a href="#presentation-ferme">Ma présentation</a>
+    <a href="#pourquoi-ferme">Pourquoi ce livre</a>
+    <a href="#questions-ferme">Questions probables</a>
+    <a href="#liens-ferme">Liens avec l'œuvre</a>
+    <a href="#conseils-ferme">Conseils</a>
+  </nav>
+
+  <section id="resume-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">📖</span>
+      <h2>Résumé de l'œuvre</h2>
+    </div>
+    <div class="resume-box">
+      À la Ferme du Manoir, les animaux, épuisés par les mauvais traitements du fermier <strong>Mr Jones</strong>, se révoltent et le chassent. Ils rebaptisent le domaine « la Ferme des Animaux » et fondent l'<strong>Animalisme</strong>, résumé en sept commandements dont le plus célèbre : « Tous les animaux sont égaux. » Deux cochons s'imposent comme chefs : <strong>Napoléon</strong>, autoritaire et calculateur, et <strong>Boule de Neige</strong>, idéaliste et bon orateur. Napoléon finit par chasser son rival à l'aide de chiens dressés et instaure une dictature. Peu à peu, les cochons s'arrogent tous les privilèges, falsifient les commandements et réécrivent l'histoire grâce à la propagande de <strong>Brille-Babil</strong>. À la fin, les cochons marchent sur deux pattes, boivent, commercent avec les humains : ils sont devenus indiscernables de leurs anciens oppresseurs. Le dernier commandement tient en une phrase : « Tous les animaux sont égaux, mais certains sont plus égaux que d'autres. »
+    </div>
+    <div style="margin-top: 20px;" class="card">
+      <div style="display:flex; gap:32px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Auteur</div>
+          <div style="font-weight:700;">George Orwell</div>
+          <div style="font-size:0.85rem; color:var(--muted);">pseudonyme d'Eric Arthur Blair</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Date</div>
+          <div style="font-weight:700;">1945</div>
+          <div style="font-size:0.85rem; color:var(--muted);">après la Seconde Guerre mondiale</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Genre / Mouvement</div>
+          <div style="font-weight:700;">Fable politique, apologue</div>
+          <div style="font-size:0.85rem; color:var(--muted);">satire, dystopie</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Lieu / Époque</div>
+          <div style="font-weight:700;">Une ferme anglaise</div>
+          <div style="font-size:0.85rem; color:var(--muted);">allégorie de la Russie soviétique</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="persos-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">👤</span>
+      <h2>Personnages principaux</h2>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="perso-card" style="border-color: rgba(255,108,140,0.3);">
+        <div class="perso-role">Cochon — le dictateur</div>
+        <div class="perso-name" style="color:var(--accent2);">Napoléon</div>
+        <div class="perso-desc">Cochon ambitieux et brutal. Il écarte ses rivaux, s'entoure de chiens dressés comme police politique et concentre tous les pouvoirs. Allégorie de Staline.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(108,255,184,0.3);">
+        <div class="perso-role">Cochon — l'idéaliste écarté</div>
+        <div class="perso-name" style="color:var(--accent3);">Boule de Neige</div>
+        <div class="perso-desc">Brillant orateur et stratège, sincèrement attaché à l'idéal révolutionnaire (le projet de moulin). Chassé par Napoléon, il devient ensuite le bouc émissaire désigné de tous les malheurs. Allégorie de Trotski.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(255,201,108,0.3);">
+        <div class="perso-role">Cochon — le propagandiste</div>
+        <div class="perso-name" style="color:var(--accent4);">Brille-Babil</div>
+        <div class="perso-desc">Beau parleur, il sait « faire passer le noir pour le blanc ». Il justifie chaque abus de Napoléon et réécrit l'histoire. Incarne la propagande d'État et la manipulation du langage.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Cheval de trait</div>
+        <div class="perso-name">Malabar</div>
+        <div class="perso-desc">D'une force et d'un dévouement immenses, sa devise est « Je vais travailler plus dur ». Naïf et loyal, il est exploité jusqu'à l'épuisement puis vendu à l'équarrisseur. Symbole du peuple travailleur trahi.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Jument</div>
+        <div class="perso-name">Douce</div>
+        <div class="perso-desc">Compagne de Malabar, douce et lucide. Elle pressent la trahison des idéaux sans pouvoir l'empêcher, faute de savoir lire les commandements modifiés.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Âne — le cynique</div>
+        <div class="perso-name">Benjamin</div>
+        <div class="perso-desc">Le plus vieil animal, taciturne et désabusé. Il comprend tout mais refuse d'agir : « La vie continuera comme elle a toujours continué, c'est-à-dire mal. » Incarne le désenchantement lucide.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Le fermier humain</div>
+        <div class="perso-name">Mr Jones</div>
+        <div class="perso-desc">Propriétaire négligent et alcoolique chassé au début. Sa figure sert d'épouvantail : la menace de « son retour » justifie ensuite toutes les privations imposées aux animaux.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">💡</span>
+      <h2>Thèmes principaux</h2>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="theme-card">
+        <div class="theme-num">1</div>
+        <div class="theme-content">
+          <h3>La corruption du pouvoir</h3>
+          <p>« Le pouvoir corrompt. » Les cochons, d'abord égaux aux autres, accaparent les privilèges jusqu'à devenir des tyrans pires que l'humain qu'ils ont chassé.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">2</div>
+        <div class="theme-content">
+          <h3>La trahison des idéaux révolutionnaires</h3>
+          <p>La révolution promettait l'égalité ; elle aboutit à une nouvelle dictature. Orwell montre comment un idéal pur est détourné par ceux qui s'en réclament.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">3</div>
+        <div class="theme-content">
+          <h3>La propagande et le langage manipulé</h3>
+          <p>Brille-Babil réécrit les commandements, falsifie les chiffres, invente des complots. Le langage devient une arme pour contrôler la pensée — annonce de la « novlangue » de 1984.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">4</div>
+        <div class="theme-content">
+          <h3>Le totalitarisme</h3>
+          <p>Police politique (les chiens), culte du chef, ennemi désigné (Boule de Neige), réécriture de l'histoire : tous les ressorts du régime totalitaire sont en place.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">5</div>
+        <div class="theme-content">
+          <h3>La résignation et l'ignorance</h3>
+          <p>Les animaux ne savent pas lire ou n'osent pas réagir. L'absence d'esprit critique et la résignation rendent l'oppression possible.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">6</div>
+        <div class="theme-content">
+          <h3>L'exploitation du peuple</h3>
+          <p>Malabar travaille jusqu'à la mort pour être finalement vendu. Le « petit peuple » paie le prix d'une révolution confisquée par une élite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="presentation-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">🎤</span>
+      <h2>Construire ma présentation (~2 min)</h2>
+    </div>
+    <div class="card">
+      <div class="timeline" style="border:none; padding:0;">
+        <div class="prez-step">
+          <div class="prez-step-num">1</div>
+          <div class="prez-step-content">
+            <h3>Titre, auteur, contexte</h3>
+            <div class="prez-example">
+              "J'ai choisi <em>La Ferme des Animaux</em>, écrit par George Orwell et publié en 1945. C'est une fable politique, ou apologue, c'est-à-dire un récit où des animaux servent à faire passer une leçon morale et politique."
+            </div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">2</div>
+          <div class="prez-step-content">
+            <h3>Le projet du livre + résumé rapide</h3>
+            <div class="prez-example">
+              "Orwell raconte la révolte d'animaux contre leur fermier : ils fondent l'Animalisme et l'égalité de tous. Mais les cochons, menés par Napoléon, confisquent le pouvoir, trahissent l'idéal et deviennent aussi tyranniques que les humains. C'est une allégorie transparente de la Révolution russe et de la dérive stalinienne."
+            </div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">3</div>
+          <div class="prez-step-content">
+            <h3>Pourquoi tu l'as choisi</h3>
+            <p>Voir la section suivante pour les angles.</p>
+            <div class="prez-example">"J'ai choisi ce livre parce que..."</div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">4</div>
+          <div class="prez-step-content">
+            <h3>Ce que ça t'a apporté</h3>
+            <div class="prez-example">
+              "Ce livre m'a montré qu'une révolution peut produire l'inverse de ce qu'elle promet, et m'a appris à me méfier des discours et de la propagande."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">❓</span>
+      <h2>Pourquoi j'ai choisi ce livre ?</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Choisis l'angle qui te parle le plus — l'important c'est d'être sincère.</p>
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="angle-card">
+        <div class="angle-emoji">🐖</div>
+        <div class="angle-text">
+          <h3>Une fable simple qui dit des choses immenses</h3>
+          <p>Sous une histoire d'animaux de ferme, Orwell explique tout un système politique. J'ai aimé cette manière de rendre limpide quelque chose d'aussi complexe que le totalitarisme.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">📜</div>
+        <div class="angle-text">
+          <h3>Il éclaire l'Histoire</h3>
+          <p>Le livre est une allégorie de la Révolution russe : Napoléon, c'est Staline ; Boule de Neige, c'est Trotski. Le lire, c'est comprendre comment une révolution se transforme en dictature.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">🗣️</div>
+        <div class="angle-text">
+          <h3>Il m'a appris à me méfier des mots</h3>
+          <p>Le personnage de Brille-Babil montre comment la propagande déforme la vérité. C'est troublant et toujours d'actualité face aux fake news et aux discours manipulateurs.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">💔</div>
+        <div class="angle-text">
+          <h3>Le destin de Malabar m'a marqué</h3>
+          <p>Ce cheval qui se tue à la tâche en croyant servir une cause, puis qu'on vend à l'équarrisseur, est bouleversant. Il incarne tous les peuples trahis par leurs dirigeants.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">💬</span>
+      <h2>Questions probables de l'examinateur</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Clique sur une question pour voir une piste de réponse.</p>
+    <div class="q-group">
+      <div class="q-group-title">Sur l'œuvre elle-même</div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi peut-on parler d'apologue ou de fable ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Parce qu'Orwell utilise des animaux personnifiés pour délivrer une leçon politique et morale, comme dans les fables de La Fontaine. Le récit est simple et plaisant en apparence, mais il porte une critique sérieuse : c'est tout le principe de l'apologue, « plaire et instruire ».</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Que représentent Napoléon et Boule de Neige ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">L'œuvre est une allégorie de la Révolution russe : Napoléon représente Staline (la prise du pouvoir par la force et la terreur), Boule de Neige représente Trotski (l'intellectuel idéaliste chassé puis diabolisé). Mr Jones figure le tsar renversé.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Comment les commandements évoluent-ils ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Les sept commandements sont peu à peu falsifiés : « Aucun animal ne boira d'alcool » devient « ...avec excès », « Aucun animal ne tuera un autre animal » devient « ...sans raison ». À la fin il n'en reste qu'un : « Tous les animaux sont égaux, mais certains sont plus égaux que d'autres. » C'est l'illustration de la réécriture de l'histoire par le pouvoir.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Quel personnage t'a le plus marqué(e) ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Répondre sincèrement. Exemple : Malabar, parce que sa loyauté et son courage sont magnifiques mais le mènent à sa perte. Il incarne la tragédie du peuple sincère trahi par ses chefs — c'est ce qui rend le livre déchirant.</div>
+      </div>
+    </div>
+    <div class="q-group">
+      <div class="q-group-title">Questions plus larges et personnelles</div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Le livre est-il toujours d'actualité ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Oui : au-delà du stalinisme, il décrit un mécanisme universel — comment un pouvoir confisque une révolution et manipule l'opinion. Les thèmes de la propagande, des fake news, du culte du chef et de la réécriture des faits restent terriblement actuels.</div>
+      </div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Quel est le message final du livre ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Le pouvoir corrompt, et une révolution sans vigilance ni esprit critique peut accoucher d'une tyrannie pire que celle qu'elle a renversée. La dernière image — les cochons et les humains devenus impossibles à distinguer — résume cet avertissement.</div>
+      </div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi avoir choisi des animaux plutôt que des humains ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">L'allégorie animale permet de prendre du recul, de rendre la critique universelle et intemporelle, et de déjouer la censure. Elle rend aussi la leçon plus frappante : voir des cochons devenir des tyrans est plus parlant qu'un exposé politique abstrait.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="liens-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">🔗</span>
+      <h2>Liens avec l'œuvre</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:24px;">Citer ces références pendant l'entretien montre une vraie culture générale.</p>
+    <div class="lien-block" style="margin-bottom:32px;">
+      <div class="lien-header">
+        <div class="lien-tag milgram">Contexte historique</div>
+        <h3 class="lien-title">La Révolution russe et le stalinisme</h3>
+        <div class="lien-meta">1917–1945 · URSS</div>
+      </div>
+      <div class="lien-body">
+        <div class="lien-col">
+          <div class="lien-sub">Le parallèle</div>
+          <p>Chaque épisode du livre correspond à un fait réel : la révolte des animaux = la Révolution de 1917 ; l'expulsion de Boule de Neige = l'exil de Trotski ; les chiens de Napoléon = la police politique (NKVD) ; le moulin détruit puis reconstruit = les plans quinquennaux.</p>
+        </div>
+        <div class="lien-col">
+          <div class="lien-sub">À retenir</div>
+          <div class="diff-list">
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent2)"></div><div>Napoléon → <strong>Staline</strong></div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent2)"></div><div>Boule de Neige → <strong>Trotski</strong></div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent2)"></div><div>Mr Jones → <strong>le tsar Nicolas II</strong></div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent2)"></div><div>Sage l'Ancien → <strong>Marx / Lénine</strong></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lien-quote">
+        <div class="lien-quote-icon">💬</div>
+        <div><strong>À dire à l'oral :</strong> "La Ferme des Animaux est une allégorie transparente de la Révolution russe : Orwell, socialiste lui-même, dénonce non pas l'idéal d'égalité, mais sa trahison par Staline."</div>
+      </div>
+    </div>
+    <div class="lien-block">
+      <div class="lien-header">
+        <div class="lien-tag film">Autre œuvre d'Orwell</div>
+        <h3 class="lien-title">1984 (1949)</h3>
+        <div class="lien-meta">George Orwell · roman dystopique</div>
+      </div>
+      <div class="lien-body">
+        <div class="lien-col">
+          <div class="lien-sub">Le lien</div>
+          <p>Quatre ans plus tard, Orwell pousse plus loin la même critique du totalitarisme : surveillance permanente (Big Brother), réécriture de l'histoire, « novlangue ». La manipulation du langage de Brille-Babil annonce directement la novlangue de 1984.</p>
+        </div>
+        <div class="lien-col">
+          <div class="lien-sub">Le slogan emblématique</div>
+          <p style="font-style:italic;">« La guerre c'est la paix, la liberté c'est l'esclavage, l'ignorance c'est la force. » — écho direct du « Tous les animaux sont égaux, mais certains sont plus égaux que d'autres ».</p>
+        </div>
+      </div>
+      <div class="lien-quote" style="border-color: rgba(255,108,140,0.3); background: rgba(255,108,140,0.05);">
+        <div class="lien-quote-icon">💬</div>
+        <div><strong>À dire à l'oral :</strong> "On peut rapprocher La Ferme des Animaux de 1984, du même auteur : les deux dénoncent le totalitarisme et montrent comment le langage devient un instrument de domination."</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conseils-ferme" data-for="ferme" hidden>
+    <div class="section-label">
+      <span class="section-icon">✅</span>
+      <h2>Conseils pour le jour J</h2>
+    </div>
+    <div class="tip-list">
+      <div class="tip"><div class="tip-icon">🎯</div><div><strong>Annonce d'emblée le genre :</strong> « fable politique » ou « apologue ». Ça montre que tu as compris la nature de l'œuvre dès la première phrase.</div></div>
+      <div class="tip"><div class="tip-icon">🗺️</div><div><strong>Maîtrise les correspondances historiques</strong> (Napoléon=Staline, Boule de Neige=Trotski). C'est la question la plus probable.</div></div>
+      <div class="tip"><div class="tip-icon">🧩</div><div><strong>Retiens l'évolution des commandements</strong>, surtout le dernier : « certains sont plus égaux que d'autres ». C'est la citation à placer absolument.</div></div>
+      <div class="tip"><div class="tip-icon">🔗</div><div><strong>Sache faire le lien avec 1984</strong> du même auteur : ça impressionne et montre une vraie culture.</div></div>
+      <div class="tip"><div class="tip-icon">⚔️</div><div><strong>Si on te challenge,</strong> rappelle qu'Orwell était socialiste : il ne critique pas l'égalité, mais sa confiscation par une élite.</div></div>
+      <div class="tip"><div class="tip-icon">😤</div><div><strong>Montre de l'enthousiasme</strong> — parle du destin de Malabar ou de l'image finale des cochons : ce sont des moments forts qui marquent.</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════ L'ODYSSÉE ══════════ -->
+  <nav class="subnav" data-for="odyssee" hidden>
+    <a href="#resume-odyssee">Résumé</a>
+    <a href="#persos-odyssee">Personnages</a>
+    <a href="#themes-odyssee">Thèmes</a>
+    <a href="#presentation-odyssee">Ma présentation</a>
+    <a href="#pourquoi-odyssee">Pourquoi ce livre</a>
+    <a href="#questions-odyssee">Questions probables</a>
+    <a href="#liens-odyssee">Liens avec l'œuvre</a>
+    <a href="#conseils-odyssee">Conseils</a>
+  </nav>
+
+  <section id="resume-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">📖</span>
+      <h2>Résumé de l'œuvre</h2>
+    </div>
+    <div class="resume-box">
+      Après la victoire de la guerre de Troie, <strong>Ulysse</strong>, roi d'Ithaque, tente de rentrer chez lui, mais son voyage dure dix années. Poursuivi par la colère de <strong>Poséidon</strong>, il affronte mille épreuves : il aveugle le cyclope <strong>Polyphème</strong>, échappe à la magicienne <strong>Circé</strong> qui change ses compagnons en pourceaux, résiste au chant des <strong>Sirènes</strong>, traverse le détroit de <strong>Scylla et Charybde</strong> et descend même aux Enfers. Retenu sept ans par la nymphe <strong>Calypso</strong>, il finit par regagner Ithaque, aidé par la déesse <strong>Athéna</strong>. Pendant ce temps, son fils <strong>Télémaque</strong> part à sa recherche et sa femme <strong>Pénélope</strong> repousse les prétendants par une ruse — la toile qu'elle défait chaque nuit. De retour déguisé en mendiant, Ulysse, reconnu de quelques fidèles, massacre les prétendants et retrouve enfin son royaume, son fils et son épouse. L'épopée compte <strong>24 chants</strong>.
+    </div>
+    <div style="margin-top: 20px;" class="card">
+      <div style="display:flex; gap:32px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Auteur</div>
+          <div style="font-weight:700;">Homère</div>
+          <div style="font-size:0.85rem; color:var(--muted);">aède grec (existence débattue)</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Époque</div>
+          <div style="font-weight:700;">~ VIIIe–IXe s. av. J.-C.</div>
+          <div style="font-size:0.85rem; color:var(--muted);">Grèce antique, tradition orale</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Genre</div>
+          <div style="font-weight:700;">Épopée (24 chants)</div>
+          <div style="font-size:0.85rem; color:var(--muted);">poème en vers, récit héroïque</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Lieu</div>
+          <div style="font-weight:700;">Méditerranée, Ithaque</div>
+          <div style="font-size:0.85rem; color:var(--muted);">mers et îles légendaires</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="persos-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">👤</span>
+      <h2>Personnages principaux</h2>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="perso-card" style="border-color: rgba(108,255,184,0.3);">
+        <div class="perso-role">Le héros</div>
+        <div class="perso-name" style="color:var(--accent3);">Ulysse (Odysseus)</div>
+        <div class="perso-desc">Roi d'Ithaque, surnommé « l'homme aux mille tours » (<em>polytropos</em>). Il l'emporte par la ruse et l'intelligence plutôt que par la force. Endurant, courageux, mais aussi rusé jusqu'à la tromperie.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(108,255,184,0.3);">
+        <div class="perso-role">L'épouse fidèle</div>
+        <div class="perso-name" style="color:var(--accent3);">Pénélope</div>
+        <div class="perso-desc">Modèle de fidélité conjugale. Elle repousse les prétendants par la ruse de la toile, qu'elle tisse le jour et défait la nuit, en attendant le retour d'Ulysse pendant vingt ans.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Le fils en quête du père</div>
+        <div class="perso-name">Télémaque</div>
+        <div class="perso-desc">Fils d'Ulysse et Pénélope. Les premiers chants (la « Télémachie ») racontent son voyage initiatique pour retrouver son père et devenir un homme.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(108,140,255,0.4);">
+        <div class="perso-role">Déesse protectrice</div>
+        <div class="perso-name" style="color:var(--accent);">Athéna</div>
+        <div class="perso-desc">Déesse de la sagesse et de la ruse. Elle protège Ulysse et Télémaque tout au long du récit, prenant souvent une apparence humaine pour les guider.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">La nymphe</div>
+        <div class="perso-name">Calypso</div>
+        <div class="perso-desc">Nymphe qui retient Ulysse sept ans sur son île et lui offre l'immortalité. Il refuse, par fidélité à Pénélope et amour de sa patrie : la nostalgie l'emporte sur l'éternité.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">La magicienne</div>
+        <div class="perso-name">Circé</div>
+        <div class="perso-desc">Enchanteresse qui transforme les compagnons d'Ulysse en porcs. Le héros lui résiste grâce à une plante magique, puis devient son allié pour la suite du voyage.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(255,201,108,0.3);">
+        <div class="perso-role">Le cyclope</div>
+        <div class="perso-name" style="color:var(--accent4);">Polyphème</div>
+        <div class="perso-desc">Géant à un œil, fils de Poséidon. Ulysse l'aveugle et lui échappe par la ruse du « Personne ». Cet acte déclenche la colère de Poséidon, moteur de tout le récit.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(255,108,140,0.3);">
+        <div class="perso-role">Le dieu hostile</div>
+        <div class="perso-name" style="color:var(--accent2);">Poséidon</div>
+        <div class="perso-desc">Dieu de la mer, père de Polyphème. Il persécute Ulysse pour venger son fils, multipliant tempêtes et naufrages : c'est l'antagoniste divin de l'épopée.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">💡</span>
+      <h2>Thèmes principaux</h2>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="theme-card">
+        <div class="theme-num">1</div>
+        <div class="theme-content">
+          <h3>Le retour (le <em>nostos</em>)</h3>
+          <p>Tout le poème est tendu vers le retour au pays. La nostalgie d'Ithaque est si forte qu'Ulysse renonce même à l'immortalité offerte par Calypso. C'est l'origine du mot « nostalgie ».</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">2</div>
+        <div class="theme-content">
+          <h3>La ruse contre la force brute</h3>
+          <p>Ulysse triomphe par l'intelligence (le « Personne », le cheval de Troie). L'épopée célèbre la <em>mètis</em>, l'astuce, plus que la force des héros guerriers de l'Iliade.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">3</div>
+        <div class="theme-content">
+          <h3>La fidélité conjugale</h3>
+          <p>Pénélope incarne l'amour qui résiste au temps et aux pressions. Les retrouvailles autour du secret du lit conjugal scellent la reconnaissance des époux.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">4</div>
+        <div class="theme-content">
+          <h3>La relation père-fils</h3>
+          <p>Télémaque part à la recherche d'Ulysse ; cette quête du père est aussi une quête de soi. Leurs retrouvailles et leur alliance contre les prétendants sont un sommet du récit.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">5</div>
+        <div class="theme-content">
+          <h3>Les dieux et le destin</h3>
+          <p>Athéna protège, Poséidon persécute : le sort d'Ulysse dépend du bon vouloir des dieux. L'épopée met en scène le rapport des hommes au divin et à leur destin.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">6</div>
+        <div class="theme-content">
+          <h3>L'hospitalité (la <em>xenia</em>)</h3>
+          <p>L'accueil de l'étranger est une valeur sacrée. Le respect ou le mépris de l'hospitalité (les bons hôtes contre les prétendants gloutons) sépare les civilisés des barbares.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">7</div>
+        <div class="theme-content">
+          <h3>Le voyage initiatique</h3>
+          <p>Chaque épreuve transforme Ulysse. Le périple, jusqu'à la descente aux Enfers, est un parcours d'apprentissage : on en sort grandi et plus sage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="presentation-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">🎤</span>
+      <h2>Construire ma présentation (~2 min)</h2>
+    </div>
+    <div class="card">
+      <div class="timeline" style="border:none; padding:0;">
+        <div class="prez-step">
+          <div class="prez-step-num">1</div>
+          <div class="prez-step-content">
+            <h3>Titre, auteur, genre</h3>
+            <div class="prez-example">
+              "J'ai choisi <em>L'Odyssée</em>, attribuée au poète grec Homère, composée vers le VIIIe siècle avant Jésus-Christ. C'est une épopée en 24 chants, l'un des textes fondateurs de la littérature occidentale."
+            </div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">2</div>
+          <div class="prez-step-content">
+            <h3>Le sujet + résumé rapide</h3>
+            <div class="prez-example">
+              "L'œuvre raconte le retour d'Ulysse, roi d'Ithaque, après la guerre de Troie. Son voyage dure dix ans, semé d'épreuves : le cyclope Polyphème, Circé, les Sirènes, Calypso. Pendant ce temps, sa femme Pénélope l'attend fidèlement. À la fin, il rentre déguisé et chasse les prétendants."
+            </div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">3</div>
+          <div class="prez-step-content">
+            <h3>Pourquoi tu l'as choisi</h3>
+            <p>Voir la section suivante pour les angles.</p>
+            <div class="prez-example">"J'ai choisi ce texte parce que..."</div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">4</div>
+          <div class="prez-step-content">
+            <h3>Ce que ça t'a apporté</h3>
+            <div class="prez-example">
+              "Ce récit m'a fait découvrir un héros qui gagne par l'intelligence et non par la force, et m'a montré que des questions très anciennes — le retour, la fidélité, le voyage — sont toujours les nôtres."
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">❓</span>
+      <h2>Pourquoi j'ai choisi ce livre ?</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Choisis l'angle qui te parle le plus — l'important c'est d'être sincère.</p>
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="angle-card">
+        <div class="angle-emoji">🏛️</div>
+        <div class="angle-text">
+          <h3>Un texte fondateur de notre culture</h3>
+          <p>L'Odyssée est à l'origine de la littérature occidentale. La lire, c'est remonter à la source d'innombrables récits, expressions et mythes que nous utilisons encore.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">🧠</div>
+        <div class="angle-text">
+          <h3>Un héros qui gagne par l'intelligence</h3>
+          <p>J'aime qu'Ulysse triomphe par la ruse et non par la force. C'est un héros plus humain, plus malin, auquel on peut s'identifier davantage qu'à un guerrier invincible.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">⛵</div>
+        <div class="angle-text">
+          <h3>Le goût de l'aventure et du voyage</h3>
+          <p>Cyclope, Sirènes, magiciennes, Enfers... C'est une succession d'aventures extraordinaires qui se lit comme un grand récit d'évasion, tout en étant porteur de sens.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">🏠</div>
+        <div class="angle-text">
+          <h3>Une histoire universelle de retour</h3>
+          <p>Le désir de rentrer chez soi, de retrouver les siens, est intemporel. Ulysse refuse même l'immortalité pour revoir Ithaque : ce choix m'a touché.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">💬</span>
+      <h2>Questions probables de l'examinateur</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Clique sur une question pour voir une piste de réponse.</p>
+    <div class="q-group">
+      <div class="q-group-title">Sur l'œuvre elle-même</div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Qu'est-ce qu'une épopée ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Un long poème narratif qui célèbre les exploits d'un héros, mêlant le merveilleux (dieux, monstres) et l'héroïque. L'épopée était à l'origine chantée par les aèdes : elle relève d'une tradition orale.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi Ulysse est-il surnommé « l'homme aux mille tours » ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Parce qu'il est « polytropos » : rusé, inventif, capable de se sortir de toutes les situations par l'intelligence. C'est sa ruse (le « Personne », le cheval de Troie) qui le caractérise, plus que la force physique.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Quel épisode t'a le plus marqué(e) ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Répondre sincèrement. Exemple : l'épisode du cyclope Polyphème, parce que la ruse du « Personne » montre toute l'intelligence d'Ulysse — mais c'est aussi son orgueil (révéler son nom) qui déclenche la colère de Poséidon et toutes ses épreuves.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Que symbolise la toile de Pénélope ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">La ruse féminine et la fidélité. Pénélope promet de choisir un prétendant quand elle aura fini de tisser un linceul, mais elle le défait chaque nuit. C'est l'équivalent féminin de la ruse d'Ulysse : un stratagème pour gagner du temps.</div>
+      </div>
+    </div>
+    <div class="q-group">
+      <div class="q-group-title">Questions plus larges et personnelles</div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi ce texte est-il encore lu aujourd'hui ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Parce que ses thèmes sont universels et intemporels : le voyage, le retour, la fidélité, le rapport père-fils, l'épreuve qui fait grandir. Il a aussi nourri toute la littérature occidentale, de Virgile à Joyce, et continue d'inspirer films et romans.</div>
+      </div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">En quoi Ulysse est-il un héros différent ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Contrairement aux héros de l'Iliade qui brillent par la force au combat, Ulysse est un héros de la ruse, de l'endurance et de l'intelligence. Il est aussi plus humain : il pleure, il doute, il ment, il commet des erreurs. C'est ce qui le rend proche de nous.</div>
+      </div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi Ulysse refuse-t-il l'immortalité de Calypso ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Parce que la nostalgie de sa patrie et de Pénélope l'emporte sur la promesse de vie éternelle. Ce choix montre que pour Ulysse, vivre pleinement une vie d'homme, mortelle, auprès des siens, vaut plus que l'éternité dans l'oubli.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="liens-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">🔗</span>
+      <h2>Liens avec l'œuvre</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:24px;">Citer ces références pendant l'entretien montre une vraie culture générale.</p>
+    <div class="lien-block" style="margin-bottom:32px;">
+      <div class="lien-header">
+        <div class="lien-tag milgram">Héritage antique</div>
+        <h3 class="lien-title">L'Énéide de Virgile (Ier s. av. J.-C.)</h3>
+        <div class="lien-meta">Virgile · épopée latine</div>
+      </div>
+      <div class="lien-body">
+        <div class="lien-col">
+          <div class="lien-sub">Le lien</div>
+          <p>Virgile s'inspire directement d'Homère pour raconter le voyage d'Énée, héros troyen fuyant Troie pour fonder Rome. Comme l'Odyssée, c'est une épopée du voyage, des dieux et de la fondation — la suite romaine du modèle grec.</p>
+        </div>
+        <div class="lien-col">
+          <div class="lien-sub">À retenir</div>
+          <div class="diff-list">
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent3)"></div><div>Énée descend lui aussi <strong>aux Enfers</strong></div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent3)"></div><div>Même merveilleux : <strong>dieux, tempêtes, prophéties</strong></div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent3)"></div><div>Homère = modèle <strong>fondateur</strong> de l'épopée</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lien-quote">
+        <div class="lien-quote-icon">💬</div>
+        <div><strong>À dire à l'oral :</strong> "L'Odyssée a inspiré toute la tradition épique : Virgile, quelques siècles plus tard, écrit l'Énéide sur le même modèle, preuve que le texte d'Homère est une matrice de la littérature occidentale."</div>
+      </div>
+    </div>
+    <div class="lien-block">
+      <div class="lien-header">
+        <div class="lien-tag film">Réécritures modernes</div>
+        <h3 class="lien-title">Ulysse de Joyce & O'Brother</h3>
+        <div class="lien-meta">James Joyce (1922) · frères Coen (2000)</div>
+      </div>
+      <div class="lien-body">
+        <div class="lien-col">
+          <div class="lien-sub">Ulysse, James Joyce</div>
+          <p>Le roman transpose l'errance d'Ulysse en une seule journée à Dublin : chaque chapitre correspond à un épisode de l'Odyssée. Preuve que le mythe reste un cadre fécond pour le roman moderne.</p>
+        </div>
+        <div class="lien-col">
+          <div class="lien-sub">O'Brother (film)</div>
+          <p>Les frères Coen transposent l'Odyssée dans l'Amérique des années 1930 : un évadé nommé Ulysse rentre chez lui, croise des Sirènes et un cyclope borgne. Une réécriture comique et populaire.</p>
+        </div>
+      </div>
+      <div class="lien-quote" style="border-color: rgba(108,255,184,0.3); background: rgba(108,255,184,0.05);">
+        <div class="lien-quote-icon">💬</div>
+        <div><strong>À dire à l'oral :</strong> "Le mythe d'Ulysse traverse les siècles : de l'Ulysse de Joyce au film O'Brother des frères Coen, le motif du voyage initiatique et du retour continue d'inspirer artistes et écrivains."</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conseils-odyssee" data-for="odyssee" hidden>
+    <div class="section-label">
+      <span class="section-icon">✅</span>
+      <h2>Conseils pour le jour J</h2>
+    </div>
+    <div class="tip-list">
+      <div class="tip"><div class="tip-icon">🎯</div><div><strong>Pose le cadre :</strong> « épopée fondatrice, 24 chants, tradition orale ». Ça montre que tu situes l'œuvre dans l'histoire littéraire.</div></div>
+      <div class="tip"><div class="tip-icon">🧠</div><div><strong>Insiste sur la ruse :</strong> Ulysse est le héros de la <em>mètis</em>, pas de la force. C'est l'angle qui le distingue des héros de l'Iliade.</div></div>
+      <div class="tip"><div class="tip-icon">📚</div><div><strong>Retiens 3-4 épisodes clés</strong> (Polyphème, Circé, les Sirènes, Calypso) avec leur sens, pas seulement l'anecdote.</div></div>
+      <div class="tip"><div class="tip-icon">🔤</div><div><strong>Place le vocabulaire grec :</strong> <em>nostos</em> (le retour), <em>xenia</em> (l'hospitalité), <em>polytropos</em>. Bien employé, ça fait la différence.</div></div>
+      <div class="tip"><div class="tip-icon">🔗</div><div><strong>Connais une réécriture</strong> (Énéide, Joyce, O'Brother) pour montrer que le mythe est toujours vivant.</div></div>
+      <div class="tip"><div class="tip-icon">😤</div><div><strong>Parle avec enthousiasme</strong> de l'aventure : c'est un récit passionnant, fais-le sentir.</div></div>
+    </div>
+  </section>
+
+  <!-- ══════════ CYRANO DE BERGERAC ══════════ -->
+  <nav class="subnav" data-for="cyrano" hidden>
+    <a href="#resume-cyrano">Résumé</a>
+    <a href="#persos-cyrano">Personnages</a>
+    <a href="#themes-cyrano">Thèmes</a>
+    <a href="#presentation-cyrano">Ma présentation</a>
+    <a href="#pourquoi-cyrano">Pourquoi ce livre</a>
+    <a href="#questions-cyrano">Questions probables</a>
+    <a href="#liens-cyrano">Liens avec l'œuvre</a>
+    <a href="#conseils-cyrano">Conseils</a>
+  </nav>
+
+  <section id="resume-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">📖</span>
+      <h2>Résumé de l'œuvre</h2>
+    </div>
+    <div class="resume-box">
+      <strong>Cyrano de Bergerac</strong>, gascon spirituel, brillant poète et redoutable bretteur, souffre d'un complexe : son <strong>nez démesuré</strong>. Il aime en secret sa cousine <strong>Roxane</strong>, mais se juge trop laid pour être aimé. Or Roxane est éprise du beau <strong>Christian de Neuvillette</strong>, élégant mais dépourvu d'esprit. Par amour, Cyrano accepte un sacrifice : il prêtera ses mots à Christian pour séduire Roxane — c'est la célèbre <strong>scène du balcon</strong>, où Cyrano souffle dans l'ombre les déclarations enflammées. Roxane tombe amoureuse de cette âme sans savoir qu'elle est celle de Cyrano. Christian meurt à la guerre, au siège d'Arras. Fidèle à son secret, Cyrano ne révèle jamais son amour. <strong>Quinze ans plus tard</strong>, mortellement blessé, il rend visite à Roxane retirée au couvent et récite par cœur la dernière lettre de Christian — qu'il avait lui-même écrite. Roxane comprend alors la vérité, mais il est trop tard. Cyrano meurt en proclamant son <strong>panache</strong>.
+    </div>
+    <div style="margin-top: 20px;" class="card">
+      <div style="display:flex; gap:32px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Auteur</div>
+          <div style="font-weight:700;">Edmond Rostand</div>
+          <div style="font-size:0.85rem; color:var(--muted);">dramaturge français</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Date</div>
+          <div style="font-weight:700;">1897</div>
+          <div style="font-size:0.85rem; color:var(--muted);">triomphe dès la création</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Genre / Mouvement</div>
+          <div style="font-weight:700;">Comédie héroïque en vers</div>
+          <div style="font-size:0.85rem; color:var(--muted);">drame romantique tardif, néo-romantisme</div>
+        </div>
+        <div>
+          <div style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted); margin-bottom:6px;">Lieu / Époque</div>
+          <div style="font-weight:700;">Paris, 1640 (sous Louis XIII)</div>
+          <div style="font-size:0.85rem; color:var(--muted);">d'après un personnage réel du XVIIe s.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="persos-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">👤</span>
+      <h2>Personnages principaux</h2>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="perso-card" style="border-color: rgba(255,201,108,0.3);">
+        <div class="perso-role">Le héros</div>
+        <div class="perso-name" style="color:var(--accent4);">Cyrano de Bergerac</div>
+        <div class="perso-desc">Poète, bretteur et soldat gascon au nez immense. Génie de la parole, courageux et fier, il cache un cœur sensible blessé par sa laideur. Il incarne le <em>panache</em> : la noblesse d'âme et le geste superbe malgré tout.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(255,108,140,0.3);">
+        <div class="perso-role">L'aimée</div>
+        <div class="perso-name" style="color:var(--accent2);">Roxane</div>
+        <div class="perso-desc">Précieuse cousine de Cyrano, éprise de beau langage. Elle aime Christian pour son physique, puis tombe amoureuse de son « esprit » — sans savoir qu'il s'agit de celui de Cyrano. Elle ne comprend la vérité qu'à la fin.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Le beau jeune homme</div>
+        <div class="perso-name">Christian de Neuvillette</div>
+        <div class="perso-desc">Cadet séduisant mais maladroit avec les mots. Il accepte l'aide de Cyrano pour conquérir Roxane. Honnête, il finit par vouloir être aimé pour lui-même ; il meurt à la guerre avant la révélation.</div>
+      </div>
+      <div class="perso-card" style="border-color: rgba(108,140,255,0.4);">
+        <div class="perso-role">L'antagoniste</div>
+        <div class="perso-name" style="color:var(--accent);">Comte de Guiche</div>
+        <div class="perso-desc">Puissant seigneur qui convoite lui aussi Roxane. Orgueilleux et jaloux, il use de son pouvoir contre Cyrano et envoie les cadets au front. Il évolue toutefois vers une forme de respect à la fin.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">L'ami fidèle</div>
+        <div class="perso-name">Le Bret</div>
+        <div class="perso-desc">Ami sincère de Cyrano, témoin de ses tourments. Il l'exhorte à avouer son amour et incarne la voix de la raison face à l'orgueil et à l'idéalisme du héros.</div>
+      </div>
+      <div class="perso-card">
+        <div class="perso-role">Le pâtissier-poète</div>
+        <div class="perso-name">Ragueneau</div>
+        <div class="perso-desc">Pâtissier qui adore les poètes et la poésie, qu'il nourrit gratuitement. Personnage chaleureux et comique, il symbolise l'amour désintéressé des arts.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="themes-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">💡</span>
+      <h2>Thèmes principaux</h2>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="theme-card">
+        <div class="theme-num">1</div>
+        <div class="theme-content">
+          <h3>Le panache</h3>
+          <p>C'est le dernier mot de la pièce et l'idéal de Cyrano : la noblesse d'âme, le courage et l'élégance du geste, même dans la défaite. Refuser tout compromis, rester fidèle à soi jusqu'au bout.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">2</div>
+        <div class="theme-content">
+          <h3>L'amour impossible et le non-dit</h3>
+          <p>Cyrano aime Roxane mais n'ose jamais se déclarer, persuadé que sa laideur le condamne. Tout le drame naît de cet aveu sans cesse retardé, jusqu'à l'instant fatal.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">3</div>
+        <div class="theme-content">
+          <h3>L'apparence contre l'intériorité</h3>
+          <p>Christian a le physique, Cyrano a l'esprit. La pièce oppose la beauté extérieure à la beauté de l'âme et demande : qu'est-ce qu'on aime vraiment chez l'autre ?</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">4</div>
+        <div class="theme-content">
+          <h3>Le double et l'imposture amoureuse</h3>
+          <p>Cyrano et Christian forment un être unique : l'un le corps, l'autre l'âme. La scène du balcon illustre ce dédoublement où Roxane aime deux hommes en un seul.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">5</div>
+        <div class="theme-content">
+          <h3>La force du langage et la condition du poète</h3>
+          <p>Cyrano triomphe par le verbe (la tirade du nez, les lettres). La pièce célèbre le pouvoir des mots, mais montre aussi la solitude du génie incompris.</p>
+        </div>
+      </div>
+      <div class="theme-card">
+        <div class="theme-num">6</div>
+        <div class="theme-content">
+          <h3>La mort sublime</h3>
+          <p>Cyrano meurt debout, l'épée à la main, en récitant sa fidélité et son panache. Sa mort est un dernier acte héroïque et poétique, à la hauteur de toute sa vie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="presentation-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">🎤</span>
+      <h2>Construire ma présentation (~2 min)</h2>
+    </div>
+    <div class="card">
+      <div class="timeline" style="border:none; padding:0;">
+        <div class="prez-step">
+          <div class="prez-step-num">1</div>
+          <div class="prez-step-content">
+            <h3>Titre, auteur, genre</h3>
+            <div class="prez-example">
+              "J'ai choisi <em>Cyrano de Bergerac</em>, pièce de théâtre d'Edmond Rostand créée en 1897. C'est une comédie héroïque en vers, qui s'inscrit dans la tradition du drame romantique."
+            </div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">2</div>
+          <div class="prez-step-content">
+            <h3>Le sujet + résumé rapide</h3>
+            <div class="prez-example">
+              "Cyrano, poète au grand nez, aime en secret sa cousine Roxane mais se croit trop laid. Roxane aime le beau Christian. Cyrano accepte de prêter ses mots à Christian pour la séduire — c'est la scène du balcon. Il gardera son secret toute sa vie et ne l'avouera qu'en mourant, quinze ans plus tard."
+            </div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">3</div>
+          <div class="prez-step-content">
+            <h3>Pourquoi tu l'as choisi</h3>
+            <p>Voir la section suivante pour les angles.</p>
+            <div class="prez-example">"J'ai choisi cette pièce parce que..."</div>
+          </div>
+        </div>
+        <div class="prez-step">
+          <div class="prez-step-num">4</div>
+          <div class="prez-step-content">
+            <h3>Ce que ça t'a apporté</h3>
+            <div class="prez-example">
+              "Cette pièce m'a ému par la générosité de Cyrano, qui sacrifie son bonheur par amour, et m'a fait réfléchir à ce qu'on aime vraiment chez quelqu'un : le physique ou l'âme ?"
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">❓</span>
+      <h2>Pourquoi j'ai choisi ce livre ?</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Choisis l'angle qui te parle le plus — l'important c'est d'être sincère.</p>
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="angle-card">
+        <div class="angle-emoji">🎭</div>
+        <div class="angle-text">
+          <h3>Un héros inoubliable : le panache</h3>
+          <p>Cyrano est un personnage magnifique : drôle, courageux, généreux, fidèle à son idéal jusqu'à la mort. Son « panache » est une leçon d'élégance morale qui m'a marqué.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">💔</div>
+        <div class="angle-text">
+          <h3>Une histoire d'amour bouleversante</h3>
+          <p>L'amour impossible et le sacrifice de Cyrano, qui aide son rival à séduire la femme qu'il aime, sont déchirants. C'est tragique et beau à la fois.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">🪞</div>
+        <div class="angle-text">
+          <h3>Une question universelle : apparence ou âme ?</h3>
+          <p>Roxane aime un corps (Christian) et une âme (Cyrano) réunis en un seul homme imaginaire. La pièce demande : qu'aime-t-on vraiment chez l'autre ? Cette question me parle.</p>
+        </div>
+      </div>
+      <div class="angle-card">
+        <div class="angle-emoji">✒️</div>
+        <div class="angle-text">
+          <h3>La beauté de la langue</h3>
+          <p>La pièce est écrite en vers, avec des tirades éblouissantes comme celle du nez. C'est un plaisir de lecture et une démonstration de la puissance des mots.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">💬</span>
+      <h2>Questions probables de l'examinateur</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:20px;">Clique sur une question pour voir une piste de réponse.</p>
+    <div class="q-group">
+      <div class="q-group-title">Sur l'œuvre elle-même</div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Qu'est-ce que le « panache » de Cyrano ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">C'est le dernier mot de la pièce et l'idéal du héros : la noblesse d'âme, le courage, le refus du compromis et l'élégance du geste, même dans la défaite ou la mort. Cyrano meurt « sans avoir rien, ni l'amour ni la gloire », mais avec son panache intact.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Expliquez la scène du balcon.</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Cyrano, caché dans l'ombre, souffle à Christian les mots d'amour à dire à Roxane, puis prend lui-même la parole à sa place. Roxane tombe amoureuse de cette voix sans savoir que c'est Cyrano. C'est la scène clé du dédoublement : Christian le corps, Cyrano l'âme.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi Cyrano ne révèle-t-il pas son amour ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Par orgueil et par complexe : il se croit trop laid pour être aimé. Aussi par fidélité — après la mort de Christian, il refuse de « salir » la mémoire de l'homme aimé par Roxane. Son silence relève à la fois de la peur et d'une forme de générosité héroïque.</div>
+      </div>
+      <div class="q-item" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Le personnage est-il une invention ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Cyrano de Bergerac a réellement existé au XVIIe siècle : c'était un écrivain et libre-penseur. Mais Rostand romance et transforme largement sa vie, notamment l'histoire d'amour avec Roxane, qui est une fiction.</div>
+      </div>
+    </div>
+    <div class="q-group">
+      <div class="q-group-title">Questions plus larges et personnelles</div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Quel est le message de la pièce ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Que la valeur d'un être tient à son âme, son esprit et sa fidélité à ses idéaux, bien plus qu'à son apparence. La pièce célèbre la grandeur morale — le panache — et interroge le décalage entre ce que l'on est et ce que l'on paraît.</div>
+      </div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Cyrano est-il un héros tragique ou romantique ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Les deux. Romantique par son lyrisme, sa passion et son individualité exceptionnelle ; tragique par sa fatalité (sa laideur, son amour impossible) et sa mort. C'est un héros romantique conduit à une fin tragique, propre au drame.</div>
+      </div>
+      <div class="q-item large" onclick="toggle(this)">
+        <div class="q-header"><div class="q-question">Pourquoi cette pièce plaît-elle toujours ?</div><div class="q-arrow">▼</div></div>
+        <div class="q-answer">Parce qu'elle mêle humour et émotion, panache et tendresse, et que ses thèmes — l'amour, le complexe physique, le sacrifice, la fidélité — sont universels. Le personnage de Cyrano, généreux et flamboyant, reste un héros auquel chacun aimerait ressembler.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="liens-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">🔗</span>
+      <h2>Liens avec l'œuvre</h2>
+    </div>
+    <p style="color:var(--muted); font-size:0.9rem; margin-bottom:24px;">Citer ces références pendant l'entretien montre une vraie culture générale.</p>
+    <div class="lien-block" style="margin-bottom:32px;">
+      <div class="lien-header">
+        <div class="lien-tag milgram">Théâtre classique</div>
+        <h3 class="lien-title">Roméo et Juliette (Shakespeare)</h3>
+        <div class="lien-meta">William Shakespeare · vers 1597</div>
+      </div>
+      <div class="lien-body">
+        <div class="lien-col">
+          <div class="lien-sub">Le lien</div>
+          <p>Comme Cyrano, c'est une grande histoire d'amour contrarié qui se termine tragiquement. On y trouve aussi une célèbre scène de balcon, modèle évident de celle de Rostand — mais détournée : chez Rostand, deux hommes pour une seule déclaration.</p>
+        </div>
+        <div class="lien-col">
+          <div class="lien-sub">À retenir</div>
+          <div class="diff-list">
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent4)"></div><div>La <strong>scène du balcon</strong> comme motif amoureux</div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent4)"></div><div>L'<strong>amour impossible</strong> et la mort des amants</div></div>
+            <div class="diff-item"><div class="diff-dot" style="background:var(--accent4)"></div><div>Le <strong>lyrisme</strong> de la parole amoureuse</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="lien-quote">
+        <div class="lien-quote-icon">💬</div>
+        <div><strong>À dire à l'oral :</strong> "La scène du balcon de Cyrano dialogue avec celle de Roméo et Juliette de Shakespeare, mais Rostand la détourne : ce ne sont plus deux amants, mais deux hommes — un beau et un éloquent — pour séduire une seule femme."</div>
+      </div>
+    </div>
+    <div class="lien-block">
+      <div class="lien-header">
+        <div class="lien-tag film">Roman de cape et d'épée</div>
+        <h3 class="lien-title">Le Bossu de Paul Féval (1857)</h3>
+        <div class="lien-meta">Paul Féval · roman / adaptations</div>
+      </div>
+      <div class="lien-body">
+        <div class="lien-col">
+          <div class="lien-sub">Le lien</div>
+          <p>Même univers de bretteurs, de duels et d'honneur que celui de Cyrano. Le héros, Lagardère, manie l'épée et le déguisement comme Cyrano manie l'épée et le verbe : ce sont des figures du panache héroïque français.</p>
+        </div>
+        <div class="lien-col">
+          <div class="lien-sub">Ce qui rapproche</div>
+          <p>Le goût du XIXe siècle pour le héros flamboyant, courageux et généreux, dans un cadre historique romancé (XVIIe siècle). Cyrano s'inscrit dans cette veine de cape et d'épée portée à son sommet poétique.</p>
+        </div>
+      </div>
+      <div class="lien-quote" style="border-color: rgba(255,201,108,0.3); background: rgba(255,201,108,0.05);">
+        <div class="lien-quote-icon">💬</div>
+        <div><strong>À dire à l'oral :</strong> "Cyrano prolonge la tradition du roman de cape et d'épée, comme Le Bossu de Paul Féval : duels, honneur, panache — mais Rostand y ajoute la grandeur de la poésie et la profondeur du drame amoureux."</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="conseils-cyrano" data-for="cyrano" hidden>
+    <div class="section-label">
+      <span class="section-icon">✅</span>
+      <h2>Conseils pour le jour J</h2>
+    </div>
+    <div class="tip-list">
+      <div class="tip"><div class="tip-icon">🎯</div><div><strong>Place le mot « panache » dès le début</strong> et explique-le : c'est le cœur de la pièce et son dernier mot.</div></div>
+      <div class="tip"><div class="tip-icon">🎭</div><div><strong>Sache raconter la scène du balcon</strong> en détail : c'est la scène la plus probable à l'oral.</div></div>
+      <div class="tip"><div class="tip-icon">📜</div><div><strong>Précise le genre :</strong> « comédie héroïque en vers », et le contexte (1897, mais l'action se passe en 1640). Distingue bien l'auteur (Rostand) du personnage réel.</div></div>
+      <div class="tip"><div class="tip-icon">🪞</div><div><strong>Prépare la question apparence/âme :</strong> Christian le corps, Cyrano l'esprit. C'est l'angle d'analyse le plus riche.</div></div>
+      <div class="tip"><div class="tip-icon">🔗</div><div><strong>Fais le lien avec Roméo et Juliette</strong> (la scène du balcon) : ça montre une culture théâtrale.</div></div>
+      <div class="tip"><div class="tip-icon">😤</div><div><strong>Mets de l'émotion :</strong> la fin de Cyrano est bouleversante, fais-le sentir à l'examinateur.</div></div>
+    </div>
   </section>
 
   </div><!-- /panel-livre -->
@@ -3767,18 +4882,47 @@ Je le dis, vous pouvez vous confier, madame,
     });
   });
 
-  // ── Subnav scroll highlight inside Mon livre ──
-  const subLinks = document.querySelectorAll('.subnav a');
+  // ── Book selector (Les Livres) ──
   const livrePanel = document.getElementById('panel-livre');
+  (function() {
+    const cards = document.querySelectorAll('#bookSelector .book-card');
+    const blocks = livrePanel.querySelectorAll('[data-for]');
+    const VALID = ['vague', 'ferme', 'odyssee', 'cyrano'];
 
+    function selectBook(book) {
+      if (!VALID.includes(book)) book = 'vague';
+      cards.forEach(c => c.classList.toggle('book-active', c.dataset.book === book));
+      blocks.forEach(el => { el.hidden = (el.dataset.for !== book); });
+      try { localStorage.setItem('selectedBook', book); } catch(e) {}
+    }
+
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        selectBook(card.dataset.book);
+        if (livrePanel.classList.contains('active')) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+
+    let saved = 'vague';
+    try { saved = localStorage.getItem('selectedBook') || 'vague'; } catch(e) {}
+    selectBook(saved);
+  })();
+
+  // ── Subnav scroll highlight inside Les Livres (visible book only) ──
   window.addEventListener('scroll', () => {
     if (!livrePanel.classList.contains('active')) return;
-    const subs = livrePanel.querySelectorAll('section[id]');
+    const subs = [...livrePanel.querySelectorAll('section[data-for]')]
+      .filter(s => !s.hidden);
     let current = '';
     subs.forEach(s => {
       if (window.scrollY >= s.offsetTop - 120) current = s.id;
     });
-    subLinks.forEach(a => {
+    const activeNav = [...livrePanel.querySelectorAll('nav.subnav[data-for]')]
+      .find(n => !n.hidden);
+    if (!activeNav) return;
+    activeNav.querySelectorAll('a').forEach(a => {
       a.classList.toggle('sub-active', a.getAttribute('href') === '#' + current);
     });
   });
