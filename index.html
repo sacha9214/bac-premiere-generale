@@ -1940,6 +1940,40 @@
     /* Racine exercise */
     .gram-racine-list { display: flex; flex-direction: column; gap: 2px; }
 
+    /* Exercice repliable */
+    .gram-exo-block { margin-top: 24px; }
+    .gram-exo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      font-weight: 700;
+      font-size: 0.97rem;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      user-select: none;
+    }
+    .gram-exo-header:hover { border-color: var(--accent3); background: var(--bg3); }
+    .gram-exo-block.open .gram-exo-header {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      border-color: var(--accent3);
+      border-bottom-color: transparent;
+    }
+    .gram-exo-arrow { font-size: 0.75rem; color: var(--muted); transition: transform 0.2s; }
+    .gram-exo-block.open .gram-exo-arrow { transform: rotate(180deg); }
+    .gram-exo-body { display: none; }
+    .gram-exo-block.open .gram-exo-body { display: block; }
+    .gram-exo-body > .card {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      margin-top: 0;
+    }
+
     /* Light mode overrides for grammar */
     [data-theme="light"] .gram-example { color: var(--text); }
     [data-theme="light"] .gram-mot-items span { color: var(--text); }
@@ -6055,9 +6089,12 @@ Je le dis, vous pouvez vous confier, madame,
       </div><!-- /gram-sub-list -->
 
       <!-- ── Exercice phrase complexe ── -->
-      <div class="section-label" style="margin-top:28px;">
-        <h3 style="font-size:1rem; color:var(--text);">✏️ Exercice — Identifier le type de phrase</h3>
+      <div class="gram-exo-block">
+      <div class="gram-exo-header" onclick="this.parentElement.classList.toggle('open')">
+        <span>✏️ Exercice 1 — Identifier le type de phrase</span>
+        <span class="gram-exo-arrow">▼</span>
       </div>
+      <div class="gram-exo-body">
       <div class="card" style="background:rgba(108,140,255,0.04); border-color:rgba(108,140,255,0.2);">
         <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Pour chaque phrase : <strong>1)</strong> dis si elle est simple ou complexe. Si complexe : <strong>2)</strong> précise juxtaposition / coordination / subordination, et <strong>3)</strong> si subordonnée, indique le type (relative, complétive, circonstancielle, interrogative indirecte).</p>
         <div class="gram-racine-list">
@@ -6095,11 +6132,16 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
         </div>
       </div>
+      </div><!-- /gram-exo-body -->
+      </div><!-- /gram-exo-block -->
 
       <!-- ── Exercice récapitulatif ── -->
-      <div class="section-label" style="margin-top:24px;">
-        <h3 style="font-size:1rem; color:var(--text);">✏️ Exercice — Textes du corpus</h3>
+      <div class="gram-exo-block">
+      <div class="gram-exo-header" onclick="this.parentElement.classList.toggle('open')">
+        <span>✏️ Exercice 2 — Textes du corpus</span>
+        <span class="gram-exo-arrow">▼</span>
       </div>
+      <div class="gram-exo-body">
       <div class="card" style="background:rgba(108,140,255,0.04); border-color:rgba(108,140,255,0.2);">
         <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Ces phrases sont tirées ou inspirées des textes étudiés en classe. Même consigne : identifie le type de phrase et justifie.</p>
         <div class="gram-racine-list">
@@ -6121,6 +6163,8 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
         </div>
       </div>
+      </div><!-- /gram-exo-body -->
+      </div><!-- /gram-exo-block -->
 
     </section>
 
@@ -6189,9 +6233,12 @@ Je le dis, vous pouvez vous confier, madame,
       </div>
 
       <!-- ── Exercice interrogation ── -->
-      <div class="section-label" style="margin-top:28px;">
-        <h3 style="font-size:1rem; color:var(--text);">✏️ Exercice — Analyser une phrase interrogative</h3>
+      <div class="gram-exo-block">
+      <div class="gram-exo-header" onclick="this.parentElement.classList.toggle('open')">
+        <span>✏️ Exercice — Analyser une phrase interrogative</span>
+        <span class="gram-exo-arrow">▼</span>
       </div>
+      <div class="gram-exo-body">
       <div class="card" style="background:rgba(255,108,140,0.04); border-color:rgba(255,108,140,0.2);">
         <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Pour chaque phrase : <strong>1)</strong> directe ou indirecte ? <strong>2)</strong> totale ou partielle ? <strong>3)</strong> comment est-elle formée ?</p>
         <div class="gram-racine-list">
@@ -6229,6 +6276,8 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
         </div>
       </div>
+      </div><!-- /gram-exo-body -->
+      </div><!-- /gram-exo-block -->
 
     </section>
 
@@ -6371,9 +6420,12 @@ Je le dis, vous pouvez vous confier, madame,
       </div>
 
       <!-- Exercice Racine -->
-      <div class="section-label" style="margin-top:28px;">
-        <h3 style="font-size:1rem; color:var(--text);">🎭 Exercice — Phèdre, Racine (1677)</h3>
+      <div class="gram-exo-block">
+      <div class="gram-exo-header" onclick="this.parentElement.classList.toggle('open')">
+        <span>🎭 Exercice — Phèdre, Racine (1677)</span>
+        <span class="gram-exo-arrow">▼</span>
       </div>
+      <div class="gram-exo-body">
       <div class="card" style="background:rgba(108,255,184,0.04); border-color:rgba(108,255,184,0.2);">
         <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Repérez et analysez l'expression de la négation dans ces vers.</p>
 
@@ -6400,11 +6452,16 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
         </div>
       </div>
+      </div><!-- /gram-exo-body -->
+      </div><!-- /gram-exo-block -->
 
       <!-- Exercice corpus négation -->
-      <div class="section-label" style="margin-top:28px;">
-        <h3 style="font-size:1rem; color:var(--text);">📚 Exercice — Négation dans les textes du corpus</h3>
+      <div class="gram-exo-block">
+      <div class="gram-exo-header" onclick="this.parentElement.classList.toggle('open')">
+        <span>📚 Exercice — Négation dans les textes du corpus</span>
+        <span class="gram-exo-arrow">▼</span>
       </div>
+      <div class="gram-exo-body">
       <div class="card" style="background:rgba(255,201,108,0.04); border-color:rgba(255,201,108,0.25);">
         <p style="font-size:0.88rem; color:var(--muted); margin-bottom:14px;">Repérez et analysez l'expression de la négation dans ces phrases extraites ou inspirées des textes étudiés en classe.</p>
         <div class="gram-racine-list">
@@ -6442,6 +6499,8 @@ Je le dis, vous pouvez vous confier, madame,
           </div>
         </div>
       </div>
+      </div><!-- /gram-exo-body -->
+      </div><!-- /gram-exo-block -->
 
     </section>
 
