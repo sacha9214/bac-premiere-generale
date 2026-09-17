@@ -1,23 +1,25 @@
-# Oral du bac de français 2026 — 1re générale
+# French Baccalaureate Oral Exam 2026 — General Track
 
-Site de révision complet pour l'oral anticipé de français : explications linéaires, œuvre choisie, grammaire, quiz et simulateur d'oral.
+A complete revision site for the French baccalaureate oral exam in French literature: close readings, set books, grammar, quizzes and a mock oral.
 
-**[Ouvrir le site →](https://sacha9214.github.io/bac-premiere-generale/)**
+**[Open the site →](https://sacha9214.github.io/bac-premiere-generale/)**
 
-![Page d'accueil](docs/apercu.png)
+![Home page](docs/apercu.png)
 
-## Contenu
+## Content
 
-| Onglet | Ce qu'on y trouve |
+| Tab | What's inside |
 |---|---|
-| **L'épreuve** | Déroulement et barème de l'oral, simulateur d'oral chronométré |
-| **Mes textes** | 16 explications linéaires : problématique, mouvements, procédés, question de grammaire |
-| **Grammaire** | Négation, interrogation, phrase complexe, transformations types de l'oral, phrases clés du corpus analysées |
-| **Les livres** | Fiches complètes de *La Vague*, *1984*, *Fahrenheit 451*, *La Ferme des animaux*, *L'Odyssée*, *Cyrano de Bergerac*, *Lettre d'une inconnue* : résumé, personnages, thèmes, présentation, questions probables de l'examinateur |
-| **Quiz** | Procédés littéraires, auteurs, livres |
+| **L'épreuve** (the exam) | How the oral works and how it is graded, timed mock oral |
+| **Mes textes** (my texts) | 16 close readings: central question, structure, literary devices, grammar question |
+| **Grammaire** (grammar) | Negation, interrogatives, complex sentences, standard oral transformations, key sentences from the texts analyzed |
+| **Les livres** (books) | Full study sheets for *La Vague* (The Wave), *1984*, *Fahrenheit 451*, *Animal Farm*, *The Odyssey*, *Cyrano de Bergerac*, *Letter from an Unknown Woman*: summary, characters, themes, presentation, likely examiner questions |
+| **Quiz** | Literary devices, authors, books |
 
-Une section **Écoute** lit les révisions à voix haute avec la synthèse vocale du navigateur (Web Speech API).
+An **Écoute** (listen) section reads the revision notes aloud using the browser's speech synthesis (Web Speech API).
+
+The site itself is in French, like the exam.
 
 ## Stack
 
-HTML, CSS et JavaScript sans dépendance, hébergé sur GitHub Pages. Adapté de la version [1re STI2D](https://github.com/sacha9214/bac-sti2d).
+Dependency-free HTML, CSS and JavaScript, hosted on GitHub Pages. Adapted from the [STI2D track version](https://github.com/sacha9214/bac-sti2d).
